@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'candidates',
     ],
 
     /*
@@ -38,7 +38,12 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'candidates',
+        ],
+
+        'company' => [
+            'driver' => 'session',
+            'provider' => 'companies',
         ],
 
         'api' => [
@@ -66,15 +71,15 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'candidates' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\Candidate::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'companies' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\CompanyConsultant::class,
+        ],
     ],
 
     /*
@@ -93,10 +98,17 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
-            'table' => 'password_resets',
-            'expire' => 60,
+        'candidates' => [
+            'provider' => 'candidates',
+            'table' => 'candidate_password_resets',
+            'expire' => 24,
+            'throttle' => 60,
+        ],
+
+        'companies' => [
+            'provider' => 'companies',
+            'table' => 'company_password_resets',
+            'expire' => 24,
             'throttle' => 60,
         ],
     ],
@@ -114,4 +126,7 @@ return [
 
     'password_timeout' => 10800,
 
+    'verification' => [
+        'expire' => 1
+    ]
 ];
