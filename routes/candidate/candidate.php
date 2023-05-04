@@ -14,13 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('candidate.home.index');
+})->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('candidate.home.index');
-    })->name('dashboard');
+
     Route::get('/jobs', function () {
         return view('candidate.home.job');
     })->name('job');
