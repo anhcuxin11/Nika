@@ -18,7 +18,7 @@
             @else
                 <button class="btn btn-white sp-hide">
                     <a href="{{ route('login') }}" class="text-dark">
-                        <img width="20" height="20"  src="{{asset('images/icon-login-maroon.svg')}}" class="" alt="">Login
+                        <img width="20" height="20" src="{{asset('images/icon-login-maroon.svg')}}" class="" alt="">Login
                     </a>
                 </button>
                 <button class="btn btn-white my-auto pc-hide">

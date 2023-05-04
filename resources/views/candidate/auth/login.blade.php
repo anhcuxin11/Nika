@@ -1,56 +1,58 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
-
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
-
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-
-            <!-- Email Address -->
-            <div>
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+@extends('candidate.layouts.main')
+@section('content')
+<div class="content-full">
+    <div class="form-login">
+        <div class="border-login">
+        <div class="left">
+            <div class="frame" style="top: 0;">
+                <div>
+                    <img height="24" width="24" src="{{ asset('images/email-icon-big.png') }}" alt=""> Job mail
+                </div>
+                <div class="c-job-mail">
+                    You can receive the newest job postings based on your preferences.
+                </div>
+                <div>
+                    <img height="24" width="24" src="{{ asset('images/news-icon-big.png') }}" alt=""> Newsletters
+                </div>
+                <div class="c-job-mail">
+                    You can view job sharing newsletters.
+                </div>
+                <div class="c-img">
+                    <img height="24" width="24" src="{{ asset('images/icon-search-lg-black.svg') }}" alt=""> Selective
+                </div>
+                <div class="c-job-mail">
+                    You will have more career options.
+                </div>
             </div>
-
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
-
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="current-password" />
+        </div>
+        <div class="right">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            <div class="form-login" style="width: 60%">
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+                    <div>
+                        <label for="email">Email:</label><br>
+                        <input class="input-name" type="email" name="email" id="email" style="width: 100%;" required autofocus>
+                    </div>
+                    <div>
+                        <label for="password">Password:</label><br>
+                        <input class="input-name" type="password" name="password" id="password" style="width: 100%;">
+                    </div>
+                    <button type="submit" class="mt-3 btn btn-primary login">LOGIN</button>
+                </form>
             </div>
-
-            <!-- Remember Me -->
-            <div class="block mt-4">
-                <label for="remember_me" class="inline-flex items-center">
-                    <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
-
-                <x-button class="ml-3">
-                    {{ __('Log in') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+            <div class="text-center"><a href="#" style="text-decoration: underline">Click here</a> if you can't login or forgot your password</div>
+            <div class="text-center mt-3"><a href="{{ route('register') }}" class="member">First, please register as a member</a></div>
+        </div>
+        </div>
+    </div>
+</div>
+@endsection
