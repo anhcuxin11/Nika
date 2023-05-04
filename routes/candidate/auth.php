@@ -5,7 +5,7 @@ use App\Http\Controllers\Candidate\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Candidate\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Candidate\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Candidate\Auth\NewPasswordController;
-use App\Http\Controllers\Candidate\Candidate\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Candidate\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Candidate\Auth\RegisteredUserController;
 use App\Http\Controllers\Candidate\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
