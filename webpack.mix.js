@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const path = require('path');
 
 /*
  |--------------------------------------------------------------------------
@@ -15,6 +16,11 @@ mix.js('resources/js/app.js', 'public/js').postCss('resources/css/app.css', 'pub
     require('tailwindcss'),
     require('autoprefixer'),
 ]);
+
+mix.setPublicPath('public')
+    .sass('resources/sass/candidate/app.scss', 'css/candidate.css')
+    .sass('resources/sass/company/app.scss', 'css/company.css')
+    .sourceMaps();
 
 mix.webpackConfig({
     // stats: {

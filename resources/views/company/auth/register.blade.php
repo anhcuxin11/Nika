@@ -9,21 +9,28 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="{{ route('register') }}">
+        <form method="POST" action="{{ route('company.register') }}">
             @csrf
 
             <!-- Firstname -->
             <div>
-                <x-label for="firstname" :value="__('Firstname')" />
+                <x-label for="name" :value="__('Company name')" />
 
-                <x-input id="firstname" class="block mt-1 w-full" type="text" name="firstname" :value="old('firstname')" required autofocus />
+                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
             </div>
 
-            <!-- Lastname -->
+            <!-- Address -->
             <div class="mt-4">
-                <x-label for="lastname" :value="__('Lastname')" />
+                <x-label for="address" :value="__('Address')" />
 
-                <x-input id="lastname" class="block mt-1 w-full" type="text" name="lastname" :value="old('lastname')" required autofocus />
+                <x-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" required autofocus />
+            </div>
+
+            <!-- Name person -->
+            <div class="mt-4">
+                <x-label for="name_person" :value="__('Name person')" />
+
+                <x-input id="name_person" class="block mt-1 w-full" type="text" name="name_person" :value="old('name_person')" required autofocus />
             </div>
 
             <!-- Email Address -->
@@ -53,7 +60,7 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('company.login') }}">
                     {{ __('Already registered?') }}
                 </a>
 
