@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Attributes\CandidateAttribute;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,6 +14,7 @@ class Candidate extends Authenticatable implements MustVerifyEmail
 {
     use MustVerifyEmailTrait,
         HasFactory,
+        CandidateAttribute,
         SoftDeletes,
         Notifiable;
 

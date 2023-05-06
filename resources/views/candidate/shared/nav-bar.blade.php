@@ -1,16 +1,16 @@
 <nav class="nav-bar" id="navbar">
     <div class="starter d-flex">
-        <a href="{{ route('dashboard') }}" class="m-auto-0"><img width="158" height="37"  src="{{asset('images/nika5.svg')}}" alt="nika" class="logo-white my-auto"></a>
+        <a href="{{ route('candidate.home') }}" class="m-auto-0"><img width="158" height="37"  src="{{asset('images/nika5.svg')}}" alt="nika" class="logo-white my-auto"></a>
         <p class="mr-auto sp-hide">
-            NIKA is a career/job change information site in Vietnam with <span>777</span> job postings
+            NIKA is a job change information site in Vietnam <br> with <span>{{ $job_counts }}</span> job postings
         </p>
         <p class="mr-auto my-auto pc-hide">
-            Number of job postings<span>777</span>
+            Number of job postings<span>{{ $job_counts }}</span>
         </p>
         <div class="d-flex align-items-center">
-            @auth
+            @auth('web')
                 <span class="user-name my-auto">
-                    <span class="user-name-body">full_name</span>
+                    <span class="user-name-body">{{ auth('web')->user()->full_name }}</span>
                     <a href="#"><img src="{{asset('images/setting.svg')}}" class="settings sp-hide " alt=""></a>
                     <img width="16" height="16" src="{{asset('images/icon-log-out.svg')}}" class="log-out" alt="" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                 </span>
@@ -61,7 +61,7 @@
 <div class="menu-bar">
     <div class="starter">
         <ul>
-           <li><a href="{{ route('job') }}"><img src="{{asset('images/icon-search-lg.svg')}}" class="" alt="">Job search</a></li>
+           <li><a href="{{ route('candidate.job.index') }}"><img src="{{asset('images/icon-search-lg.svg')}}" class="" alt="">Job search</a></li>
            <li><a href="#"><img src="{{asset('images/icon-interest.svg')}}" class="" alt="">Favorite</a>@auth @if(false) <span class="bubble">1</span> @endif @endauth</li>
            <li><a href="#"><img src="{{asset('images/icon-scout.svg')}}" class="" alt="">Scout</a>@auth @if(false) <span class="bubble">1</span>@endif @endauth</li>
            <li><a href="#"><img src="{{asset('images/icon-bell.svg')}}" class="" alt="">News</a>@auth @if(false)<span class="bubble">1</span>@endif @endauth</li>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Candidate\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,13 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('candidate.home.index');
-})->name('dashboard');
+Route::name('candidate.')->group(function() {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::middleware('auth')->group(function () {
-
-    Route::get('/jobs', function () {
-        return view('candidate.home.job');
-    })->name('job');
+    Route::middleware('auth')->group(function () {
+        Route::get('/jobs', function () {
+            return view('candidate.home.job');
+        })->name('job.index');
+    });
 });

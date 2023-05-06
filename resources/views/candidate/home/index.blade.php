@@ -1,6 +1,11 @@
 @extends('candidate.layouts.main')
 
 @section('content')
+@php
+    use App\Models\Location;
+    use App\Models\Language;
+    use App\Models\Occupation;
+@endphp
 <div class="content-full">
     <div class="avatar">
         <img width="1102" height="364" src="{{ asset('images/my-home.png') }}" alt="my home avatar">
@@ -14,29 +19,35 @@
             <div class="search-condition">
                 <div class="s-c-select">
                     <select class="search-select" name="" id="">
-                        <option value="">1</option>
-                        <option value="">2</option>
+                        <option value="">Choose Country</option>
+                        @foreach (Location::$name as $key => $item)
+                            <option value="{{ $key + 1 }}">{{ $item }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="s-c-select">
                     <select class="search-select" name="" id="">
-                        <option value="">1</option>
-                        <option value="">2</option>
+                        <option value="">Choose Language</option>
+                        @foreach (Language::$name as $key => $item)
+                            <option value="{{ $key + 1 }}">{{ $item }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="s-c-select">
                     <select class="search-select" name="" id="">
-                        <option value="">1</option>
-                        <option value="">2</option>
+                        <option value="">Choose Occupation</option>
+                        @foreach (Occupation::$name as $key => $item)
+                            <option value="{{ $key + 1 }}">{{ $item }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="s-c-keyword">
-                    <input class="s-c-input" type="text">
+                    <input class="s-c-input" type="text" placeholder="Search by Keyword">
                 </div>
             </div>
             <div class="d-flex flex-row-reverse quick-search-submit">
                 <button type="submit" class="btn btn-primary d-flex align-items-end">Search</button>
-                <a href="#">Advanced Search</a>
+                <a href="#" class="d-flex align-items-center">Advanced Search</a>
             </div>
         </div>
     </form>
@@ -52,8 +63,8 @@
                 </div>
                 <div class="card-content">
                     <div class="location content-location">
-                        @foreach (range(1, 16) as $item)
-                            <a href="#">$item</a>
+                        @foreach ($data['locations'] as $location)
+                            <a href="{{route('candidate.job.index', ['location_id' => $location->id])}}">- {{ $location->name }}</a>
                         @endforeach
                     </div>
                 </div>
@@ -66,8 +77,8 @@
                 </div>
                 <div class="card-content">
                     <div class="location d-flex flex-column">
-                        @foreach (range(1, 4) as $item)
-                            <a href="#">$item</a>
+                        @foreach ($data['languages'] as $language)
+                            <a href="{{ route('candidate.job.index', ['language_id' => $language->id]) }}">- {{ $language->name }}</a>
                         @endforeach
                     </div>
                 </div>
@@ -84,12 +95,12 @@
                 </div>
                 <div class="card-content">
                     <div class="feature-flex d-flex justify-content-between">
-                        @foreach (range(1, 12) as $item)
+                        @foreach ($data['features'] as $index => $feature)
                             <a href="#">
                                 <div class="feature-item">
-                                    <img src="{{ asset('images/feature/recommend.webp') }}" alt="" class="img-content">
+                                    <img src="{{ asset("images/feature/feature_{$index}.png") }}" alt="" class="img-content">
                                     <div class="l-content" style="">
-                                        <div class="location-title">$item</div>
+                                        <div class="location-title">{{ $feature->name }}</div>
                                     </div>
                                 </div>
                             </a>
@@ -134,14 +145,14 @@
                 </div>
                 <div class="j-content" style="padding: 20px 0;">
                     <div class="job-flex d-flex justify-content-between">
-                        @foreach (range(1, 2) as $item)
-                            <a href="#" class="j-detail">
+                        @foreach ($data['jobs'] as $job)
+                            <a href="{{ route('candidate.job.index', ['feature_id' => $feature->id]) }}" class="j-detail">
                                 <div class="j-d-content d-flex">
                                     <div class="j-d-content-left">
                                         <img src="{{ asset('images/feature/recommend.webp') }}" alt="">
                                     </div>
                                     <div class="j-d-content-right">
-                                        <div class="j-des">Job title</div>
+                                        <div class="j-des">{{ $job->job_title }}</div>
                                     </div>
                                 </div>
                             </a>
