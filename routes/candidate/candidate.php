@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Candidate\HomeController;
+use App\Http\Controllers\Candidate\JobController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,10 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::name('candidate.')->group(function() {
     Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/jobs', [JobController::class, 'index'])->name('job.index');
 
     Route::middleware('auth')->group(function () {
-        Route::get('/jobs', function () {
-            return view('candidate.home.job');
-        })->name('job.index');
+
     });
 });

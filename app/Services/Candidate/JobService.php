@@ -3,6 +3,7 @@
 namespace App\Services\Candidate;
 
 use App\Repositories\Candidate\JobRepository;
+use Illuminate\Database\Eloquent\Collection;
 
 class JobService
 {
@@ -30,5 +31,15 @@ class JobService
     public function getCountJob()
     {
         return $this->jobRepository->getCountJob()->count();
+    }
+
+    /**
+     * Get all jobs
+     *
+     * @return Collection
+     */
+    public function getAll()
+    {
+        return $this->jobRepository->getAll();
     }
 }

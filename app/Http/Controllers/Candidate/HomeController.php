@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Candidate;
 
-use App\Models\Candidate;
 use App\Services\Candidate\HomeService;
 
 class HomeController

@@ -12,14 +12,17 @@ const path = require('path');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js').postCss('resources/css/app.css', 'public/css', [
+mix.js('resources/js/app.js', 'public/js')
+    .postCss('resources/css/app.css', 'public/css', [
     require('tailwindcss'),
     require('autoprefixer'),
 ]);
 
 mix.setPublicPath('public')
+    .vue()
     .sass('resources/sass/candidate/app.scss', 'css/candidate.css')
     .sass('resources/sass/company/app.scss', 'css/company.css')
+    .js('resources/js/candidate/app.js', 'js/app.js')
     .sourceMaps();
 
 mix.webpackConfig({
@@ -30,5 +33,11 @@ mix.webpackConfig({
         // One of the two if I remember right
         entrypoints: false,
         children: false
-     },
+    },
+    resolve: {
+        alias: {
+            "@ziggy": path.resolve('vendor/tightenco/ziggy/dist/vue'),
+        }
+    }
 });
+

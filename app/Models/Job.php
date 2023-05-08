@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Attributes\JobAttribute;
+use App\Models\Relationships\JobRelationship;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Job extends Model
 {
-    use SoftDeletes;
+    use JobRelationship,
+        JobAttribute,
+        SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -41,5 +45,19 @@ class Job extends Model
         'admin_stop'         => 2,
         'pause'              => 3,
         'end_of_publication' => 4,
+    ];
+
+    public static $levels = [
+        0 => 'Native Level',
+        1 => 'Business Conversation Level',
+        2 => 'Daily Conversation Level',
+        3 => 'Basic Communication',
+        4 => 'None',
+    ];
+
+    public static $money = [
+        'USD',
+        'VND',
+        'JPY'
     ];
 }

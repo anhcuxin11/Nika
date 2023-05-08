@@ -2,7 +2,9 @@
 
 namespace App\Repositories\Candidate;
 
+use App\Constants\Paginate;
 use App\Models\Job;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
 class JobRepository
@@ -31,5 +33,19 @@ class JobRepository
                     ->limit(2)
                     ->get();
 
+    }
+
+    /**
+     * Get all jobs
+     *
+     * @return LengthAwarePaginator
+     */
+    public function getAll(): LengthAwarePaginator
+    {
+        return Job::query()
+                ->with('locations', 'occupations', 'industries', 'languages', 'features')
+                ->where('job_status', Job::$jobStatus['now_posted'])
+                ->orderByDesc('id')
+                ->paginate(Paginate::PER_PAGE_10);
     }
 }

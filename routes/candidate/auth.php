@@ -10,7 +10,7 @@ use App\Http\Controllers\Candidate\Auth\RegisteredUserController;
 use App\Http\Controllers\Candidate\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('guest')->group(function () {
+Route::group(['middleware' => 'guest.candidate'], function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register');
 
