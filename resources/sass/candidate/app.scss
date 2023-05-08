@@ -748,6 +748,21 @@ nav {
                 font-weight: 600;
             }
         }
+        .form-search {
+            padding: 10px;
+            border-top: 1px solid #1a1a1a;
+            &:last-child {
+                border-bottom: 1px solid #1a1a1a;
+            }
+            .input-job {
+                border: 2px solid #111111;
+                padding: 3px 5px;
+                border-radius: 4px;
+            }
+            .search-title {
+                border-right: 1px solid #1a1a1a;
+            }
+        }
         .job-body {
             .job-body-time {
                 width: 20%;
@@ -883,6 +898,70 @@ nav {
                 margin: -2px 0 0 8px;
             }
         }
+    }
+}
+.paginate-result {
+    position: static;
+    background-color: transparent;
+    height: auto;
+    padding: 0 5px;
+    width: 100%;
+    ul {
+        float: right;
+        margin: 0;
+        li {
+            display: inline;
+            margin-left: 10px;
+        }
+        .page-item {
+            &.active {
+                .page-link {
+                    min-width: 26px;
+                    max-width: 26px;
+                    min-height: 26px;
+                    max-height: 26px;
+                    background-color: $purple;
+                    color: $black;
+                    font-weight: 700;
+                    padding: 5px;
+                    border-radius: 100%;
+                }
+            }
+            .page-link {
+                font-size: 16px!important;
+                line-height: 16px;
+                min-width: 18px;
+                max-width: 18px;
+                min-height: 26px;
+                max-height: 26px;
+                color: $black;
+                display: inline-block;
+                text-align: center;
+                padding: 5px 0;
+                background-color: transparent;
+                border-radius: 0;
+                border: none;
+
+            }
+        }
+    }
+}
+.btn-search {
+    display: inline-block;
+    position: relative;
+    padding: 0 24px 0 56px;
+    border: 2px solid $purple;
+    border-radius: 3px;
+    line-height: 32px;
+    font-weight: 700;
+    &:before {
+        position: absolute;
+        left: 0;
+        width: 32px;
+        background: $purple;
+        color: #fff;
+        text-align: center;
+        content: "＋";
     }
 }
 
