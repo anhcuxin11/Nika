@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Relationships\IndustryRelationship;
 use Illuminate\Database\Eloquent\Model;
 
 class Industry extends Model
 {
+    use IndustryRelationship;
+
     protected $table = 'industries';
 
     /**

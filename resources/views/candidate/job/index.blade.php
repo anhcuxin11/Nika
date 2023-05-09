@@ -39,7 +39,7 @@
                     <div>Country</div>
                 </div>
             </div>
-            <form action="" class="mt-3">
+            <form action="" class="form-job-search mt-3 d-none">
                 <div class="d-flex form-search">
                     <div class="search-title w-25">
                         Work Location
@@ -58,7 +58,14 @@
                         Occupation
                     </div>
                     <div class="search-job-condition w-75 pl-2">
-                        <a href="#" class="btn-search">Select occupation</a>
+                        <select-job
+                        name="occupation"
+                        :title-label="`Please select the desired industry`"
+                        :data-collapse="{{ $occupations }}"
+                        :data-selected="{{ collect(request()->input('occupation')) }}"
+                        inline-template>
+                            @include('candidate.component.select_job', ['buttonName' => 'Select occupation'])
+                        </select-job>
                     </div>
                 </div>
                 <div class="d-flex form-search">
@@ -66,7 +73,14 @@
                         Industry
                     </div>
                     <div class="search-job-condition w-75 pl-2">
-                        <a href="#" class="btn-search">Select Industry</a>
+                        <select-job
+                        name="industry"
+                        :title-label="`Please select the desired industry`"
+                        :data-collapse="{{ $industries }}"
+                        :data-selected="{{ collect(request()->input('industry')) }}"
+                        inline-template>
+                            @include('candidate.component.select_job', ['buttonName' => 'Select industry'])
+                        </select-job>
                     </div>
                 </div>
                 <div class="d-flex form-search">
@@ -193,7 +207,8 @@
                     </div>
                 </div>
             @endforeach
-            <div class="mt-3">
+            <div class="job-body mt-3 job-paginate d-flex align-items-center justify-content-end">
+                <div class="result-title"><span class="result-number">{{ $jobs->total() }}</span> matching jobs, <span class="result-number">{{ $jobs->firstItem() }}〜{{ $jobs->lastItem() }}</span>item</div>
                 <div class="job-paginate-result">
                     {{ $jobs->onEachSide(4)->links('custom.pagination.bootstrap') }}
                 </div>
@@ -217,3 +232,20 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+    <script src="{{ mix('js/app.js') }}"></script>
+    <script>
+        $(function () {
+            $('.button-search').on('click', function () {
+                if ($('.form-job-search').hasClass('d-block')) {
+                    $('.form-job-search').removeClass('d-block');
+                    $('.form-job-search').addClass('d-none');
+                } else {
+                    $('.form-job-search').removeClass('d-none');
+                    $('.form-job-search').addClass('d-block');
+                }
+            })
+        });
+    </script>
+@endpush

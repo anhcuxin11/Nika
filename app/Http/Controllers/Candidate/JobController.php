@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Candidate;
 
+use App\Services\Candidate\IndustryService;
 use App\Services\Candidate\JobService;
+use App\Services\Candidate\OccupationService;
 
 class JobController
 {
@@ -12,11 +14,29 @@ class JobController
     protected $jobService;
 
     /**
-     * @param JobService $jobService
+     * @var IndustryService
      */
-    public function __construct(JobService $jobService)
+    protected $industryService;
+
+    /**
+     * @var OccupationService
+     */
+    protected $occupationService;
+
+    /**
+     * @param JobService $jobService
+     * @param IndustryService $industryService
+     * @param OccupationService $occupationService
+     */
+    public function __construct(
+        JobService $jobService,
+        IndustryService $industryService,
+        OccupationService $occupationService
+    )
     {
         $this->jobService = $jobService;
+        $this->industryService = $industryService;
+        $this->occupationService = $occupationService;
     }
 
     /**
@@ -25,7 +45,9 @@ class JobController
     public function index()
     {
         $jobs = $this->jobService->getAll();
+        $industries = $this->industryService->getListAndChildren();
+        $occupations = $this->occupationService->getListAndChildren();
 
-        return view('candidate.job.index', compact('jobs'));
+        return view('candidate.job.index', compact('jobs', 'industries', 'occupations'));
     }
 }

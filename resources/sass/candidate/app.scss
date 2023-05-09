@@ -98,6 +98,32 @@ ul li {
 	width: 576px;
 	margin: 0 auto;
 }
+.z-index-modal {
+    z-index: 10000;
+}
+.modal {
+    .modal-body {
+        .parent-name {
+            color:white;
+            display:block;
+            padding: 10px;
+            background-color: #7452A8;
+        }
+        .item {
+            border: 1px solid #7452A8;
+            border-top-style: none;
+            border-radius: 0 0 4px 4px;
+            .item-children {
+                display: block;
+                padding: 10px;
+                border-bottom: 1px solid #7452A8;
+                &:last-child {
+                    border-bottom-style: none;
+                }
+            }
+        }
+    }
+}
 .button-considering{
     text-align: center;
     background: #157ed9;
