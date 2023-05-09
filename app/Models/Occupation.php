@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Relationships\OccupationRelationship;
 use Illuminate\Database\Eloquent\Model;
 
 class Occupation extends Model
 {
+    use OccupationRelationship;
+
     protected $table = 'occupations';
 
     /**
