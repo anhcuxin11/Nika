@@ -38,6 +38,7 @@ trait JobRelationship
     public function languages(): BelongsToMany
     {
         return $this->belongsToMany(Language::class, 'job_languages')
+                    ->withPivot('level')
                     ->withTimestamps();
     }
 }
