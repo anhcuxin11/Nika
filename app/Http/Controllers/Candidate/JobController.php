@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Candidate;
 use App\Services\Candidate\IndustryService;
 use App\Services\Candidate\JobService;
 use App\Services\Candidate\OccupationService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class JobController
 {
@@ -42,9 +44,11 @@ class JobController
     /**
      * GEt data ib job page
      */
-    public function index()
+    public function index(Request $request)
     {
-        $jobs = $this->jobService->getAll();
+        // dd(Arr::flatten($request->occupation));
+        $jobs = $this->jobService->filter($request->all());
+        // $jobs = $this->jobService->getAll();
         $industries = $this->industryService->getListAndChildren();
         $occupations = $this->occupationService->getListAndChildren();
 

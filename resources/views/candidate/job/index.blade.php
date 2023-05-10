@@ -39,16 +39,16 @@
                     <div>Country</div>
                 </div>
             </div>
-            <form action="" class="form-job-search mt-3 d-none">
+            <form action="{{ route('candidate.job.index') }}" class="form-job-search mt-3 d-none" method="GET">
                 <div class="d-flex form-search">
                     <div class="search-title w-25">
                         Work Location
                     </div>
                     <div class="search-job-condition w-75 pl-2">
-                        <select class="search-select w-25" name="" id="">
+                        <select class="search-select w-25" name="location" id="search-select">
                             <option value="">Choose Location</option>
                             @foreach (Location::$name as $key => $item)
-                                <option value="{{ $key + 1 }}">{{ $item }}</option>
+                                <option @if (request()->input('location') == $key + 1) selected @endif value="{{ $key + 1 }}">{{ $item }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -88,13 +88,13 @@
                         Desired Salary
                     </div>
                     <div class="search-job-condition w-75 pl-2">
-                        <select class="search-select w-25 mb-2" name="" id="">
+                        <select class="search-select w-25 mb-2" name="salary_type" id="">
                             @foreach (Job::$money as $key => $item)
-                                <option value="{{ $key + 1 }}">{{ $item }}</option>
+                                <option @if (request()->input('salary_type') == $key + 1) selected @endif value="{{ $key + 1 }}">{{ $item }}</option>
                             @endforeach
                         </select>
                         <div>
-                            <input type="text" class="w-25 input-salary" placeholder="Salary min"> ~ <input type="text" class="w-25 input-salary" placeholder="Salary max">
+                            <input type="text" name="salary_min" class="w-25 input-salary" placeholder="Salary min"> ~ <input type="text" name="salary_max" class="w-25 input-salary" placeholder="Salary max">
                         </div>
                     </div>
                 </div>
@@ -103,15 +103,15 @@
                         Language Level
                     </div>
                     <div class="search-job-condition w-75 pl-2">
-                        <select class="search-select w-25 mb-2" name="" id="">
+                        <select class="search-select w-25 mb-2" name="language" id="">
                             @foreach (Language::$name as $key => $item)
-                                <option value="{{ $key + 1 }}">{{ $item }}</option>
+                                <option @if (request()->input('language') == $key + 1) selected @endif value="{{ $key + 1 }}">{{ $item }}</option>
                             @endforeach
                         </select>
                         <div class="mt-2 d-flex flex-wrap">
                             @foreach (Job::$levels as $key => $item)
-                                <div style="width: 30%; display:inline-block; pr-2">
-                                    <input type="checkbox" value="{{ $key }}"><span class="pl-2">{{ $item }}</span>
+                                <div style="width: 30%; display:inline-block; pr-2" id="language_{{ $key }}">
+                                    <input type="checkbox" name="language_levels[]" value="{{ $key }}"><label for="language_{{ $key }}" class="pl-2">{{ $item }}</label>
                                 </div>
                             @endforeach
                         </div>
@@ -122,7 +122,7 @@
                         Age
                     </div>
                     <div class="search-job-condition w-75 pl-2">
-                        <input type="text" class="w-25 input-job" placeholder="Age min"> ~ <input type="text" class="w-25 input-job" placeholder="Age max">
+                        <input type="text" name="age_min" class="w-25 input-job" placeholder="Age min"> ~ <input type="text" name="age_max" class="w-25 input-job" placeholder="Age max">
                     </div>
                 </div>
                 <div class="d-flex form-search">
@@ -130,7 +130,7 @@
                         Keyword
                     </div>
                     <div class="search-job-condition w-75 pl-2">
-                        <input type="text" name="" id="" class="input-job w-100" placeholder="Industry, occupation, location,...">
+                        <input type="text" name="key" id="key" class="input-job w-100" placeholder="Industry, occupation, location,...">
                     </div>
                 </div>
                 <input type="submit" class="button-search btn btn-primary mt-3 m-auto d-block" value="Search">
