@@ -33,10 +33,18 @@
                     </button>
                 </div>
                 <div class="j-c-des">
-                    <div>Job type</div>
-                    <div>Salary</div>
-                    <div>Language</div>
-                    <div>Country</div>
+                    @if (request()->input('salary_min') && request()->input('salary_max'))
+                        <div>Salary: <span>{{ request()->input('salary_min') }} ~ {{ request()->input('salary_max') }} {{ Job::$money[request()->input('salary_type')] }}</span></div>
+                    @endif
+                    @if (request()->input('language'))
+                        <div>Language: <span>{{ Language::$name[request()->input('language')] }}</span></div>
+                    @endif
+                    @if (request()->input('location'))
+                        <div>Country: <span>{{ Location::$name[request()->input('location')] }}</span></div>
+                    @endif
+                    @if (request()->input('age_min') && request()->input('age_max'))
+                        <div>Age: <span>{{ request()->input('age_min') }} ~ {{ request()->input('age_max') }}</span></div>
+                    @endif
                 </div>
             </div>
             <form action="{{ route('candidate.job.index') }}" class="form-job-search mt-3 d-none" method="GET">
@@ -48,7 +56,7 @@
                         <select class="search-select w-25" name="location" id="search-select">
                             <option value="">Choose Location</option>
                             @foreach (Location::$name as $key => $item)
-                                <option @if (request()->input('location') == $key + 1) selected @endif value="{{ $key + 1 }}">{{ $item }}</option>
+                                <option @if (request()->input('location') == $key) selected @endif value="{{ $key }}">{{ $item }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -90,7 +98,7 @@
                     <div class="search-job-condition w-75 pl-2">
                         <select class="search-select w-25 mb-2" name="salary_type" id="">
                             @foreach (Job::$money as $key => $item)
-                                <option @if (request()->input('salary_type') == $key + 1) selected @endif value="{{ $key + 1 }}">{{ $item }}</option>
+                                <option @if (request()->input('salary_type') == $key) selected @endif value="{{ $key }}">{{ $item }}</option>
                             @endforeach
                         </select>
                         <div>
@@ -105,7 +113,7 @@
                     <div class="search-job-condition w-75 pl-2">
                         <select class="search-select w-25 mb-2" name="language" id="">
                             @foreach (Language::$name as $key => $item)
-                                <option @if (request()->input('language') == $key + 1) selected @endif value="{{ $key + 1 }}">{{ $item }}</option>
+                                <option @if (request()->input('language') == $key) selected @endif value="{{ $key }}">{{ $item }}</option>
                             @endforeach
                         </select>
                         <div class="mt-2 d-flex flex-wrap">
@@ -135,6 +143,7 @@
                 </div>
                 <input type="submit" class="button-search btn btn-primary mt-3 m-auto d-block" value="Search">
             </form>
+            @include('candidate.includes.message')
             <div class="job-body my-3 job-paginate d-flex align-items-center">
                 <div class="job-body-time mr-auto">
                     <select class="search-select w-100" name="" id="" style="width: 100%;">
@@ -147,7 +156,7 @@
                     {{ $jobs->onEachSide(4)->links('custom.pagination.bootstrap') }}
                 </div>
             </div>
-            @foreach ($jobs as $job)
+            @forelse ($jobs as $job)
                 <div class="job-item">
                     <div>
                         @foreach ($job->locations as $location)
@@ -196,17 +205,31 @@
                             </tbody>
                         </table>
                         <div class="item-c-button">
-                            <div class="item-favorite">
-                                <form action="">
-                                    <input type="hidden">
-                                    <button type="submit" class="b-favorite mr-2">Favorite</button>
-                                </form>
-                            </div>
-                            <a href="" class="job-information">Information</a>
+                            @if (auth('web')->check() && $job->isFavorite(auth('web')->user()->id))
+                                <div class="item-favorite">
+                                    <form action="{{ route('candidate.favorite.store', ['job_id' => $job->id]) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" style="opacity: 0.6" disabled class="b-favorite mr-2">Favorite</button>
+                                    </form>
+                                </div>
+                            @else
+                                <div class="item-favorite">
+                                    <form action="{{ route('candidate.favorite.store', ['job_id' => $job->id]) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="b-favorite mr-2">Favorite</button>
+                                    </form>
+                                </div>
+                            @endif
+
+                            <a href="{{ route('candidate.job.show', ['id' => $job->id]) }}" class="job-information">Information</a>
                         </div>
                     </div>
                 </div>
-            @endforeach
+            @empty
+                <div class="para-box">
+                    <h3>There are no matching jobs</h3>
+                </div>
+            @endforelse
             <div class="job-body mt-3 job-paginate d-flex align-items-center justify-content-end">
                 <div class="result-title"><span class="result-number">{{ $jobs->total() }}</span> matching jobs, <span class="result-number">{{ $jobs->firstItem() }}〜{{ $jobs->lastItem() }}</span>item</div>
                 <div class="job-paginate-result">
@@ -219,15 +242,28 @@
                 <div class="sec-title">
                     <img src="{{ asset('images/icon-guide.svg') }}" alt=""> Recently Viewed Jobs
                 </div>
-                <p class="sec-content">There are no recently viewed jobs.</p>
+                @forelse ($jobRecents as $jobRecent)
+                    <p class="sec-content">
+                        <a href="#"><span> {{ $jobRecent->job_title }} </span></a>
+                    </p>
+                @empty
+                    <p class="sec-content">There are no recently viewed jobs.</p>
+                @endforelse
             </div>
             <div class="j-favorite">
                 <div class="sec-title">
                     <img src="{{ asset('images/icon-interest.svg') }}" alt=""> Favorites list
                 </div>
+                @forelse ($favorites as $favorite)
+                <p class="sec-content" style="word-wrap: break-word;
+                word-break: break-word;">
+                  <a href="#"><span> {{ $favorite->job->job_title }} </a>
+                </p>
+                @empty
                 <p class="sec-content">There are no jobs marked as interested.</p>
+                @endforelse
             </div>
-            <a href="#" class="sec-detail"> show all <img src="{{ asset('images/icon-arrow-line-right-black.svg') }}" alt=""></a>
+            <a href=" {{route('candidate.favorite.index')}} " class="sec-detail"> show all <img src="{{ asset('images/icon-arrow-line-right-black.svg') }}" alt=""></a>
         </div>
     </div>
 </div>

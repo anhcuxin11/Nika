@@ -19,11 +19,11 @@ class Language extends Model
     ];
 
     public static $name = [
-        'Vietnamese',
-        'English',
-        'Japanese',
-        'Korean',
-        'Chinese',
+        1 => 'Vietnamese',
+        2 => 'English',
+        3 => 'Japanese',
+        4 => 'Korean',
+        5 => 'Chinese',
     ];
 
 }

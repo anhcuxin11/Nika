@@ -21,7 +21,7 @@
                     <select class="search-select" name="" id="">
                         <option value="">Choose Country</option>
                         @foreach (Location::$name as $key => $item)
-                            <option value="{{ $key + 1 }}">{{ $item }}</option>
+                            <option value="{{ $key }}">{{ $item }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -29,7 +29,7 @@
                     <select class="search-select" name="" id="">
                         <option value="">Choose Language</option>
                         @foreach (Language::$name as $key => $item)
-                            <option value="{{ $key + 1 }}">{{ $item }}</option>
+                            <option value="{{ $key }}">{{ $item }}</option>
                         @endforeach
                     </select>
                 </div>

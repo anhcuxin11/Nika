@@ -62,7 +62,7 @@
     <div class="starter">
         <ul>
            <li><a href="{{ route('candidate.job.index') }}"><img src="{{asset('images/icon-search-lg.svg')}}" class="" alt="">Job search</a></li>
-           <li><a href="#"><img src="{{asset('images/icon-interest.svg')}}" class="" alt="">Favorite</a>@auth @if(false) <span class="bubble">1</span> @endif @endauth</li>
+           <li><a href="{{ route('candidate.favorite.index') }}"><img src="{{asset('images/icon-interest.svg')}}" class="" alt="">Favorite</a>@auth @if(false) <span class="bubble">1</span> @endif @endauth</li>
            <li><a href="#"><img src="{{asset('images/icon-scout.svg')}}" class="" alt="">Scout</a>@auth @if(false) <span class="bubble">1</span>@endif @endauth</li>
            <li><a href="#"><img src="{{asset('images/icon-bell.svg')}}" class="" alt="">News</a>@auth @if(false)<span class="bubble">1</span>@endif @endauth</li>
            <li><a href="#"><img src="{{asset('images/icon-guide.svg')}}" class="" alt="">Resume</a></li>

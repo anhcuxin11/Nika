@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Candidate\FavoriteController;
 use App\Http\Controllers\Candidate\HomeController;
 use App\Http\Controllers\Candidate\JobController;
 use Illuminate\Support\Facades\Route;
@@ -17,9 +18,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::name('candidate.')->group(function() {
     Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('/jobs', [JobController::class, 'index'])->name('job.index');
+    Route::prefix('jobs')->group(function () {
+        Route::get('/', [JobController::class, 'index'])->name('job.index');
+        Route::get('/{id}', [JobController::class, 'show'])->name('job.show');
+    });
 
     Route::middleware('auth')->group(function () {
-
+        Route::prefix('favorites')->group(function () {
+            Route::get('/', [FavoriteController::class, 'index'])->name('favorite.index');
+            Route::post('/{job_id}', [FavoriteController::class, 'store'])->name('favorite.store');
+            Route::delete('/{job_id}/delete', [FavoriteController::class, 'delete'])->name('favorite.delete');
+        });
     });
 });

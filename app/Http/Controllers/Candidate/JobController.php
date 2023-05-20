@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Candidate;
 use App\Services\Candidate\IndustryService;
 use App\Services\Candidate\JobService;
 use App\Services\Candidate\OccupationService;
+use App\Services\CookieService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
@@ -42,16 +43,31 @@ class JobController
     }
 
     /**
-     * GEt data ib job page
+     * GEt data in job page
      */
     public function index(Request $request)
     {
-        // dd(Arr::flatten($request->occupation));
         $jobs = $this->jobService->filter($request->all());
-        // $jobs = $this->jobService->getAll();
+        $favorites = auth('web')->check() ? $this->jobService->getListFavorites(auth('web')->user()->id) : [];
         $industries = $this->industryService->getListAndChildren();
         $occupations = $this->occupationService->getListAndChildren();
 
-        return view('candidate.job.index', compact('jobs', 'industries', 'occupations'));
+        //job recently viewed
+        $ip = str_replace('.', '', $request->ip());
+        $jobRecentlyViewedIds = auth('web')->check()
+            ? (new CookieService('jobIds_' . auth('web')->user()->id))->get([])
+            : (new CookieService('jobIds_' . $ip))->get([]) ;
+
+        $jobRecents = $this->jobService->getRecentlyViewedJobs($jobRecentlyViewedIds);
+
+        return view('candidate.job.index', compact('jobs', 'favorites', 'industries', 'occupations', 'jobRecents'));
+    }
+
+    /**
+     * Show job detail
+     */
+    public function show(int $id)
+    {
+        return view('candidate.job.show');
     }
 }
