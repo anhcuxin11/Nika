@@ -2,6 +2,7 @@
 
 namespace App\Services\Candidate;
 
+use App\Repositories\Candidate\FavoriteRepository;
 use App\Repositories\Candidate\JobRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
@@ -13,15 +14,23 @@ class JobService
      */
     protected $jobRepository;
 
-        /**
+    /**
+     * @var FavoriteRepository
+     */
+    protected $favoriteRepository;
+
+    /**
      * JobService constructor.
      *
      * @param JobRepository $jobRepository
+     * @param FavoriteRepository $favoriteRepository
      */
     public function __construct(
-        JobRepository $jobRepository
+        JobRepository $jobRepository,
+        FavoriteRepository $favoriteRepository
     ) {
         $this->jobRepository = $jobRepository;
+        $this->favoriteRepository = $favoriteRepository;
     }
 
     /**
@@ -54,5 +63,25 @@ class JobService
     public function filter(array $data)
     {
         return $this->jobRepository->filter($data);
+    }
+
+    /**
+     * List recently viewed jobs
+     *
+     * @param array $jobIds
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getRecentlyViewedJobs(array $jobIds = [])
+    {
+        return $this->jobRepository->getRecentlyViewedJobs($jobIds);
+    }
+
+    /**
+     * Get list of favorite jobs
+     */
+    public function getListFavorites(int $candidateId)
+    {
+        return $this->favoriteRepository->getListFavorites($candidateId);
     }
 }

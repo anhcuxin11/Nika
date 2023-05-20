@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Attributes\JobAttribute;
+use App\Models\Methods\JobMethod;
 use App\Models\Relationships\JobRelationship;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -11,6 +12,7 @@ class Job extends Model
 {
     use JobRelationship,
         JobAttribute,
+        JobMethod,
         SoftDeletes;
 
     /**
@@ -56,8 +58,8 @@ class Job extends Model
     ];
 
     public static $money = [
-        'USD',
-        'VND',
-        'JPY'
+        1 => 'USD',
+        2 => 'VND',
+        3 => 'JPY'
     ];
 }

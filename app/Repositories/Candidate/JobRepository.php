@@ -61,6 +61,7 @@ class JobRepository
     {
 
         $query = Job::query()
+                    ->where('job_status', Job::$jobStatus['now_posted'])
                     ->when(isset($data['location']), function ($q) use ($data) {
                         $q->whereHas('locations', function ($q) use ($data) {
                             $q->where('locations.id', $data['location']);
@@ -73,7 +74,7 @@ class JobRepository
         $this->filterIndustry($query, $data);
         $this->filterSalary($query, $data);
         $this->filterAge($query, $data);
-        // $this->filterLevel($query, $data);
+        $this->filterLevel($query, $data);
         if (!empty($data['key'])) {
             $this->filterKey($query, $data['key']);
         }
@@ -124,7 +125,7 @@ class JobRepository
     {
         $query->when(!empty($data['language']) && !empty($data['language_levels']), function ($q) use ($data) {
             $q->whereHas('languages', function ($q) use ($data) {
-                $q->wherePivotIn('languages.level', $data['language_levels']);
+                $q->whereIn('job_languages.level', $data['language_levels']);
             });
         });
     }
@@ -140,5 +141,24 @@ class JobRepository
                 ->orWhere('location_detail', 'like', "%$key%")
                 ->orWhere('position_name', 'like', "%$key%");
         });
+    }
+
+    /**
+     * List recently viewed jobs
+     *
+     * @param array $jobIds
+     *
+     * @return \Illuminate\Support\Collection|array
+     */
+    public function getRecentlyViewedJobs(array $jobIds)
+    {
+        if (!$jobIds) {
+            return [];
+        }
+
+        return Job::query()
+            ->whereIn('id', $jobIds)
+            ->orderByRaw('FIELD (id, ' . implode(', ', $jobIds) . ') ASC')
+            ->get();
     }
 }

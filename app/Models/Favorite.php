@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Relationships\FavoriteRelationship;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Favorite extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes,
+        FavoriteRelationship;
 
     protected $table = 'favorites';
 
