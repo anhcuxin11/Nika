@@ -876,6 +876,7 @@ nav {
                     display: inline-block;
                     form {
                         .b-favorite {
+                            cursor: pointer;
                             padding: 3px 20px;
                             border: none;
                             border-radius: 4px;
@@ -1178,7 +1179,100 @@ nav {
 		}
 	}
 }
-
+.information {
+    .j-location-item {
+        span {
+            font-size: 12px;
+            line-height: 12px;
+            background-color: #339f0f;
+            color: #fff;
+            text-transform: uppercase;
+            padding: 3px 6px;
+            border-radius: 2px;
+            margin-right: 10px;
+        }
+    }
+    .item-language {
+        display: inline-block;
+        padding: 0 16px;
+        border-radius: 24px;
+        border: 1px solid #006;
+        background: #fff;
+        span {
+            font-weight: 700;
+            color: #006;
+        }
+    }
+    .job-title {
+        font-size: 20px;
+        padding-bottom: 2px;
+        border-bottom: 2px solid;
+    }
+}
+.infor-content {
+    background-color: #f8f8f8;
+    .j-content {
+        table {
+            width: 100%;
+            tbody {
+                tr {
+                    border-bottom: 1px solid #dfdfdf;
+                    th {
+                        width: 110px;
+                        padding: 8px 0;
+                        vertical-align: top;
+                        span {
+                            display: block;
+                            background: #000;
+                            color: #fff;
+                            text-align: center;
+                        }
+                    }
+                    td {
+                        width: 590px;
+                        word-break: break-word;
+                        word-wrap: break-word;
+                        padding: 8px 0 8px 24px;
+                    }
+                }
+            }
+        }
+        .item-c-button {
+            padding: 24px 10px;
+            background: #f8f8f8;
+            text-align: center;
+            .item-favorite {
+                display: inline-block;
+                form {
+                    .b-favorite {
+                        cursor: pointer;
+                        padding: 3px 20px;
+                        border: none;
+                        border-radius: 4px;
+                        background-color: green;
+                        color: #fff;
+                    }
+                }
+            }
+            .job-information {
+                display: inline-block; padding: 3px 20px;
+                border: none;
+                border-radius: 4px;
+                background-color: black;
+                color: #fff;
+            }
+        }
+    }
+}
+.j-apply {
+    a {
+        font-size: 20px;
+        color: white;
+        padding: 10px 20px;
+        background-color: #ff7e00;
+        border-radius: 999em;
+    }
+}
 @media (max-width: 600px) {
     body {
 		overflow-x: hidden;

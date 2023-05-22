@@ -161,4 +161,14 @@ class JobRepository
             ->orderByRaw('FIELD (id, ' . implode(', ', $jobIds) . ') ASC')
             ->get();
     }
+
+    /**
+     * Get job by id
+     */
+    public function getJobById(int $id)
+    {
+        return Job::query()
+            ->with('locations', 'occupations', 'industries', 'languages', 'features')
+            ->findOrFail($id);
+    }
 }
