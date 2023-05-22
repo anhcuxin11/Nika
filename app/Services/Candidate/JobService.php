@@ -84,4 +84,12 @@ class JobService
     {
         return $this->favoriteRepository->getListFavorites($candidateId);
     }
+
+    /**
+     * Get job by id
+     */
+    public function getJobById(int $id)
+    {
+        return $this->jobRepository->getJobById($id);
+    }
 }

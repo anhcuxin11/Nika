@@ -29,5 +29,6 @@ Route::name('candidate.')->group(function() {
             Route::post('/{job_id}', [FavoriteController::class, 'store'])->name('favorite.store');
             Route::delete('/{job_id}/delete', [FavoriteController::class, 'delete'])->name('favorite.delete');
         });
+        Route::get('/{id}/applications/create', [ApplicationController::class, 'index'])->name('job.application');
     });
 });

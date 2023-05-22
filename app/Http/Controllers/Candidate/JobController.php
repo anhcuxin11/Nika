@@ -68,6 +68,8 @@ class JobController
      */
     public function show(int $id)
     {
-        return view('candidate.job.show');
+        $job = $this->jobService->getJobById($id);
+
+        return view('candidate.job.show', compact('job'));
     }
 }
