@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Company\HomeController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('company')->group(function() {
@@ -9,10 +10,11 @@ Route::prefix('company')->group(function() {
         });
     });
 
-    Route::middleware('auth.company')->group(function () {
-        Route::get('/dashboard', function () {
-            return view('company.dashboard');
-        })->name('company.dashboard');
+    Route::name('company.')->group(function() {
+        Route::middleware('auth.company')->group(function () {
+            Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+        });
     });
+
 });
 

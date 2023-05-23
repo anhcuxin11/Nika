@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Candidate\ApplicationController;
 use App\Http\Controllers\Candidate\FavoriteController;
 use App\Http\Controllers\Candidate\HomeController;
 use App\Http\Controllers\Candidate\JobController;
+use App\Http\Controllers\Candidate\ResumeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,5 +32,8 @@ Route::name('candidate.')->group(function() {
             Route::delete('/{job_id}/delete', [FavoriteController::class, 'delete'])->name('favorite.delete');
         });
         Route::get('/{id}/applications/create', [ApplicationController::class, 'index'])->name('job.application');
+        Route::prefix('resumes')->group(function () {
+            Route::get('/', [ResumeController::class, 'index'])->name('resume');
+        });
     });
 });

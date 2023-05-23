@@ -1,29 +1,51 @@
 <x-guest-layout>
     <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
-
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
         <form method="POST" action="{{ route('company.register') }}">
             @csrf
 
-            <!-- Firstname -->
+            <!-- Company no -->
+            <div>
+                <x-label for="company_no" :value="__('Company no')" />
+
+                <x-input id="company_no" class="block mt-1 w-full" type="text" name="company_no" :value="old('company_no')" required autofocus />
+            </div>
+
+            <!-- Company name -->
             <div>
                 <x-label for="name" :value="__('Company name')" />
 
                 <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
             </div>
 
-            <!-- Address -->
+            <!-- Company address -->
             <div class="mt-4">
-                <x-label for="address" :value="__('Address')" />
+                <x-label for="address" :value="__('Company address')" />
 
                 <x-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" required autofocus />
+            </div>
+
+            <!-- Company phone -->
+            <div class="mt-4">
+                <x-label for="phone_company" :value="__('Company phone')" />
+
+                <x-input id="phone_company" class="block mt-1 w-full" type="text" name="phone_company" :value="old('phone_company')" required autofocus />
+            </div>
+
+            <!-- Company email -->
+            <div class="mt-4">
+                <x-label for="email_company" :value="__('Company email')" />
+
+                <x-input id="email_company" class="block mt-1 w-full" type="text" name="email_company" :value="old('email_company')" required autofocus />
+            </div>
+
+            <!-- Company fax -->
+            <div class="mt-4">
+                <x-label for="fax_company" :value="__('Company fax')" />
+
+                <x-input id="fax_company" class="block mt-1 w-full" type="text" name="fax_company" :value="old('fax_company')" required autofocus />
             </div>
 
             <!-- Name person -->
@@ -35,9 +57,16 @@
 
             <!-- Email Address -->
             <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
+                <x-label for="email" :value="__('Email person')" />
 
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+            </div>
+
+            <!-- Phone -->
+            <div class="mt-4">
+                <x-label for="phone" :value="__('Phone')" />
+
+                <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required />
             </div>
 
             <!-- Password -->

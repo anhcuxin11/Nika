@@ -100,7 +100,7 @@
                                     <button type="submit" style="background-color: blue" class="b-favorite mr-2">Cancel</button>
                                 </form>
                             </div>
-                            <a href="" class="job-information">Information</a>
+                            <a href="{{ route('candidate.job.show', ['id' => $job->id]) }}" class="job-information">Information</a>
                         </div>
                     </div>
                 </div>
