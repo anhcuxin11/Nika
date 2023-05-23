@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Candidate;
 
 use App\Services\Candidate\JobService;
+use Illuminate\Http\Request;
 
 class ApplicationController
 {
@@ -15,7 +16,7 @@ class ApplicationController
      * @param JobService $jobService
      */
     public function __construct(
-        JobService $jobService,
+        JobService $jobService
     )
     {
         $this->jobService = $jobService;
@@ -24,8 +25,8 @@ class ApplicationController
     /**
      * Get information by candidate
      */
-    public function index()
+    public function index(Request $request)
     {
-
+        $job = $this->jobService->getJobById($request->id);
     }
 }

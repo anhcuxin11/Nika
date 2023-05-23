@@ -22,10 +22,15 @@ class Company extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
+        'company_no',
         'name',
         'address',
         'status',
+        'phone_company',
+        'email_company',
+        'fax_company',
         'name_person',
+        'phone',
         'email',
         'password',
         'email_verified_at',
