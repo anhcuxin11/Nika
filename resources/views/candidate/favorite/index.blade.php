@@ -121,7 +121,13 @@
                 <div class="sec-title">
                     <img src="{{ asset('images/icon-guide.svg') }}" alt=""> Recently Viewed Jobs
                 </div>
-                <p class="sec-content">There are no recently viewed jobs.</p>
+                @forelse ($jobRecents as $jobRecent)
+                    <p class="sec-content">
+                        <a href="{{ route('candidate.job.show', ['id' => $jobRecent->id]) }}"><span> {{ $jobRecent->job_title }} </span></a>
+                    </p>
+                @empty
+                    <p class="sec-content">There are no recently viewed jobs.</p>
+                @endforelse
             </div>
         </div>
     </div>

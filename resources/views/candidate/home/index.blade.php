@@ -10,7 +10,7 @@
     <div class="avatar">
         <img width="1102" height="364" src="{{ asset('images/my-home.png') }}" alt="my home avatar">
     </div>
-    <form action="">
+    <form action="{{ route('candidate.job.index') }}" method="GET">
         <div class="quick-search">
             <div class="search-title">Quick search</div>
             <p class="counter">Jobs that match your search criteria
@@ -18,18 +18,18 @@
             </p>
             <div class="search-condition">
                 <div class="s-c-select">
-                    <select class="search-select" name="" id="">
+                    <select class="search-select" name="location" id="">
                         <option value="">Choose Country</option>
                         @foreach (Location::$name as $key => $item)
-                            <option value="{{ $key }}">{{ $item }}</option>
+                            <option @if (request()->input('location') == $key) selected @endif value="{{ $key }}">{{ $item }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="s-c-select">
-                    <select class="search-select" name="" id="">
+                    <select class="search-select" name="language" id="">
                         <option value="">Choose Language</option>
                         @foreach (Language::$name as $key => $item)
-                            <option value="{{ $key }}">{{ $item }}</option>
+                            <option @if (request()->input('language') == $key) selected @endif value="{{ $key }}">{{ $item }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -96,7 +96,7 @@
                 <div class="card-content">
                     <div class="feature-flex d-flex justify-content-between">
                         @foreach ($data['features'] as $index => $feature)
-                            <a href="#">
+                            <a href="{{ route('candidate.job.index' , ['feature_id' => [$feature->id]]) }}">
                                 <div class="feature-item">
                                     <img src="{{ asset("images/feature/feature_{$index}.png") }}" alt="" class="img-content">
                                     <div class="l-content" style="">
@@ -158,7 +158,7 @@
                             </a>
                         @endforeach
                     </div>
-                    <a href="#" class="mt-2 d-block all-job">All jobs
+                    <a href="{{ route('candidate.job.index') }}" class="mt-2 d-block all-job">All jobs
                         <img src="{{ asset('images/icon-arrow-line-right-gray.svg') }}" alt="">
                     </a>
                 </div>

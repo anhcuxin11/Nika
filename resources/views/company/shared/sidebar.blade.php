@@ -17,7 +17,14 @@
         <li class="">
             <a href="#" class="nav-item">
             <img src="{{ asset('images/icon-scout.svg') }}">
-            <span class="nav-txt">Scouts
+            <span class="nav-txt">Application
+            </span>
+            </a>
+        </li>
+        <li class="">
+            <a href="#" class="nav-item">
+            <img src="{{ asset('images/icon-interest.svg') }}">
+            <span class="nav-txt">Favorite
             </span>
             </a>
         </li>

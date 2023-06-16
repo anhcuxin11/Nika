@@ -66,10 +66,26 @@ class JobController
     /**
      * Show job detail
      */
-    public function show(int $id)
+    public function show(int $id, Request $request)
     {
         $job = $this->jobService->getJobById($id);
+        $company = $job->company;
 
-        return view('candidate.job.show', compact('job'));
+        if (auth('web')->check()) {
+            $cookie = new CookieService('jobIds_' . auth('web')->id());
+            $jobIds = $cookie->set([$job->id]);
+
+            return response()
+                ->view('candidate.job.show', compact('job', 'company'))
+                ->withCookie($jobIds);
+        }
+
+        $ip = str_replace('.', '', $request->ip());
+        $cookie = new CookieService('jobIds_' . $ip);
+        $jobIds = $cookie->set([$job->id]);
+
+        return response()
+            ->view('candidate.job.show', compact('job', 'company'))
+            ->withCookie($jobIds);
     }
 }

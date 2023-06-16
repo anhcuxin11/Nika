@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Candidate;
 
 use App\Services\Candidate\FavoriteService;
 use App\Services\Candidate\JobService;
+use App\Services\CookieService;
 use Illuminate\Http\Request;
 
 class FavoriteController
@@ -34,11 +35,18 @@ class FavoriteController
     /**
      * Get list of favorite jobs
      */
-    public function index()
+    public function index(Request $request)
     {
         $favorites = $this->favoriteService->getListfavortieJob();
+        //job recently viewed
+        $ip = str_replace('.', '', $request->ip());
+        $jobRecentlyViewedIds = auth('web')->check()
+            ? (new CookieService('jobIds_' . auth('web')->user()->id))->get([])
+            : (new CookieService('jobIds_' . $ip))->get([]) ;
 
-        return view('candidate.favorite.index', compact('favorites'));
+        $jobRecents = $this->jobService->getRecentlyViewedJobs($jobRecentlyViewedIds);
+
+        return view('candidate.favorite.index', compact('favorites', 'jobRecents'));
     }
 
     /**

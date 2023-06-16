@@ -5,6 +5,7 @@ use App\Http\Controllers\Candidate\FavoriteController;
 use App\Http\Controllers\Candidate\HomeController;
 use App\Http\Controllers\Candidate\JobController;
 use App\Http\Controllers\Candidate\ResumeController;
+use App\Http\Controllers\Candidate\ResumeRequirementController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +35,18 @@ Route::name('candidate.')->group(function() {
         Route::get('/{id}/applications/create', [ApplicationController::class, 'index'])->name('job.application');
         Route::prefix('resumes')->group(function () {
             Route::get('/', [ResumeController::class, 'index'])->name('resume');
+            Route::get('/{id}/edit', [ResumeController::class, 'edit'])->name('resume.edit');
+            Route::post('/{id}/update', [ResumeController::class, 'update'])->name('resume.update');
+            Route::get('/{id}/experience', [ResumeController::class, 'experience'])->name('resume.experience');
+            Route::post('/{id}/experience/update', [ResumeController::class, 'updateExperience'])->name('resume.experience.update');
         });
+
+        Route::prefix('desired-job')->group(function () {
+            Route::get('/' , [ResumeRequirementController::class, 'index'])->name('desired-job');
+            // Route::group(['middleware' => 'cors'], function () {
+                Route::post('/api/update', [ResumeRequirementController::class, 'update'])->name('desired-job.update');
+            // });
+        });
+
     });
 });

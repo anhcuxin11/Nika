@@ -73,6 +73,7 @@ class JobRepository
         $this->filterOcupation($query, $data);
         $this->filterIndustry($query, $data);
         $this->filterSalary($query, $data);
+        $this->filterFeature($query, $data);
         $this->filterAge($query, $data);
         $this->filterLevel($query, $data);
         if (!empty($data['key'])) {
@@ -99,6 +100,15 @@ class JobRepository
             $industryIds = Arr::flatten($data['industry']);
             $q->whereHas('industries', function ($q) use ($industryIds) {
                 $q->whereIn('industries.id', $industryIds);
+            });
+        });
+    }
+
+    public function filterFeature(&$query, $data)
+    {
+        $query->when(!empty($data['feature_id']), function ($q) use ($data) {
+            $q->whereHas('features', function ($q) use ($data) {
+                $q->whereIn('features.id', $data['feature_id']);
             });
         });
     }
@@ -168,7 +178,7 @@ class JobRepository
     public function getJobById(int $id)
     {
         return Job::query()
-            ->with('locations', 'occupations', 'industries', 'languages', 'features')
+            ->with('company', 'locations', 'occupations', 'industries', 'languages', 'features')
             ->findOrFail($id);
     }
 }

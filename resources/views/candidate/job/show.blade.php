@@ -62,8 +62,42 @@
                     <tr>
                         <th><span>Detail</span></th>
                         <td>
-                            <p>{!! $job->job_detail !!}</p>
+                            <p style="
+                            word-break: break-word;
+                            word-wrap: break-word;">{!! nl2br(e($job->job_detail)) !!}</p>
                         </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="mt-4" style="border-bottom: 2px solid">
+        <h3 class="job-title font-weight-bold">{{ $company->name }}</h3>
+    </div>
+    <div class="infor-content mt-3">
+        <div class="j-content p-3">
+            <table class="mb-2">
+                <tbody>
+                    <tr>
+                        <th><span>Recruiter</span></th>
+                        <td>{{ $company->name }}</td>
+                    </tr>
+                    <tr>
+                        <th><span>Headquarter</span></th>
+                        <td>{{ $company->address }}</td>
+                    </tr>
+                    <tr>
+                        <th><span>Manager</span></th>
+                        <td>{{ $company->name_person }}</td>
+                    </tr>
+                    <tr>
+                        <th><span>Phone</span></th>
+                        <td>{{ $company->phone_company }}</td>
+                    </tr>
+                    <tr>
+                        <th><span>Email</span></th>
+                        <td>{{ $company->email_company }}</td>
                     </tr>
                 </tbody>
             </table>

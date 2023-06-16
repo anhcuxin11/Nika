@@ -17,7 +17,7 @@
                 <div class="personal-header">
                     <img class="icon-header" src="{{ asset('images/icon-user.svg') }}" height="18" width="18" alt="">
                     Personal information
-                    <a href="#" class="btn btn-dark">
+                    <a href="{{ route('candidate.resume.edit', ['id' => $resume->id]) }}" class="btn btn-dark">
                         <img src="{{ asset('images/icon-edit.svg') }}" height="12" width="12" alt="">Edit
                     </a>
                 </div>
@@ -31,6 +31,10 @@
                             <tr>
                                 <th><span>Email</span></th>
                                 <td>{{ auth('web')->user()->email }}</td>
+                            </tr>
+                            <tr>
+                                <th><span>Age</span></th>
+                                <td>{{ $resume->age }}</td>
                             </tr>
                             <tr>
                                 <th><span>Phone</span></th>
@@ -60,7 +64,7 @@
                 <div class="personal-header">
                     <img class="icon-header" src="{{ asset('images/icon-user.svg') }}" height="18" width="18" alt="">
                     Experience
-                    <a href="#" class="btn btn-dark">
+                    <a href="{{ route('candidate.resume.experience', ['id' => $resume->id]) }}" class="btn btn-dark">
                         <img src="{{ asset('images/icon-edit.svg') }}" height="12" width="12" alt="">Edit
                     </a>
                 </div>
@@ -76,10 +80,6 @@
                                 <td>{!! $resume->skill !!}</td>
                             </tr>
                             <tr>
-                                <th><span>Occupations</span></th>
-                                <td>{{ $resume->phone }}</td>
-                            </tr>
-                            <tr>
                                 <th><span>Industries</span></th>
                                 <td>{!! $resume->industry_labels !!}</td>
                             </tr>
@@ -93,7 +93,7 @@
                             </tr>
                             <tr>
                                 <th><span>Curriculum vitae</span></th>
-                                <td></td>
+                                <td>{{ $resume->candidate->attachment->upload_file_name }}</td>
                             </tr>
                         </tbody>
                     </table>

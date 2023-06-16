@@ -2,6 +2,7 @@
 
 namespace App\Models\Relationships;
 
+use App\Models\Company;
 use App\Models\Feature;
 use App\Models\Industry;
 use App\Models\Language;
@@ -11,6 +12,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 trait JobRelationship
 {
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
     public function industries(): BelongsToMany
     {
         return $this->belongsToMany(Industry::class, 'job_industries')

@@ -18,4 +18,10 @@ class LocationRepository
                     ->whereIn('id', Location::$famous)
                     ->get();
     }
+
+    public function getListLocation()
+    {
+        return Location::query()
+                    ->get();
+    }
 }

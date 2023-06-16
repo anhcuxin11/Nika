@@ -36,7 +36,44 @@ ul li {
 .pc-hide {
     display: none!important;
 }
-
+.custom-file {
+    &.single-upload {
+        height: auto;
+        .custom-file-input {
+            display: none;
+        }
+        .disabled {
+            pointer-events: none;
+        }
+    }
+    .custom-file-seletor {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        cursor: pointer;
+        .custom-file-button {
+            background-color: #e9ecef;
+            border-left: inherit;
+            border-radius: 0.25rem;
+            font-family: NotoSansJP-Regular,sans-serif;
+            font-size: 12px;
+            color: #1a1a1a;
+            padding: 0.375rem 0.75rem;
+            width: 124px;
+            height: 34px;
+            white-space: nowrap;
+        }
+        .custom-file-name {
+            padding-left: 10px;
+            line-height: 1.6;
+            color: #495057;
+            font-size: 14px;
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+    }
+}
 nav {
     background-color: $purple;
     width: 100%;
@@ -75,9 +112,9 @@ nav {
     align-items: stretch;
     min-height: 100vh;
     #sidebar {
-        width: 250px;
-        min-width: 250px;
-        max-width: 250px;
+        width: 230px;
+        min-width: 230px;
+        max-width: 230px;
         min-height: calc(100vh - 65px);
         max-height: inherit;
         background-color: #1a1a1a;
