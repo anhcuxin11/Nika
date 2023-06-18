@@ -68,7 +68,7 @@
                     <div class="search-job-condition w-75 pl-2">
                         <select-job
                         name="occupation"
-                        :title-label="`Please select the desired industry`"
+                        :title-label="`Please select the desired occupation`"
                         :data-collapse="{{ $occupations }}"
                         :data-selected="{{ collect(request()->input('occupation')) }}"
                         inline-template>

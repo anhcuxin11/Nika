@@ -16,4 +16,11 @@ trait JobAttribute
             return $item->name;
         })->join(' ／ ');
     }
+
+    public function getOccupationLabelsAttribute()
+    {
+        return $this->occupations->map(function ($item) {
+            return $item->name;
+        })->join(' ／ ');
+    }
 }

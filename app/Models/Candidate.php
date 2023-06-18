@@ -34,6 +34,7 @@ class Candidate extends Authenticatable implements MustVerifyEmail
         'email_verified_at',
         'password_changed_at',
         'verify_code',
+        'deleted_at'
     ];
 
     /**
@@ -61,5 +62,10 @@ class Candidate extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+    ];
+
+    public static $status = [
+        'active' => 1,
+        'unactive' => 0
     ];
 }

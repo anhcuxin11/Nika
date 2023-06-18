@@ -37,7 +37,7 @@
                 <tbody>
                     <tr>
                         <th><span>Recruiter</span></th>
-                        <td>Hina Inc.</td>
+                        <td>{{ $company->name }}</td>
                     </tr>
                     <tr>
                         <th><span>Industry</span></th>

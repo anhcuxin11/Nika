@@ -118,19 +118,16 @@
                     <span class="small-sub-title mb-sub-title">Recommended Company</span>
                     <div class="c-border" style="width: 235px;"></div>
                 </div>
-                <div class="c-content">
+                <div class="c-content mt-3">
                     <div class="d-flex justify-content-between company-flex">
-                        @foreach (range(1, 4) as $item)
-                            <a href="#" class="c-detail">
-                                <div class="c-d-title pb-2">Company name</div>
+                        @foreach ($data['companies'] as $company)
+                            <a href="{{ route('candidate.companies', ['id' => $company->id]) }}" class="c-detail">
                                 <div class="c-d-content d-flex">
                                     <div class="c-d-content-left">
-                                        <img src="{{ asset('images/feature/recommend.webp') }}" alt="">
+                                        <img src="{{ asset('storage/' . $company->upload_file_path) }}" alt="">
                                     </div>
                                     <div class="c-d-content-right">
-                                        <div class="c-des">Company des</div>
-                                        <div>Salary<span class="pl-1" style="font-weight: normal;">23</span></div>
-                                        <div>Location<span class="pl-1">23</span></div>
+                                        <div class="c-des">{{ $company->name }}</div>
                                     </div>
                                 </div>
                             </a>
@@ -146,10 +143,10 @@
                 <div class="j-content" style="padding: 20px 0;">
                     <div class="job-flex d-flex justify-content-between">
                         @foreach ($data['jobs'] as $job)
-                            <a href="{{ route('candidate.job.index', ['feature_id' => $feature->id]) }}" class="j-detail">
+                            <a href="{{ route('candidate.job.show', ['id' => $job->id]) }}" class="j-detail">
                                 <div class="j-d-content d-flex">
                                     <div class="j-d-content-left">
-                                        <img src="{{ asset('images/feature/recommend.webp') }}" alt="">
+                                        <img src="{{ asset('storage/' . $job->company->upload_file_path) }}" alt="">
                                     </div>
                                     <div class="j-d-content-right">
                                         <div class="j-des">{{ $job->job_title }}</div>

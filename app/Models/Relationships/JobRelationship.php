@@ -2,6 +2,7 @@
 
 namespace App\Models\Relationships;
 
+use App\Models\Application;
 use App\Models\Company;
 use App\Models\Feature;
 use App\Models\Industry;
@@ -9,6 +10,7 @@ use App\Models\Language;
 use App\Models\Location;
 use App\Models\Occupation;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 trait JobRelationship
 {
@@ -21,6 +23,11 @@ trait JobRelationship
     {
         return $this->belongsToMany(Industry::class, 'job_industries')
                     ->withTimestamps();
+    }
+
+    public function applications(): HasMany
+    {
+        return $this->hasMany(Application::class);
     }
 
     public function locations(): BelongsToMany

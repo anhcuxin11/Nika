@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Candidate\ApplicationController;
+use App\Http\Controllers\Candidate\CompanyController;
 use App\Http\Controllers\Candidate\FavoriteController;
 use App\Http\Controllers\Candidate\HomeController;
 use App\Http\Controllers\Candidate\JobController;
@@ -26,13 +27,18 @@ Route::name('candidate.')->group(function() {
         Route::get('/{id}', [JobController::class, 'show'])->name('job.show');
     });
 
+    Route::get('companies/{id}', [CompanyController::class, 'show'])->name('companies');
+
     Route::middleware('auth')->group(function () {
         Route::prefix('favorites')->group(function () {
             Route::get('/', [FavoriteController::class, 'index'])->name('favorite.index');
             Route::post('/{job_id}', [FavoriteController::class, 'store'])->name('favorite.store');
             Route::delete('/{job_id}/delete', [FavoriteController::class, 'delete'])->name('favorite.delete');
         });
+
         Route::get('/{id}/applications/create', [ApplicationController::class, 'index'])->name('job.application');
+        Route::post('/{id}/applications/apply', [ApplicationController::class, 'apply'])->name('job.apply');
+
         Route::prefix('resumes')->group(function () {
             Route::get('/', [ResumeController::class, 'index'])->name('resume');
             Route::get('/{id}/edit', [ResumeController::class, 'edit'])->name('resume.edit');
