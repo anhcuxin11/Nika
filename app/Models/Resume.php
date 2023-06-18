@@ -34,6 +34,11 @@ class Resume extends Model
         'female' => 1,
     ];
 
+    public static $sexLable = [
+        0 => 'Male',
+        1 => 'Female',
+    ];
+
     public function getIndustryLabelsAttribute()
     {
         return $this->industries->map(function ($item) {

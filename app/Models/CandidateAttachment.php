@@ -16,6 +16,7 @@ class CandidateAttachment extends Model
      * @var array
      */
     protected $fillable = [
+        'candidate_id',
         'upload_file_name',
         'upload_file_path',
     ];

@@ -6,13 +6,13 @@
         <div class="mt-4 footer-content">
             <div class="d-flex justify-content-between footer-flex">
                 <div class="c-footer">
-                    <div class="footer-title">Recommend jobs</div>
+                    <div class="footer-title">Feature</div>
                     <div>
-                        <a href="">1</a><br>
-                        <a href="">1</a><br>
-                        <a href="">1</a><br>
-                        <a href="">1</a><br>
-                        <a href="">1</a>
+                        <a href="{{ route('candidate.job.index' , ['feature_id' => [1]]) }}">English Language Skills</a><br>
+                        <a href="{{ route('candidate.job.index' , ['feature_id' => [12]]) }}">Almost no overtime</a><br>
+                        <a href="{{ route('candidate.job.index' , ['feature_id' => [3]]) }}">Working remotely</a><br>
+                        <a href="{{ route('candidate.job.index' , ['feature_id' => [4]]) }}">Foreign company</a><br>
+                        <a href="{{ route('candidate.job.index' , ['feature_id' => [5]]) }}">Domestic company</a>
                     </div>
                 </div>
                 <div class="c-footer">
@@ -25,16 +25,16 @@
                 </div>
                 <div class="c-footer">
                     <div class="footer-title">Country</div>
-                    <a href="">Ha Noi</a><br>
-                    <a href="">Da Nang</a><br>
-                    <a href="">Ho Chi Minh</a><br>
-                    <a href="">Hai Phong</a>
+                    <a href="{{ route('candidate.job.index' , ['location' => 24]) }}">Ha Noi</a><br>
+                    <a href="{{ route('candidate.job.index' , ['location' => 15]) }}">Da Nang</a><br>
+                    <a href="{{ route('candidate.job.index' , ['location' => 30]) }}">Ho Chi Minh</a><br>
+                    <a href="{{ route('candidate.job.index' , ['location' => 28]) }}">Hai Phong</a>
                 </div>
                 <div class="c-footer">
                     <div class="footer-title">Language</div>
-                    <a href="">English</a><br>
-                    <a href="">Vietnamese</a><br>
-                    <a href="">Japanese</a>
+                    <a href="{{ route('candidate.job.index' , ['languages' => 2, 'language_levels' => [0, 1, 2, 3, 4]]) }}">English</a><br>
+                    <a href="{{ route('candidate.job.index' , ['languages' => 1, 'language_levels' => [0, 1, 2, 3, 4]]) }}">Vietnamese</a><br>
+                    <a href="{{ route('candidate.job.index' , ['languages' => 3, 'language_levels' => [0, 1, 2, 3, 4]]) }}">Japanese</a>
                 </div>
             </div>
         </div>

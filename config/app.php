@@ -175,7 +175,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
-
+        FruitCake\Cors\CorsServiceProvider::class,
+        // Dingo\Api\Provider\LaravelServiceProvider::class,
     ],
 
     /*
@@ -227,7 +228,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        // 'API' => Dingo\Api\Facade\API::class,
+        // 'APIRoute' => Dingo\Api\Facade\Route::class,
     ],
 
 ];

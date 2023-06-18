@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+    <defs>
+        <filter id="b16rldmoja" width="102%" height="108.9%" x="-1%" y="-4.5%" filterUnits="objectBoundingBox">
+            <feOffset dy="-1" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feColorMatrix in="shadowOffsetOuter1" result="shadowMatrixOuter1" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.15 0"/>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g fill="#FFF" fill-rule="nonzero">
+            <g>
+                <g filter="url(#b16rldmoja)" transform="translate(-20 -1303) translate(0 65) translate(0 1218)">
+                    <g>
+                        <path d="M13.5 5.75c1.38 0 2.5 1.12 2.5 2.5v5.5c0 .552-.448 1-1 1h-3c-.552 0-1-.448-1-1V8.941c-.422.515-.939.946-1.522 1.267.161-.542.037-1.128-.331-1.558.319-.262.613-.553.879-.868.8-1.158 2.073-1.901 3.474-2.032zm-11 0c1.403.13 2.676.874 3.477 2.032C6.656 8.537 7.107 9 7.8 9c.414 0 .75.336.75.75s-.336.75-.75.75c-1.12-.07-2.15-.643-2.8-1.559v4.809c0 .552-.448 1-1 1H1c-.552 0-1-.448-1-1v-5.5c0-1.38 1.12-2.5 2.5-2.5zm.25-4.5c.966 0 1.75.784 1.75 1.75s-.784 1.75-1.75 1.75S1 3.966 1 3s.784-1.75 1.75-1.75zm10.5 0c.966 0 1.75.784 1.75 1.75s-.784 1.75-1.75 1.75S11.5 3.966 11.5 3s.784-1.75 1.75-1.75z" transform="translate(20 20)"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

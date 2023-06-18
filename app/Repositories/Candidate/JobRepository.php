@@ -73,8 +73,10 @@ class JobRepository
         $this->filterOcupation($query, $data);
         $this->filterIndustry($query, $data);
         $this->filterSalary($query, $data);
+        $this->filterFeature($query, $data);
         $this->filterAge($query, $data);
         $this->filterLevel($query, $data);
+        $this->filterCompany($query, $data);
         if (!empty($data['key'])) {
             $this->filterKey($query, $data['key']);
         }
@@ -103,12 +105,28 @@ class JobRepository
         });
     }
 
+    public function filterFeature(&$query, $data)
+    {
+        $query->when(!empty($data['feature_id']), function ($q) use ($data) {
+            $q->whereHas('features', function ($q) use ($data) {
+                $q->whereIn('features.id', $data['feature_id']);
+            });
+        });
+    }
+
     public function filterSalary(&$query, $data)
     {
         $query->where('salary_min', '>=', $data['salary_min'] ?? 0)
             ->when(!empty($data['salary_max']), function ($q) use ($data) {
                 $q->where('salary_max', '<=', $data['salary_max']);
             });
+    }
+
+    public function filterCompany(&$query, $data)
+    {
+        $query->when(!empty($data['company_id']), function ($q) use ($data) {
+            $q->where('company_id', $data['company_id']);
+        });
     }
 
     public function filterAge(&$query, $data)
@@ -168,7 +186,7 @@ class JobRepository
     public function getJobById(int $id)
     {
         return Job::query()
-            ->with('locations', 'occupations', 'industries', 'languages', 'features')
+            ->with('company', 'locations', 'occupations', 'industries', 'languages', 'features')
             ->findOrFail($id);
     }
 }

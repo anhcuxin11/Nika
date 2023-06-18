@@ -21,7 +21,7 @@
 @endphp
 <div class="content-full">
     <div class="jobs-header my-4">
-        <div class="result-title"><span class="result-number">24</span> matching jobs</div>
+        <div class="result-title"><span class="result-number">{{ $jobs->total() }}</span> matching jobs</div>
     </div>
     <div class="job-content d-flex justify-content-between">
         <div class="job-main">
@@ -68,7 +68,7 @@
                     <div class="search-job-condition w-75 pl-2">
                         <select-job
                         name="occupation"
-                        :title-label="`Please select the desired industry`"
+                        :title-label="`Please select the desired occupation`"
                         :data-collapse="{{ $occupations }}"
                         :data-selected="{{ collect(request()->input('occupation')) }}"
                         inline-template>
@@ -244,7 +244,7 @@
                 </div>
                 @forelse ($jobRecents as $jobRecent)
                     <p class="sec-content">
-                        <a href="#"><span> {{ $jobRecent->job_title }} </span></a>
+                        <a href="{{ route('candidate.job.show', ['id' => $jobRecent->id]) }}"><span> {{ $jobRecent->job_title }} </span></a>
                     </p>
                 @empty
                     <p class="sec-content">There are no recently viewed jobs.</p>
@@ -257,7 +257,7 @@
                 @forelse ($favorites as $favorite)
                 <p class="sec-content" style="word-wrap: break-word;
                 word-break: break-word;">
-                  <a href="#"><span> {{ $favorite->job->job_title }} </a>
+                  <a href="{{ route('candidate.job.show', ['id' => $favorite->job->id]) }}"><span> {{ $favorite->job->job_title }} </a>
                 </p>
                 @empty
                 <p class="sec-content">There are no jobs marked as interested.</p>

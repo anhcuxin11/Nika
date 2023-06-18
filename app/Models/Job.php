@@ -62,4 +62,12 @@ class Job extends Model
         2 => 'VND',
         3 => 'JPY'
     ];
+
+    public static $jobStatusLabel = [
+        0 => 'Not posted',
+        1 => 'Now posted',
+        2 => 'Admin stop',
+        3 => 'Pause',
+        4 => 'End of publication',
+    ];
 }

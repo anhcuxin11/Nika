@@ -23,7 +23,7 @@ class CreateJobsTable extends Migration
             $table->text('location_detail')->nullable();
             $table->tinyInteger('english_level')->nullable();
             $table->tinyInteger('experienced_count')->nullable();
-            $table->tinyInteger('education')->nullable();
+            $table->text('education')->nullable();
             $table->tinyInteger('age_min')->nullable();
             $table->tinyInteger('age_max')->nullable();
             $table->text('must_condition')->nullable();

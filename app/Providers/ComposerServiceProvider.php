@@ -2,7 +2,12 @@
 
 namespace App\Providers;
 
+use App\Repositories\Candidate\FeatureRepository;
+use App\Services\Candidate\IndustryService;
 use App\Services\Candidate\JobService;
+use App\Services\Candidate\LocationService;
+use App\Services\Candidate\OccupationService;
+use App\Services\Company\JobService as CompanyJobService;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 
@@ -16,6 +21,60 @@ class ComposerServiceProvider extends ServiceProvider
             $view->with([
                 'job_counts'  => $jobCounts ?? 0
             ]);
+        });
+
+        View::composer('candidate.desired.index', function ($view) {
+            $occupations = resolve(OccupationService::class)->getListAndChildren();
+            $industries = resolve(IndustryService::class)->getListAndChildren();
+            $locations = resolve(LocationService::class)->getListLocation();
+
+            $view->with('occupations', $occupations);
+            $view->with('industries', $industries);
+            $view->with('locations', $locations);
+        });
+
+        View::composer('candidate.resume.edit-job', function ($view) {
+            $occupations = resolve(OccupationService::class)->getListAndChildren();
+            $industries = resolve(IndustryService::class)->getListAndChildren();
+
+            $view->with('occupations', $occupations);
+            $view->with('industries', $industries);
+        });
+
+        View::composer('company.home.index', function ($view) {
+            $jobCounts = resolve(CompanyJobService::class)->getCountJob(auth('company')->id());
+            $jobActiveCounts = resolve(CompanyJobService::class)->getCountJobActive(auth('company')->id());
+            $jobAllCounts = resolve(JobService::class)->getCountJob();
+
+            $view->with([
+                'job_counts'  => $jobCounts ?? 0,
+                'job_active_counts'  => $jobActiveCounts ?? 0,
+                'job_all_counts'  => $jobAllCounts ?? 0
+            ]);
+        });
+
+        View::composer('company.jobs.create', function ($view) {
+            $occupations = resolve(OccupationService::class)->getListAndChildren();
+            $industries = resolve(IndustryService::class)->getListAndChildren();
+            $locations = resolve(LocationService::class)->getListLocation();
+            $features = resolve(FeatureRepository::class)->getAll();
+
+            $view->with('occupations', $occupations);
+            $view->with('industries', $industries);
+            $view->with('locations', $locations);
+            $view->with('features', $features);
+        });
+
+        View::composer('company.jobs.edit', function ($view) {
+            $occupations = resolve(OccupationService::class)->getListAndChildren();
+            $industries = resolve(IndustryService::class)->getListAndChildren();
+            $locations = resolve(LocationService::class)->getListLocation();
+            $features = resolve(FeatureRepository::class)->getAll();
+
+            $view->with('occupations', $occupations);
+            $view->with('industries', $industries);
+            $view->with('locations', $locations);
+            $view->with('features', $features);
         });
     }
 }

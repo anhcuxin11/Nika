@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Relationships\CompanyRelationship;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,6 +15,7 @@ class Company extends Authenticatable implements MustVerifyEmail
     use MustVerifyEmailTrait,
         HasFactory,
         SoftDeletes,
+        CompanyRelationship,
         Notifiable;
 
  /**
@@ -36,6 +38,9 @@ class Company extends Authenticatable implements MustVerifyEmail
         'email_verified_at',
         'password_changed_at',
         'verify_code',
+        'upload_file_name',
+        'upload_file_path',
+        'deleted_at'
     ];
 
     /**
@@ -63,5 +68,10 @@ class Company extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+    ];
+
+    public static $status = [
+        'active' => 1,
+        'blacklist' => 0
     ];
 }

@@ -1,0 +1,138 @@
+<?php
+
+namespace App\Http\Controllers\Company;
+
+use App\Http\Requests\Company\CreateJobRequest;
+use App\Http\Requests\Company\UpdateJobRequest;
+use App\Http\Requests\Company\UpdateJobStatusRequest;
+use App\Models\Job;
+use App\Services\Company\JobService;
+use Dingo\Api\Routing\Helpers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpFoundation\Response;
+
+class JobController
+{
+    use Helpers;
+     /**
+     * @var JobService
+     */
+    protected $jobService;
+
+    /**
+     * @param JobService $jobService
+     */
+    public function __construct(
+        JobService $jobService
+    )
+    {
+        $this->jobService = $jobService;
+    }
+    /**
+     * Get data in home page
+     */
+    public function index(Request $request)
+    {
+        $activeTab = $request->query('tab') ?? 2;
+        $validTabs = [1, 2, 3];
+        if (!in_array($activeTab, $validTabs)) {
+            return redirect()->route('company.jobs', ['tab' => 2]);
+        }
+        $toolbarStatuses = [
+            1 => 'Now posted',
+            2 => 'Admin stop',
+            3 => 'Pause',
+        ];
+
+        $countTab1 = $this->jobService->countJobStatus([Job::$jobStatus['not_posted']])->count();
+        $countTab2 = $this->jobService->countJobStatus([Job::$jobStatus['now_posted'], Job::$jobStatus['admin_stop'], Job::$jobStatus['pause']])->count();
+        $countTab3 = $this->jobService->countJobStatus([Job::$jobStatus['end_of_publication']])->count();
+
+        $jobs = $this->jobService->getAllWithCompany($request->all(), auth('company')->user()->id, $activeTab);
+
+
+        return view('company.jobs.index', compact(
+            'activeTab',
+            'countTab1',
+            'countTab2',
+            'countTab3',
+            'jobs',
+            'toolbarStatuses',
+        ));
+    }
+
+    public function create()
+    {
+        return view('company.jobs.create');
+    }
+
+    public function store(CreateJobRequest $request)
+    {
+        $job = $this->jobService->create($request);
+        if ($job) {
+            return redirect()->route('company.jobs')
+                ->with('msg_success', 'Save job successfull');
+        } else {
+            return redirect()->back()->withInput()
+                ->with('msg_error', 'Save job failed' );
+        }
+    }
+
+    public function edit(int $id)
+    {
+        $job = $this->jobService->getJobById($id);
+
+        return view('company.jobs.edit', compact('job'));
+    }
+
+    public function update($id, UpdateJobRequest $request)
+    {
+        $job = $this->jobService->getById($id);
+        $update = $this->jobService->update($job, $request);
+
+        if (!$job || !$update) {
+            return redirect()->back()->withInput()
+                ->with('msg_error', 'Save job failed');
+        }
+
+        return redirect()->route('company.jobs')
+                ->with('msg_success', 'Save job successfull');
+    }
+
+    public function updateMultiStatus(UpdateJobStatusRequest $request)
+    {
+        try {
+            DB::beginTransaction();
+            $jobIds = $request->get('job_ids');
+            $status = $request->get('status');
+            // $statuses = $this->getConditionStatuses($status);
+            $this->jobService->updateStatusJob($jobIds, $status);
+
+            DB::commit();
+            return $this->response
+                    ->array(['message' => 'Save job success']);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error("ERROR_UPDATE_MULTI_JOB_STATUS: ". $e->getMessage());
+            return $this->response->error($e->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    public function updateStatus($id, $status)
+    {
+        try {
+            DB::beginTransaction();
+            $this->jobService->updateStatusJob([$id], $status);
+
+            DB::commit();
+            return $this->response
+                    ->array(['message' => trans('Save job success')]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error("ERROR_UPDATE_JOB_STATUS: ". $e->getMessage());
+            return $this->response->error($e->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
+    }
+}

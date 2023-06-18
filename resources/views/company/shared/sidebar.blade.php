@@ -11,13 +11,20 @@
             </a>
         </li>
         <li class="">
-            <a href="#" class="nav-item">
+            <a href="{{ route('company.jobs') }}" class="nav-item">
             <img src="{{ asset('images/icon-job.svg') }}"><span class="nav-txt">Jobs</span></a>
         </li>
         <li class="">
-            <a href="#" class="nav-item">
+            <a href="{{ route('company.applications') }}" class="nav-item">
             <img src="{{ asset('images/icon-scout.svg') }}">
-            <span class="nav-txt">Scouts
+            <span class="nav-txt">Application
+            </span>
+            </a>
+        </li>
+        <li class="">
+            <a href="{{ route('company.favorites') }}" class="nav-item">
+            <img src="{{ asset('images/icon-interest.svg') }}">
+            <span class="nav-txt">Favorite
             </span>
             </a>
         </li>

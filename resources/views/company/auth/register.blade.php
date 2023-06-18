@@ -88,6 +88,17 @@
                                 name="password_confirmation" required />
             </div>
 
+            {{-- <div class="mt-4">
+                <div class="custom-file single-upload">
+                    <input type="file" id="curriculum_vitae" @change="handleFile" id="customFile" name="attachment" accept=".doc,.pdf,.docx,.xlsx,.xls,.txt" class="custom-file-input">
+                    <div class="custom-file-seletor ">
+                        <button type="button" class="btn custom-file-button">Choose</button>
+                        <label for="curriculum_vitae" class="custom-file-name ">Upload curriculum vitae'
+                        </label>
+                    </div>
+                </div>
+            </div> --}}
+
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('company.login') }}">
                     {{ __('Already registered?') }}

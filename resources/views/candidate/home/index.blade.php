@@ -10,7 +10,7 @@
     <div class="avatar">
         <img width="1102" height="364" src="{{ asset('images/my-home.png') }}" alt="my home avatar">
     </div>
-    <form action="">
+    <form action="{{ route('candidate.job.index') }}" method="GET">
         <div class="quick-search">
             <div class="search-title">Quick search</div>
             <p class="counter">Jobs that match your search criteria
@@ -18,18 +18,18 @@
             </p>
             <div class="search-condition">
                 <div class="s-c-select">
-                    <select class="search-select" name="" id="">
+                    <select class="search-select" name="location" id="">
                         <option value="">Choose Country</option>
                         @foreach (Location::$name as $key => $item)
-                            <option value="{{ $key }}">{{ $item }}</option>
+                            <option @if (request()->input('location') == $key) selected @endif value="{{ $key }}">{{ $item }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="s-c-select">
-                    <select class="search-select" name="" id="">
+                    <select class="search-select" name="language" id="">
                         <option value="">Choose Language</option>
                         @foreach (Language::$name as $key => $item)
-                            <option value="{{ $key }}">{{ $item }}</option>
+                            <option @if (request()->input('language') == $key) selected @endif value="{{ $key }}">{{ $item }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -96,7 +96,7 @@
                 <div class="card-content">
                     <div class="feature-flex d-flex justify-content-between">
                         @foreach ($data['features'] as $index => $feature)
-                            <a href="#">
+                            <a href="{{ route('candidate.job.index' , ['feature_id' => [$feature->id]]) }}">
                                 <div class="feature-item">
                                     <img src="{{ asset("images/feature/feature_{$index}.png") }}" alt="" class="img-content">
                                     <div class="l-content" style="">
@@ -118,19 +118,16 @@
                     <span class="small-sub-title mb-sub-title">Recommended Company</span>
                     <div class="c-border" style="width: 235px;"></div>
                 </div>
-                <div class="c-content">
+                <div class="c-content mt-3">
                     <div class="d-flex justify-content-between company-flex">
-                        @foreach (range(1, 4) as $item)
-                            <a href="#" class="c-detail">
-                                <div class="c-d-title pb-2">Company name</div>
+                        @foreach ($data['companies'] as $company)
+                            <a href="{{ route('candidate.companies', ['id' => $company->id]) }}" class="c-detail">
                                 <div class="c-d-content d-flex">
                                     <div class="c-d-content-left">
-                                        <img src="{{ asset('images/feature/recommend.webp') }}" alt="">
+                                        <img src="{{ asset('storage/' . $company->upload_file_path) }}" alt="">
                                     </div>
                                     <div class="c-d-content-right">
-                                        <div class="c-des">Company des</div>
-                                        <div>Salary<span class="pl-1" style="font-weight: normal;">23</span></div>
-                                        <div>Location<span class="pl-1">23</span></div>
+                                        <div class="c-des">{{ $company->name }}</div>
                                     </div>
                                 </div>
                             </a>
@@ -146,10 +143,10 @@
                 <div class="j-content" style="padding: 20px 0;">
                     <div class="job-flex d-flex justify-content-between">
                         @foreach ($data['jobs'] as $job)
-                            <a href="{{ route('candidate.job.index', ['feature_id' => $feature->id]) }}" class="j-detail">
+                            <a href="{{ route('candidate.job.show', ['id' => $job->id]) }}" class="j-detail">
                                 <div class="j-d-content d-flex">
                                     <div class="j-d-content-left">
-                                        <img src="{{ asset('images/feature/recommend.webp') }}" alt="">
+                                        <img src="{{ asset('storage/' . $job->company->upload_file_path) }}" alt="">
                                     </div>
                                     <div class="j-d-content-right">
                                         <div class="j-des">{{ $job->job_title }}</div>
@@ -158,7 +155,7 @@
                             </a>
                         @endforeach
                     </div>
-                    <a href="#" class="mt-2 d-block all-job">All jobs
+                    <a href="{{ route('candidate.job.index') }}" class="mt-2 d-block all-job">All jobs
                         <img src="{{ asset('images/icon-arrow-line-right-gray.svg') }}" alt="">
                     </a>
                 </div>

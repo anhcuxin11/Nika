@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Attributes\CandidateAttribute;
+use App\Models\Relationships\CandidateRelationship;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,10 +16,11 @@ class Candidate extends Authenticatable implements MustVerifyEmail
     use MustVerifyEmailTrait,
         HasFactory,
         CandidateAttribute,
+        CandidateRelationship,
         SoftDeletes,
         Notifiable;
 
- /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -32,6 +34,7 @@ class Candidate extends Authenticatable implements MustVerifyEmail
         'email_verified_at',
         'password_changed_at',
         'verify_code',
+        'deleted_at'
     ];
 
     /**
@@ -59,5 +62,10 @@ class Candidate extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+    ];
+
+    public static $status = [
+        'active' => 1,
+        'unactive' => 0
     ];
 }

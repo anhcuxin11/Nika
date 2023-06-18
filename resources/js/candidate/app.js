@@ -5,6 +5,8 @@
  */
 
 require('../bootstrap');
+// import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/js/bootstrap.js';
 
 import Vue from 'vue';
 import { Form } from 'vform';
@@ -16,11 +18,21 @@ import { Ziggy } from '../ziggy';
 /* Notifications */
 import { notify } from './utils';
 Vue.prototype.$notify = notify;
-/* Notifications */
+import VueToast from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
+Vue.use(VueToast);
+
+/* Has error v-form */
+import { HasError } from 'vform/src/components/bootstrap4';
 
 Vue.use(ZiggyVue, Ziggy);
 
+import VueLoading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
+Vue.use(VueLoading);
 
+const CANDIDATE_URL = "http://localhost:8000";
+window.candidateUrl = CANDIDATE_URL;
 
 
 /**
@@ -34,7 +46,14 @@ Vue.use(ZiggyVue, Ziggy);
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+Vue.component('v-form-error', HasError);
 Vue.component('select-job', require('./components/SelectJob.js').default); // home
+Vue.component('job-requirement', require('./components/JobRequirementComponent.js').default);
+Vue.component('job-requirement-modal', require('./components/JobRequirementModalComponent.js').default);
+Vue.component('resume-edit', require('./components/resume/ResumeEditComponent.js').default);
+Vue.component('resume-edit-job', require('./components/resume/ResumeJobEditComponent.js').default);
+Vue.component('resume-edit-job-modal', require('./components/resume/ResumeJobEditModalComponent.js').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
