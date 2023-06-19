@@ -189,4 +189,31 @@ class JobRepository
             ->with('company', 'locations', 'occupations', 'industries', 'languages', 'features')
             ->findOrFail($id);
     }
+
+    /**
+     * Get job by id
+     */
+    public function getById(int $id)
+    {
+        return Job::query()
+            ->with('company')
+            ->findOrFail($id);
+    }
+
+    /**
+     * @param int $candidateId
+     */
+    public function getByMessage(int $candidateId)
+    {
+        return Job::query()
+                ->with(['messages' => function ($q) use ($candidateId) {
+                    $q->where('candidate_id', $candidateId);
+                }],
+                'company'
+                )
+                ->whereHas('messages', function ($q) use ($candidateId) {
+                    $q->where('candidate_id', $candidateId);
+                })
+                ->get();
+    }
 }

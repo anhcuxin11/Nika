@@ -37,4 +37,21 @@ class CompanyRepository
             ->where('id', '!=',  $id)
             ->get();
     }
+
+    /**
+     * @param int $candidateId
+     */
+    public function getByCompanyMessage(int $candidateId)
+    {
+        return Company::query()
+                ->with(['messages' => function ($q) use ($candidateId) {
+                    $q->where('candidate_id', $candidateId)
+                        ->whereNull('job_id');
+                }])
+                ->whereHas('messages', function ($q) use ($candidateId) {
+                    $q->where('candidate_id', $candidateId)
+                        ->whereNull('job_id');
+                })
+                ->get();
+    }
 }

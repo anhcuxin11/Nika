@@ -12,26 +12,28 @@
 @section('content')
 @php
     use App\Models\Job;
+    use App\Models\Application;
     use App\Models\Resume;
 @endphp
-    <div class="body-content">
+<chat-messages inline-template>
+    <div class="body-content" id="messages">
         <div class="container-fluid">
             <div class="row">
+                <div class="nav-tabs w-100 mt-3 mx-3">
+                    <h2>Applications</h2>
+                </div>
                 <div class="mt-3 mx-3 w-100">
                     @include('company.includes.messages')
-                    <div>
-                        <h2>Favorite human resources</h2>
-                    </div>
-                    <form class="form-search mt-3" action="{{ route('admin.jobs') }}" method="GET">
+                    <form class="form-search mt-3" action="{{ route('company.applications') }}" method="GET">
                         <div class="d-flex align-items-center" style="column-gap: 45px">
-                            <input type="text" class="form-control ml-10" name="key"
+                            <input type="text" class="form-control ml-10" name="key_job"
                             maxlength="100"
-                            placeholder="ID/Title/Description"
-                            value="{{ old('key', request()->input('key')) }}">
-                            <input type="text" class="form-control ml-10" name="name"
+                            placeholder="ID/Title/Description (Job)"
+                            value="{{ old('key_job', request()->input('key_job')) }}">
+                            <input type="text" class="form-control ml-10" name="name_candidate"
                             maxlength="100"
-                            placeholder="Name company"
-                            value="{{ old('name', request()->input('name')) }}">
+                            placeholder="ID/Name/Occuption (Candidate)"
+                            value="{{ old('name_candidate', request()->input('name_candidate')) }}">
                         </div>
                         <div class="d-flex align-items-center justify-content-between pt-3">
                             <div>
@@ -71,12 +73,12 @@
                                 </div>
                             </div>
                             <div>
-                                <div>Publishing status</div>
+                                <div>Status</div>
                                 <div class="d-flex align-items-center">
-                                    <select class="custom-select w-140" name="job_status" style="margin: 0; width: 172px">
+                                    <select class="custom-select w-140" name="status" style="margin: 0; width: 172px">
                                         <option value="">Choose status</option>
-                                        @foreach (Job::$jobStatus as $key => $item)
-                                            <option @if (request()->input('job_status') != '' && request()->input('job_status') == $item) selected @endif value="{{ $item }}">{{ $key }}</option>
+                                        @foreach (Application::$status as $key => $item)
+                                            <option @if (request()->input('status') != '' && request()->input('status') == $key) selected @endif value="{{ $key }}">{{ $item }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -124,7 +126,9 @@
                                     </div>
                                     <div class="text-left">
                                         <p class="font-weight-bold p-0 m-0">CV:</p>
-                                        <a href="">{{ optional($candidate->attachment)->upload_file_name }}</a>
+                                        @if ($candidate->attachment)
+                                            <a href="{{ asset('storage/' . optional($candidate->attachment)->upload_file_path) }}">{{ optional($candidate->attachment)->upload_file_name }}</a>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="person-exp pl-1">
@@ -137,8 +141,19 @@
                                     <div class="text-left mb-2 text-des" title="{{ $candidate->resume->occupation_labels }}">
                                         <span class="font-weight-bold">Occupations:</span> {{ $candidate->resume->occupation_labels }}
                                     </div>
-                                    <div class="text-left mb-2 text-des">
-                                        <span class="font-weight-bold">salary:</span> {{ $candidate->resume->current_salary }} USD
+                                    <div class="text-left mb-2 text-des" style="margin-bottom: 45px">
+                                        <span class="font-weight-bold">Current salary:</span> {{ $candidate->resume->current_salary }} USD
+                                    </div>
+                                    <div class="d-flex justify-content-end justify-self-end btn-area">
+                                        <div class="d-flex">
+                                            @if ($application->status == 0)
+                                            <button type="button" class="btn-custom" style="background-color: red" @click.prevent="updateStatus({{$application->id}}, '2')">Incompatible</button>
+                                            <button type="button" class="btn-custom" style="background-color: #339f0f" @click.prevent="updateStatus({{$application->id}}, '1')">Compatible</button>
+                                            @else
+                                                <div class="btn-custom" style="background-color: #999">@if ($application->status == 1) Compatible @else Incompatible @endif</div>
+                                            @endif
+                                            <button type="button" class="btn-custom" @click.prevent="showMessage({{$job->id}}, {{$candidate->id}})">Chat</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -157,9 +172,11 @@
                         </div>
                     @endforeach
                 </div>
+                @include('company.component.message-modal')
             </div>
         </div>
     </div>
+</chat-messages>
 @endsection
 @push('scripts')
 @endpush

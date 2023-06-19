@@ -16,9 +16,9 @@ class CreateResumesTable extends Migration
         Schema::create('resumes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('candidate_id')->unique();
-            $table->tinyInteger('sex');
+            $table->tinyInteger('sex')->nullable();
             $table->text('country')->nullable();
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->string('address')->nullable();
             $table->string('facebook')->nullable();
             $table->integer('current_salary')->nullable();

@@ -2,7 +2,9 @@
 
 namespace App\Services\Company;
 
+use App\Models\Application;
 use App\Repositories\Company\ApplicationRepository;
+use App\Repositories\Company\MessageRepository;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -14,18 +16,35 @@ class ApplicationService
     protected $applicationRepository;
 
     /**
+     * @var MessageRepository
+     */
+    protected $messageRepository;
+
+    /**
      * ApplicationService constructor.
      *
      * @param ApplicationRepository $applicationRepository
+     * @param MessageRepository $messageRepository
      */
     public function __construct(
-        ApplicationRepository $applicationRepository
+        ApplicationRepository $applicationRepository,
+        MessageRepository $messageRepository
     ) {
         $this->applicationRepository = $applicationRepository;
+        $this->messageRepository = $messageRepository;
     }
 
-    public function getByCompany()
+    public function getByCompany(array $data)
     {
-        return $this->applicationRepository->getByCompany(auth('company')->user()->id);
+        return $this->applicationRepository->getByCompany($data, auth('company')->user()->id);
+    }
+
+    public function updateStatus(int $id, int $status)
+    {
+        $application = $this->applicationRepository->getById($id);
+        $application->update(['status' => $status]);
+
+        $text = $status == 1 ? Application::MESSAGECOMPATILE : Application::MESSAGECOMPATILE;
+        $this->messageRepository->storeApply($application->candidate_id, $application->job_id, $text);
     }
 }

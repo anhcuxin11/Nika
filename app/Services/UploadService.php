@@ -67,7 +67,7 @@ class UploadService
         $fileName = $this->getFileName($file, $isRename);
         $path = $this->getUploadKey($path, $fileName);
         if ($this->isLocal) {
-            Storage::disk('local')->put($path, file_get_contents($file));
+            Storage::disk('public')->put($path, file_get_contents($file));
         }
 
         if (!$fileName) {

@@ -76,5 +76,13 @@ class ComposerServiceProvider extends ServiceProvider
             $view->with('locations', $locations);
             $view->with('features', $features);
         });
+
+        View::composer('company.scouts.index', function ($view) {
+            $occupations = resolve(OccupationService::class)->getListAndChildren();
+            $industries = resolve(IndustryService::class)->getListAndChildren();
+
+            $view->with('occupations', $occupations);
+            $view->with('industries', $industries);
+        });
     }
 }
