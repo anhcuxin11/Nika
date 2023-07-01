@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Repositories\Candidate\FeatureRepository;
+use App\Services\Candidate\FavoriteService;
 use App\Services\Candidate\IndustryService;
 use App\Services\Candidate\JobService;
+use App\Services\Candidate\LanguageService;
 use App\Services\Candidate\LocationService;
 use App\Services\Candidate\OccupationService;
 use App\Services\Company\JobService as CompanyJobService;
@@ -17,10 +19,26 @@ class ComposerServiceProvider extends ServiceProvider
     {
         View::composer('candidate.shared.nav-bar', function ($view) {
             $jobCounts = resolve(JobService::class)->getCountJob();
+            $candidate = auth('web')->user();
+            $favoriteNum = 0;
+            if ($candidate) {
+                $favoriteNum = resolve(FavoriteService::class)->getCoutJobByLike($candidate->id)->count();
+            }
 
             $view->with([
-                'job_counts'  => $jobCounts ?? 0
+                'job_counts'  => $jobCounts ?? 0,
+                'favoriteNum'  => $favoriteNum ?? 0,
             ]);
+        });
+
+        View::composer('candidate.home.index', function ($view) {
+            $occupationColection = resolve(OccupationService::class)->getListChildren();
+            $locationColection = resolve(LocationService::class)->getListLocation();
+            $languageColection = resolve(LanguageService::class)->getAllLanguage();
+
+            $view->with('occupationColection', $occupationColection);
+            $view->with('locationColection', $locationColection);
+            $view->with('languageColection', $languageColection);
         });
 
         View::composer('candidate.desired.index', function ($view) {
@@ -75,6 +93,14 @@ class ComposerServiceProvider extends ServiceProvider
             $view->with('industries', $industries);
             $view->with('locations', $locations);
             $view->with('features', $features);
+        });
+
+        View::composer('company.scouts.index', function ($view) {
+            $occupations = resolve(OccupationService::class)->getListAndChildren();
+            $industries = resolve(IndustryService::class)->getListAndChildren();
+
+            $view->with('occupations', $occupations);
+            $view->with('industries', $industries);
         });
     }
 }

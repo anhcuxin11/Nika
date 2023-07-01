@@ -939,6 +939,9 @@ select {
   margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
 }
+.justify-self-end {
+  justify-self: end;
+}
 .overflow-hidden {
   overflow: hidden;
 }
@@ -1078,9 +1081,6 @@ select {
 }
 .pb-1 {
   padding-bottom: 0.25rem;
-}
-.pb-2 {
-  padding-bottom: 0.5rem;
 }
 .pb-3 {
   padding-bottom: 0.75rem;

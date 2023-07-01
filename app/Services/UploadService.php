@@ -4,13 +4,10 @@ namespace App\Services;
 
 use Log;
 use Exception;
-use Aws\S3\S3Client;
 use League\Flysystem\Filesystem;
 use League\Flysystem\Adapter\Local;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log as FacadesLog;
 use Illuminate\Support\Facades\Storage;
-use League\Flysystem\AwsS3v3\AwsS3Adapter;
 
 class UploadService
 {
@@ -67,7 +64,7 @@ class UploadService
         $fileName = $this->getFileName($file, $isRename);
         $path = $this->getUploadKey($path, $fileName);
         if ($this->isLocal) {
-            Storage::disk('local')->put($path, file_get_contents($file));
+            Storage::disk('public')->put($path, file_get_contents($file));
         }
 
         if (!$fileName) {

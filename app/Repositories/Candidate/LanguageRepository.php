@@ -18,4 +18,15 @@ class LanguageRepository
                     ->limit(4)
                     ->get();
     }
+
+    /**
+     * Get popular location
+     *
+     * @return Collection
+     */
+    public function getAllLanguage(): Collection
+    {
+        return Language::query()
+                    ->get();
+    }
 }

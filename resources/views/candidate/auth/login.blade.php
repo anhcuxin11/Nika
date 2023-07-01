@@ -50,7 +50,7 @@
                 </form>
             </div>
             <div class="text-center"><a href="#" style="text-decoration: underline">Click here</a> if you can't login or forgot your password</div>
-            <div class="text-center mt-3"><a href="{{ route('register') }}" class="member">First, please register as a member</a></div>
+            <div class="text-center mt-3"><a href="{{ route('register') }}" class="member">First, please register as the member</a></div>
         </div>
         </div>
     </div>

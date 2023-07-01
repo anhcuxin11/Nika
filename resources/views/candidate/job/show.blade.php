@@ -44,6 +44,10 @@
                         <td>{{ $job->industry_labels }}</td>
                     </tr>
                     <tr>
+                        <th><span>Occupation</span></th>
+                        <td>{{ $job->occupation_labels }}</td>
+                    </tr>
+                    <tr>
                         <th><span>Workplace</span></th>
                         <td>{{ $job->location_labels }}</td>
                     </tr>

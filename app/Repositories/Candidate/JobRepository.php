@@ -19,6 +19,7 @@ class JobRepository
     {
         return Job::query()
                     ->where('job_status', Job::$jobStatus['now_posted'])
+                    ->where('job_publish', Job::$jobPublishs['on'])
                     ->get();
     }
 
@@ -27,11 +28,11 @@ class JobRepository
      *
      * @return Collection
      */
-    public function getNew()
+    public function getNew($limit = 2)
     {
         return Job::query()
                     ->orderByDesc('id')
-                    ->limit(2)
+                    ->limit($limit)
                     ->get();
 
     }
@@ -46,6 +47,7 @@ class JobRepository
         return Job::query()
                 ->with('locations', 'occupations', 'industries', 'languages', 'features')
                 ->where('job_status', Job::$jobStatus['now_posted'])
+                ->where('job_publish', Job::$jobPublishs['on'])
                 ->orderByDesc('id')
                 ->paginate(Paginate::PER_PAGE_10);
     }
@@ -59,17 +61,21 @@ class JobRepository
      */
     public function filter(array $data)
     {
-
         $query = Job::query()
                     ->where('job_status', Job::$jobStatus['now_posted'])
-                    ->when(isset($data['location']), function ($q) use ($data) {
+                    ->where('job_publish', Job::$jobPublishs['on'])
+                    ->when(!empty($data['location']), function ($q) use ($data) {
                         $q->whereHas('locations', function ($q) use ($data) {
                             $q->where('locations.id', $data['location']);
                         });
+                    })
+                    ->when(!empty($data['new']), function ($q) {
+                        $q->orderByDesc('updated_at');
                     });
-        if (isset($data['salary_type'])) {
-            $this->filterSalary($query, $data);
-        }
+        // if (isset($data['salary_type'])) {
+        //     $this->filterSalary($query, $data);
+        // }
+        $this->filterRequirementSalary($query, $data);
         $this->filterOcupation($query, $data);
         $this->filterIndustry($query, $data);
         $this->filterSalary($query, $data);
@@ -83,6 +89,30 @@ class JobRepository
 
         return $query->paginate(Paginate::PER_PAGE_10)
                     ->withQueryString();
+    }
+
+    /**
+     * Count jobs by conditions
+     */
+    public function countJob(array $data)
+    {
+        // dd($data);
+        $query = Job::query()
+                    ->where('job_status', Job::$jobStatus['now_posted'])
+                    ->where('job_publish', Job::$jobPublishs['on'])
+                    ->when(!empty($data['location']), function ($q) use ($data) {
+                        $q->whereHas('locations', function ($q) use ($data) {
+                            $q->where('locations.id', $data['location']);
+                        });
+                    });
+
+        $this->filterOcupation($query, $data);
+        $this->filterLevel($query, $data);
+        if (!empty($data['key'])) {
+            $this->filterKey($query, $data['key']);
+        }
+
+        return $query;
     }
 
     public function filterOcupation(&$query, $data)
@@ -122,6 +152,14 @@ class JobRepository
             });
     }
 
+    public function filterRequirementSalary(&$query, $data)
+    {
+        $query->when(!empty($data['salary_requirement']), function ($q) use ($data) {
+                $q->where('salary_min', '<=', $data['salary_requirement'])
+                    ->where('salary_max', '>=', $data['salary_requirement']);
+            });
+    }
+
     public function filterCompany(&$query, $data)
     {
         $query->when(!empty($data['company_id']), function ($q) use ($data) {
@@ -141,9 +179,12 @@ class JobRepository
 
     public function filterLevel(&$query, $data)
     {
-        $query->when(!empty($data['language']) && !empty($data['language_levels']), function ($q) use ($data) {
+        $query->when(!empty($data['language']), function ($q) use ($data) {
             $q->whereHas('languages', function ($q) use ($data) {
-                $q->whereIn('job_languages.level', $data['language_levels']);
+                $q->where('job_languages.language_id', $data['language'])
+                    ->when(!empty($data['language_levels']), function ($q) use ($data) {
+                        $q->whereIn('job_languages.level', $data['language_levels']);
+                    });
             });
         });
     }
@@ -188,5 +229,32 @@ class JobRepository
         return Job::query()
             ->with('company', 'locations', 'occupations', 'industries', 'languages', 'features')
             ->findOrFail($id);
+    }
+
+    /**
+     * Get job by id
+     */
+    public function getById(int $id)
+    {
+        return Job::query()
+            ->with('company')
+            ->findOrFail($id);
+    }
+
+    /**
+     * @param int $candidateId
+     */
+    public function getByMessage(int $candidateId)
+    {
+        return Job::query()
+                ->with(['messages' => function ($q) use ($candidateId) {
+                    $q->where('candidate_id', $candidateId);
+                }],
+                'company'
+                )
+                ->whereHas('messages', function ($q) use ($candidateId) {
+                    $q->where('candidate_id', $candidateId);
+                })
+                ->get();
     }
 }

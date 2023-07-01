@@ -24,6 +24,7 @@ class JobService
                     ->when(isset($data['job_status']), function ($q) use ($data) {
                         $q->where('job_status', $data['job_status']);
                     })
+                    ->orderByDesc('id')
                     ->withTrashed();
         $this->filterAge($query, $data);
         $this->filterSalary($query, $data);
@@ -78,8 +79,18 @@ class JobService
     {
         try {
             $job = Job::query()->where('id', $id)->first();
-            if ($job && !empty($data['job_status'])) {
-                $job->update(['job_status' => $data['job_status']]);
+            if ($job && isset($data['job_publish'])) {
+                if ($data['job_publish'] == 1) {
+                    $job->update([
+                        'job_publish' => $data['job_publish'],
+                        'job_status' => 2,
+                    ]);
+                } else {
+                    $job->update([
+                        'job_publish' => $data['job_publish'],
+                        'job_status' => 1,
+                    ]);
+                }
             }
 
             return true;

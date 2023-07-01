@@ -17,7 +17,13 @@
   tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"  :style="{ display: displayModal}">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header" style="position: relative;
+        left: 0;
+        overflow: hidden;
+        width: 100%;
+        background-color: gainsboro;
+        padding: 18px;
+        border-bottom: 1px solid #eee;">
           <h5 class="modal-title" id="exampleModalLabel">@{{ title }}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="closeModal">
             <span >&times;</span>

@@ -24,8 +24,19 @@ class FavoriteService
         $this->favoriteRepository = $favoriteRepository;
     }
 
-    public function getByCompany()
+    public function getByCompany(array $data)
     {
-        return $this->favoriteRepository->getByCompany(auth('company')->user()->id);
+        return $this->favoriteRepository->getByCompany($data, auth('company')->user()->id);
+    }
+
+    public function updateStatus(int $id, int $status, string $key = 'status')
+    {
+        $favorite = $this->favoriteRepository->getById($id);
+        $favorite->update([$key => $status]);
+    }
+
+    public function getByMark()
+    {
+        return $this->favoriteRepository->getByMark(auth('company')->user()->id);
     }
 }

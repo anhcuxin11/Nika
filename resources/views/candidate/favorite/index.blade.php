@@ -46,6 +46,9 @@
                     $job = $favorite->job;
                 @endphp
                 <div class="job-item">
+                    @if (in_array($job->id, $favoritesByLike))
+                        <div class="text-primary">The company is looking for you to apply for this job</div>
+                    @endif
                     <div>
                         @foreach ($job->locations as $location)
                             <span class="j-location-item mr-1">

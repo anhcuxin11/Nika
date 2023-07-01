@@ -1,6 +1,6 @@
 @extends('company.layouts.app')
 
-@section('title',"NINJA")
+@section('title',"Nika")
 @section('meta')
     <meta property="og:title" content="">
     <meta property="og:type" content="Web site">
@@ -23,24 +23,23 @@
                         <li class="nav-item mx-2" role="presentation">
                             <h2>Jobs management</h2>
                         </li>
-                        <li class="nav-item mx-1" role="presentation">
-                            <a class="nav-link {{ $activeTab == 1 ? 'active' : 'inactive' }}" id="tab1-tab" href="{{ route('company.jobs', ['tab' => 1]) }}">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link mx-1 {{ $activeTab == 1 ? 'active' : 'inactive' }}" id="tab1-tab" href="{{ route('company.jobs', ['tab' => 1]) }}">
                                 <img src="{{ asset('images/icon-edit-underline.svg') }}">
-                                Making<span class="bubble">{{ $countTab1 }}</span></a>
+                                Making<span class="bubble" style="right: -7px;">{{ $countTab1 }}</span></a>
 
                         </li>
-                        <li class="nav-item mx-1" role="presentation">
-                            <a class="nav-link {{ $activeTab == 2 ? 'active' : 'inactive' }}" id="tab2-tab" href="{{ route('company.jobs', ['tab' => 2]) }}">
-                                <img
-                                    src="{{ asset('images/icon-monitor-gray.svg') }}">Posted<span
-                                    class="bubble">{{ $countTab2 }}</span></a>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link mx-1 {{ $activeTab == 2 ? 'active' : 'inactive' }}" id="tab2-tab" href="{{ route('company.jobs', ['tab' => 2]) }}">
+                                <img src="{{ asset('images/icon-monitor-gray.svg') }}">Posted<span
+                                    class="bubble" style="right: -7px;">{{ $countTab2 }}</span></a>
 
                         </li>
-                        <li class="nav-item mx-1" role="presentation">
-                            <a class="nav-link {{ $activeTab == 3 ? 'active' : 'inactive' }}" id="tab3-tab" href="{{ route('company.jobs', ['tab' => 3]) }}">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link mx-1 {{ $activeTab == 3 ? 'active' : 'inactive' }}" id="tab3-tab" href="{{ route('company.jobs', ['tab' => 3]) }}">
                                 <img
                                     src="{{ asset('images/icon-archive-gray.svg') }}">End of publication<span
-                                    class="bubble">{{ $countTab3 }}</span></a>
+                                    class="bubble" style="right: -7px;">{{ $countTab3 }}</span></a>
                         </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">

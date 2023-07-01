@@ -14,12 +14,12 @@
     <div class="mt-3 desired-job">
         <div class="resume">
             <div class="text-center mt-1">
-                <h2 class="des">job summary</h2>
+                <h2 class="des">Personal information</h2>
             </div>
             <div class="personal mt-4">
                 <div class="personal-header">
                     <img class="icon-header" src="{{ asset('images/icon-user.svg') }}" height="18" width="18" alt="">
-                    Experience
+                    Personal information
                 </div>
                 <div class="personal-content">
                     <table>

@@ -2,7 +2,7 @@
     <ul class="sticky-ul">
         <li class="text-right move-left-li"><span id="sidebarCollapse"><img src="{{ asset('images/icon-move-left.svg') }}" class="move-left"></span></li>
         <li class="">
-            <a href="#" class="nav-item">
+            <a href="{{ route('admin.overview') }}" class="nav-item">
               <img src="{{ asset('images/icon-home.svg') }}">
               <span class="nav-txt">Top Page</span>
             </a>

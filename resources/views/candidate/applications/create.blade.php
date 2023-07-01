@@ -104,7 +104,7 @@
                                 </tr>
                                 <tr>
                                     <th><span>Curriculum vitae</span></th>
-                                    <td>{{ $resume->candidate->attachment->upload_file_name }}</td>
+                                    <td>{{ optional($resume->candidate->attachment)->upload_file_name }}</td>
                                 </tr>
                             </tbody>
                         </table>

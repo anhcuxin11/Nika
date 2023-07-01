@@ -5,6 +5,7 @@ use App\Http\Controllers\Candidate\CompanyController;
 use App\Http\Controllers\Candidate\FavoriteController;
 use App\Http\Controllers\Candidate\HomeController;
 use App\Http\Controllers\Candidate\JobController;
+use App\Http\Controllers\Candidate\MessageController;
 use App\Http\Controllers\Candidate\ResumeController;
 use App\Http\Controllers\Candidate\ResumeRequirementController;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,7 @@ Route::name('candidate.')->group(function() {
     Route::prefix('jobs')->group(function () {
         Route::get('/', [JobController::class, 'index'])->name('job.index');
         Route::get('/{id}', [JobController::class, 'show'])->name('job.show');
+        Route::post('/count-job', [JobController::class, 'countJob'])->name('job.count-job');
     });
 
     Route::get('companies/{id}', [CompanyController::class, 'show'])->name('companies');
@@ -49,9 +51,15 @@ Route::name('candidate.')->group(function() {
 
         Route::prefix('desired-job')->group(function () {
             Route::get('/' , [ResumeRequirementController::class, 'index'])->name('desired-job');
-            // Route::group(['middleware' => 'cors'], function () {
-                Route::post('/api/update', [ResumeRequirementController::class, 'update'])->name('desired-job.update');
-            // });
+            Route::post('/api/update', [ResumeRequirementController::class, 'update'])->name('desired-job.update');
+        });
+
+        Route::prefix('messages')->group(function () {
+            Route::get('/', [MessageController::class, 'index'])->name('messages');
+            Route::post('/api/{id}/history', [MessageController::class, 'history'])->name('messages.api.history');
+            Route::post('/api/send', [MessageController::class, 'send'])->name('messages.api.send');
+            Route::post('/api/{id}/company', [MessageController::class, 'historyCompany'])->name('messages.api.history-company');
+            Route::post('/api/send-company', [MessageController::class, 'sendCompany'])->name('messages.api.send-company');
         });
 
     });

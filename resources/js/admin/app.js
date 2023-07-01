@@ -5,8 +5,6 @@
  */
 
 require('../bootstrap');
-// import 'bootstrap/dist/css/bootstrap.css';
-// import 'bootstrap/dist/js/bootstrap.js';
 
 import Vue from 'vue';
 import { Form } from 'vform';

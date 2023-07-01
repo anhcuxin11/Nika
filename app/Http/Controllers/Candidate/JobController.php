@@ -88,4 +88,14 @@ class JobController
             ->view('candidate.job.show', compact('job', 'company'))
             ->withCookie($jobIds);
     }
+
+    /**
+     * Count jobs
+     */
+    public function countJob(Request $request)
+    {
+        $countJobs = $this->jobService->countJob($request->all());
+
+        return response(['result' => $countJobs]);
+    }
 }

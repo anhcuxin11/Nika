@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Candidate;
-use App\Services\Admin\CandidateService;
-use App\Services\Admin\CompanyService;
 use App\Services\Admin\JobService;
 use Illuminate\Http\Request;
 
@@ -37,11 +34,4 @@ class JobController
 
         return $result ? response(['result' => true]) : response(['result' => false, 'message' => 'Error']);
     }
-
-    // public function delete(int $id)
-    // {
-    //     $result = $this->JobService->delete($id);
-
-    //     return $result ? response(['result' => true]) : response(['result' => false, 'message' => 'Error']);
-    // }
 }

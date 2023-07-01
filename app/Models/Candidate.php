@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Attributes\CandidateAttribute;
 use App\Models\Relationships\CandidateRelationship;
+use App\Notifications\Company\MailApply;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -68,4 +69,9 @@ class Candidate extends Authenticatable implements MustVerifyEmail
         'active' => 1,
         'unactive' => 0
     ];
+
+    public function sendReplyApplicationNotification(Company $company, Job $job): void
+    {
+        $this->notify(new MailApply($company, $job));
+    }
 }

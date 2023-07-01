@@ -86,6 +86,14 @@ class JobService
     }
 
     /**
+     *
+     */
+    public function countSuspendedJob()
+    {
+        return $this->jobRepository->countSuspendedJob(auth('company')->user()->id);
+    }
+
+    /**
      * Get job by id
      */
     public function getJobById(int $id)

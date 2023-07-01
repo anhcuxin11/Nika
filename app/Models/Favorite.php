@@ -22,6 +22,7 @@ class Favorite extends Model
         'candidate_id',
         'job_id',
         'status',
+        'mark',
         'deleted_at'
     ];
 

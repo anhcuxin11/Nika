@@ -3,12 +3,43 @@
 namespace App\Services\Admin;
 
 use App\Constants\Paginate;
+use App\Http\Requests\Admin\UpdateCandidateRequest;
 use App\Models\Candidate;
 use Exception;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class CandidateService
 {
+    public function getById(int $id)
+    {
+        return Candidate::query()
+                    ->with(['resume' => function($q) {
+                        $q->withTrashed();
+                    }])
+                    ->withTrashed()
+                    ->findOrFail($id);
+    }
+
+    public function update(Candidate $user, UpdateCandidateRequest $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $data = $request->only('firstname', 'lastname', 'email');
+            $user->update($data);
+            $user->resume()->update($request->only('phone'));
+
+            DB::commit();
+
+            return true;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error("ERROR_UPDATE_CANDIDATE: " . $e->getMessage());
+            return false;
+        }
+    }
+
     public function filter(array $data)
     {
         $query = Candidate::query()
@@ -33,6 +64,7 @@ class CandidateService
                             $q->where('age', '<=', $data['age_to']);
                         });
                     })
+                    ->orderByDesc('id')
                     ->withTrashed();
         if (!empty($data['key'])) {
             $this->filterKey($query, $data['key']);

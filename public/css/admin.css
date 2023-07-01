@@ -349,3 +349,189 @@ nav ul li .black-btn {
   top: 10px;
   left: 6px;
 }
+
+.count-job {
+  font-size: 20px;
+  font-weight: 600;
+  color: #7D1DD8;
+}
+
+.form-create {
+  color: #1a1a1a;
+  background-color: white;
+}
+.form-create .form-header {
+  background-color: #7D1DD8;
+  padding: 5px 20px;
+  color: #fff;
+}
+.form-create .form-header img {
+  display: inline;
+  margin-right: 5px;
+  vertical-align: top !important;
+}
+.form-create .form-content .content-left {
+  background-color: #D8BAF7;
+  width: 188px;
+  border-bottom: 1px solid #fff;
+}
+.form-create .form-content .content-right {
+  width: calc(100% - 188px);
+  color: #1a1a1a;
+  border-bottom: 1px solid #1a1a1a;
+}
+.form-create .form-content select {
+  background-color: white !important;
+  width: 40%;
+  height: 34px;
+  padding: 6px 5px;
+  border: 2px solid #ced4da;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background: none;
+  font-size: 16px;
+  line-height: 22px;
+  cursor: pointer;
+}
+
+.border-circle {
+  border-radius: 999em;
+}
+
+.invalid-feedback {
+  display: block !important;
+}
+
+.button-purple {
+  font-size: 16px;
+  line-height: 16px;
+  display: block;
+  min-width: 200px;
+  min-height: 48px;
+  max-height: 48px;
+  padding: 15px 30px;
+  margin: 0 auto;
+  background-color: #7D1DD8;
+  color: #fff;
+}
+.button-purple img {
+  width: 16px;
+  margin: -2px 10px 0 0;
+}
+
+.btn-dark-back {
+  color: #fff;
+  background-color: #343a40;
+  border-color: #343a40;
+  position: absolute;
+  margin: 0px;
+  padding: 5px 30px;
+  top: 11px;
+  border-radius: 999em;
+}
+.btn-dark-back img {
+  margin: -2px 8px 0 0;
+}
+
+.content-page {
+  width: 100%;
+  background-color: white;
+  border-radius: 6px;
+}
+.content-page img {
+  display: inline;
+  margin-right: 5px;
+  vertical-align: revert !important;
+}
+.content-page .overview {
+  padding: 10px 20px;
+  background-color: #7D1DD8;
+  color: #fff;
+  font-size: 20px;
+}
+.content-page .chart .progresss {
+  width: 160px;
+  height: 160px;
+  background: none;
+  position: relative;
+}
+.content-page .chart .progresss::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 12px solid #eee;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.content-page .chart .progresss > span {
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+}
+.content-page .chart .progresss .progress-left {
+  left: 0;
+}
+.content-page .chart .progresss .progress-left .progress-bar {
+  color: #7D1DD8;
+  left: 100%;
+  border-top-right-radius: 80px;
+  border-bottom-right-radius: 80px;
+  border-left: 0;
+  transform-origin: center left;
+}
+.content-page .chart .progresss .progress-bar {
+  color: #7D1DD8;
+  width: 100%;
+  height: 100%;
+  background: none;
+  border-width: 12px;
+  border-style: solid;
+  position: absolute;
+  top: 0;
+}
+.content-page .chart .progresss .progress-right {
+  right: 0;
+}
+.content-page .chart .progresss .progress-right .progress-bar {
+  color: #7D1DD8;
+  left: -100%;
+  border-top-left-radius: 80px;
+  border-bottom-left-radius: 80px;
+  border-right: 0;
+  transform-origin: center right;
+}
+.content-page .chart .progresss .progress-value {
+  position: absolute;
+  top: 31%;
+  justify-content: center;
+  display: grid;
+  text-align: center;
+  width: 100%;
+}
+.content-page .chart .progresss small {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  line-height: 5px;
+  margin-top: 0px;
+  font-weight: bold;
+}
+.content-page .chart .progresss .top-num {
+  font-size: 24px;
+  font-weight: 600;
+  color: #7D1DD8;
+  font-weight: bold;
+}
+.content-page .chart .pad-1 {
+  padding: 0px 18px;
+  background-color: #7D1DD8;
+}
+.content-page .chart .pad-2 {
+  padding: 0px 18px;
+  background-color: #eee;
+}

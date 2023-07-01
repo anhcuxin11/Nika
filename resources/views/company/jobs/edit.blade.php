@@ -1,6 +1,6 @@
 @extends('company.layouts.app')
 
-@section('title', 'NINJA')
+@section('title', 'Nika')
 @section('meta')
     <meta property="og:title" content="">
     <meta property="og:type" content="Web site">

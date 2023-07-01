@@ -78,4 +78,12 @@ class FavoriteService
             return false;
         }
     }
+
+    /**
+     * Count favorite jobs
+     */
+    public function getCoutJobByLike(int $candidateId)
+    {
+        return $this->favoriteRepository->getCoutJobByLike($candidateId);
+    }
 }

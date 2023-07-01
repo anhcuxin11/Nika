@@ -16,14 +16,6 @@
                     </div>
                 </div>
                 <div class="c-footer">
-                    <div class="footer-title">News</div>
-                    <a href="">1</a><br>
-                    <a href="">1</a><br>
-                    <a href="">1</a><br>
-                    <a href="">1</a><br>
-                    <a href="">1</a>
-                </div>
-                <div class="c-footer">
                     <div class="footer-title">Country</div>
                     <a href="{{ route('candidate.job.index' , ['location' => 24]) }}">Ha Noi</a><br>
                     <a href="{{ route('candidate.job.index' , ['location' => 15]) }}">Da Nang</a><br>

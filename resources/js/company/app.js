@@ -48,7 +48,9 @@ window.companyUrl = COMPANY_URL;
 
 Vue.component('v-form-error', HasError);
 Vue.component('company-job-table', require('./components/jobs/companyJobTable.js').default);
-Vue.component('company-select-job', require('./components/CompanySelectJob.js').default); // home
+Vue.component('company-select-job', require('./components/CompanySelectJob.js').default);
+Vue.component('chat-messages', require('./components/ChatMessages.js').default);
+Vue.component('scout-chat-messages', require('./components/ScoutChatMessages.js').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

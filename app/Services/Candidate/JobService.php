@@ -66,6 +66,14 @@ class JobService
     }
 
     /**
+     * Count jobs by conditions
+     */
+    public function countJob(array $data)
+    {
+        return $this->jobRepository->countJob($data)->count();
+    }
+
+    /**
      * List recently viewed jobs
      *
      * @param array $jobIds
