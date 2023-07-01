@@ -10,13 +10,13 @@
         <div style="margin: 20px 40px;" id="messages">
             <h2>Messages</h2>
             <div class="mt-3 d-flex" style="font-size: 23px;">
-                <a class="m-0 px-2" style="border-right: 3px solid orange;text-decoration: underline;" href="{{ route('candidate.messages', ['tab' => 1]) }}">Job</a>
-                <a class="m-0 px-2" style="text-decoration: underline;" href="{{ route('candidate.messages', ['tab' => 2]) }}">Company</a>
+                <a class="m-0 px-2 {{ $activeTab == 1 ? 'border-line' : '' }}" style="padding: 4px; border-right: 3px solid orange;" href="{{ route('candidate.messages', ['tab' => 1]) }}">Job</a>
+                <a class="m-0 px-2 {{ $activeTab == 2 ? 'border-line' : '' }}" style="padding: 4px;" href="{{ route('candidate.messages', ['tab' => 2]) }}">Company</a>
             </div>
             @if ($activeTab == 1)
                 <div class="message mt-4">
                     @foreach ($jobs as $job)
-                        <div class="d-flex card-message mb-2">
+                        <div class="d-flex card-message mb-2 p-2">
                             <div class="left-content">
                                 <div class="pb-3 l-title">{{ $job->job_title }}</div>
                                 <div class="l-company"><span>Company: </span>{{ $job->company->name }}</div>
@@ -33,7 +33,7 @@
             @else
                 <div class="message mt-4">
                     @foreach ($companies as $company)
-                        <div class="d-flex card-message mb-2">
+                        <div class="d-flex card-message mb-2 p-2">
                             <div class="left-content">
                                 <div class="pb-3 l-title">{{ $company->name }}</div>
                                 <div class="l-company"><span>Address: </span>{{ $company->address }}</div>

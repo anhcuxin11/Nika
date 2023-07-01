@@ -2,11 +2,14 @@
 
 namespace App\Services\Candidate;
 
+use App\Repositories\Candidate\CandidateRepository;
 use App\Repositories\Candidate\CompanyRepository;
+use App\Repositories\Candidate\FavoriteRepository;
 use App\Repositories\Candidate\FeatureRepository;
 use App\Repositories\Candidate\JobRepository;
 use App\Repositories\Candidate\LanguageRepository;
 use App\Repositories\Candidate\LocationRepository;
+use Illuminate\Support\Facades\Auth;
 
 class HomeService
 {
@@ -70,6 +73,19 @@ class HomeService
         $features = $this->featureRepository->getAll();
         $jobs = $this->jobRepository->getNew();
         $companies = $this->companyRepository->getLimit();
+        $jobNews = $this->jobRepository->getNew(10);
+
+        if (Auth::check('web')) {
+            $candidate = resolve(CandidateRepository::class)->getById(auth('web')->user()->id, ['resume' , 'resume.resumeRequirementBasic', 'resume.requirementIndustries', 'resume.requirementOccupations']);
+            $favoriteCount = resolve(FavoriteRepository::class)->getListfavortieJob(auth('web')->user()->id)->total();
+            $jobBySalaryCount = resolve(JobRepository::class)->filter(['salary_requirement' => optional($candidate->resume->resumeRequirementBasic)->requirement_salary ?? 0])->total();
+            $resumeOccupationIds = $candidate->resume->requirementOccupations ? optional($candidate->resume->requirementOccupations)->pluck('id')->toArray() : [];
+            $resumeIndustryIds = $candidate->resume->requirementIndustries ? optional($candidate->resume->requirementIndustries)->pluck('id')->toArray() : [];
+            $jobByExpeeienceCount = resolve(JobRepository::class)->filter([
+                'industry' => $resumeIndustryIds,
+                'occupation' => $resumeOccupationIds,
+            ])->total();
+        }
 
         return [
             'locations' => $locations,
@@ -77,6 +93,13 @@ class HomeService
             'features' => $features,
             'jobs' => $jobs,
             'companies' => $companies,
+            'jobNews' => $jobNews,
+            'candidate' => !empty($candidate) ? $candidate : null,
+            'favoriteCount' => !empty($favoriteCount) ? $favoriteCount : 0,
+            'jobBySalaryCount' => !empty($jobBySalaryCount) ? $jobBySalaryCount : 0,
+            'jobByExpeeienceCount' => !empty($jobByExpeeienceCount) ? $jobByExpeeienceCount : 0,
+            'resumeOccupationIds' => !empty($resumeOccupationIds) ? $resumeOccupationIds : 0,
+            'resumeIndustryIds' => !empty($resumeIndustryIds) ? $resumeIndustryIds : 0,
         ];
     }
 }

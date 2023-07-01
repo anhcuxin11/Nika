@@ -34,7 +34,7 @@
                 </div>
                 <div class="j-c-des">
                     @if (request()->input('salary_min') && request()->input('salary_max'))
-                        <div>Salary: <span>{{ request()->input('salary_min') }} ~ {{ request()->input('salary_max') }} {{ Job::$money[request()->input('salary_type')] }}</span></div>
+                        <div>Salary: <span>{{ request()->input('salary_min') }} ~ {{ request()->input('salary_max') }} USD</span></div>
                     @endif
                     @if (request()->input('language'))
                         <div>Language: <span>{{ Language::$name[request()->input('language')] }}</span></div>
@@ -96,13 +96,8 @@
                         Desired Salary
                     </div>
                     <div class="search-job-condition w-75 pl-2">
-                        <select class="search-select w-25 mb-2" name="salary_type" id="">
-                            @foreach (Job::$money as $key => $item)
-                                <option @if (request()->input('salary_type') == $key) selected @endif value="{{ $key }}">{{ $item }}</option>
-                            @endforeach
-                        </select>
                         <div>
-                            <input type="text" name="salary_min" class="w-25 input-salary" placeholder="Salary min"> ~ <input type="text" name="salary_max" class="w-25 input-salary" placeholder="Salary max">
+                            <input type="text" value="{{ request()->input('salary_min') ?? '' }}" name="salary_min" class="w-25 input-salary" placeholder="Salary min"> ~ <input type="text" value="{{ request()->input('salary_max') ?? '' }}" name="salary_max" class="w-25 input-salary" placeholder="Salary max"> USD
                         </div>
                     </div>
                 </div>
@@ -112,14 +107,15 @@
                     </div>
                     <div class="search-job-condition w-75 pl-2">
                         <select class="search-select w-25 mb-2" name="language" id="">
+                            <option value="">Choose Language</option>
                             @foreach (Language::$name as $key => $item)
                                 <option @if (request()->input('language') == $key) selected @endif value="{{ $key }}">{{ $item }}</option>
                             @endforeach
                         </select>
                         <div class="mt-2 d-flex flex-wrap">
                             @foreach (Job::$levels as $key => $item)
-                                <div style="width: 30%; display:inline-block; pr-2" id="language_{{ $key }}">
-                                    <input type="checkbox" name="language_levels[]" value="{{ $key }}"><label for="language_{{ $key }}" class="pl-2">{{ $item }}</label>
+                                <div style="width: 30%; display:inline-block; pr-2">
+                                    <input type="checkbox" name="language_levels[]" id="language_{{ $key }}" value="{{ $key }}"><label for="language_{{ $key }}" class="pl-2">{{ $item }}</label>
                                 </div>
                             @endforeach
                         </div>
@@ -130,7 +126,7 @@
                         Age
                     </div>
                     <div class="search-job-condition w-75 pl-2">
-                        <input type="text" name="age_min" class="w-25 input-job" placeholder="Age min"> ~ <input type="text" name="age_max" class="w-25 input-job" placeholder="Age max">
+                        <input type="text" value="{{ request()->input('age_min') ?? '' }}" name="age_min" class="w-25 input-job" placeholder="Age min"> ~ <input type="text" value="{{ request()->input('age_max') ?? '' }}" name="age_max" class="w-25 input-job" placeholder="Age max">
                     </div>
                 </div>
                 <div class="d-flex form-search">
@@ -145,11 +141,14 @@
             </form>
             @include('candidate.includes.message')
             <div class="job-body my-3 job-paginate d-flex align-items-center">
-                <div class="job-body-time mr-auto">
-                    <select class="search-select w-100" name="" id="" style="width: 100%;">
+                <div class="job-body-time d-flex mr-auto" style="font-size: 20px;
+                font-weight: bold;">
+                    {{-- <select class="search-select w-100" name="" id="" style="width: 100%;">
                         <option value="">New</option>
                         <option value="">Salary</option>
-                    </select>
+                    </select> --}}
+                    <a href="{{ request()->fullUrlWithQuery(['new' => '0']) }}" class="mr-3 {{ request()->input('new') == 0 ? 'bor-bottom' : '' }}">All</a>
+                    <a href="{{ request()->fullUrlWithQuery(['new' => '1']) }}" class="{{ request()->input('new') == 1 ? 'bor-bottom' : '' }}">New</a>
                 </div>
                 <div class="result-title"><span class="result-number">{{ $jobs->total() }}</span> matching jobs, <span class="result-number">{{ $jobs->firstItem() }}〜{{ $jobs->lastItem() }}</span>item</div>
                 <div class="job-paginate-result">
@@ -192,7 +191,7 @@
                                 </tr>
                                 <tr>
                                     <th><span>Salary</span></th>
-                                    <td>{{ $job->salary_min }} ~ {{ $job->salary_max }} {{ Job::$money[$job->salary_type] }}</td>
+                                    <td>{{ $job->salary_min }} ~ {{ $job->salary_max }} USD</td>
                                 </tr>
                                 <tr>
                                     <th><span>Required skills</span></th>

@@ -24,12 +24,22 @@ class OccupationService
     }
 
     /**
-     * Get all industry
+     * Get all occupations
      *
      * @return Collection
      */
     public function getListAndChildren()
     {
         return $this->occupationRepository->getListAndChildren();
+    }
+
+    /**
+     * Get all occupations children
+     *
+     * @return Collection
+     */
+    public function getListChildren()
+    {
+        return $this->occupationRepository->getListChildren();
     }
 }

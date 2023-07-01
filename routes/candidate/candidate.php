@@ -26,6 +26,7 @@ Route::name('candidate.')->group(function() {
     Route::prefix('jobs')->group(function () {
         Route::get('/', [JobController::class, 'index'])->name('job.index');
         Route::get('/{id}', [JobController::class, 'show'])->name('job.show');
+        Route::post('/count-job', [JobController::class, 'countJob'])->name('job.count-job');
     });
 
     Route::get('companies/{id}', [CompanyController::class, 'show'])->name('companies');

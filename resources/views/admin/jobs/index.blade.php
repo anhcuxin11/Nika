@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title',"NINJA")
+@section('title',"Nika")
 @section('meta')
     <meta property="og:title" content="">
     <meta property="og:type" content="Web site">
@@ -103,19 +103,19 @@
                                         <a href="{{ route('candidate.job.show', ['id' => $job->id]) }}">/job/{{ $job->id }}</a>
                                     </td>
                                     <td class="user-status">
-                                        {{ Job::$jobStatusLabel[$job->job_status] }}
+                                        {{ $job->job_publish == Job::$jobPublishs['off'] ? 'Suspended' : Job::$jobStatusLabel[$job->job_status] }}
                                     </td>
                                     <td class="text-center">
-                                        @if (in_array($job->job_status,[1, 2]))
+                                        {{-- @if (in_array($job->job_status,[1, 2])) --}}
                                             <div class="d-flex radio-area mt-1 mb-2 align-items-center">
                                                 <div class="mr-3">
-                                                    <input type="radio" id="on_{{ $job->id }}" value="2" name="job_status_{{ $job->id }}"
-                                                    @if ($job->job_status == 2) checked @endif>
+                                                    <input type="radio" id="on_{{ $job->id }}" value="1" name="job_status_{{ $job->id }}"
+                                                    @if ($job->job_publish == Job::$jobPublishs['off']) checked @endif>
                                                     <label class="custom-control-label" for="on_{{ $job->id }}">On</label>
                                                 </div>
                                                 <div class="mr-3">
-                                                    <input type="radio" id="off_{{ $job->id }}" value="1" name="job_status_{{ $job->id }}"
-                                                    @if ($job->job_status == 1) checked @endif>
+                                                    <input type="radio" id="off_{{ $job->id }}" value="0" name="job_status_{{ $job->id }}"
+                                                    @if ($job->job_publish == Job::$jobPublishs['on']) checked @endif>
                                                     <label class="custom-control-label" for="off_{{ $job->id }}">Off</label>
                                                 </div>
                                                 <button type="button" class="btn btn-primary px-2" id="confirm"
@@ -124,7 +124,7 @@
                                                     Confirm
                                                 </button>
                                             </div>
-                                        @endif
+                                        {{-- @endif --}}
                                     </td>
                                 </tr>
                             @endforeach
@@ -163,17 +163,15 @@
                     let url = $(this).data('url');
                     let id = $(this).data('id');
                     var radioValue = $(`input[name="job_status_${id}"]:checked`).val();
-                    // let text = $(this).closest('tr');
-                    if (['1', '2'].includes(radioValue)) {
+                    if (['0', '1'].includes(radioValue)) {
                         $.ajax({
                             url: url,
                             method: 'POST',
-                            data: { job_status: radioValue },
+                            data: { job_publish: radioValue },
                             success: function(res) {
                                 if (res.result) {
                                     deleteSuccess('Successfull');
-                                    // text.remove();
-                                    location.reload();//
+                                    location.reload();
                                 } else {
                                     deleteError(res.message);
                                 }

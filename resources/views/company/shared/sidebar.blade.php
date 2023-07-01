@@ -30,7 +30,7 @@
         </li>
         <li class="">
           <a href="{{ route('company.scouts.search') }}" class="nav-item">
-          <img src="{{ asset('images/icon-gear.svg') }}"><span class="nav-txt">Scouts</span></a>
+          <img src="{{ asset('images/icon-search-lg.svg') }}"><span class="nav-txt">Scouts</span></a>
         </li>
     </ul>
 </div>

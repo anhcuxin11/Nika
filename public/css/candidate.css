@@ -23,6 +23,10 @@ ul li {
   list-style-type: none;
 }
 
+.bor-bottom {
+  border-bottom: 4px solid #7D1DD8;
+}
+
 .sp-hide {
   display: block !important;
 }
@@ -1973,4 +1977,32 @@ table tbody tr td {
   #messages .right_modal .modal-dialog {
     max-width: 100%;
   }
+}
+
+.main-content {
+  position: relative;
+}
+.main-content .main-preview {
+  position: absolute;
+  top: -265px;
+  left: 110px;
+}
+.main-content .main-preview .note {
+  background-color: white;
+  border-radius: 4px;
+  padding: 12px 10px;
+  margin-bottom: 6px;
+  position: relative;
+}
+.main-content .main-preview .note img {
+  width: 14px;
+  height: 14px;
+  margin: -2px 4px 0 8px;
+}
+.main-content .main-preview .note span {
+  position: absolute;
+  top: 1px;
+  right: 12px;
+  font-weight: 600;
+  color: orange;
 }

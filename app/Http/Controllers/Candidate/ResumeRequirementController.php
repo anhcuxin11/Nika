@@ -42,7 +42,6 @@ class ResumeRequirementController
     public function update(Request $request)
     {
         $resumeRequirement = $this->resumeRequirementService->updateResumeRequirement($request);
-        // $resumeRequirement = true;
 
         return $resumeRequirement ? $this->response->array(['message' => 'Update successful'])
                 : $this->response->error('Update failed', Response::HTTP_BAD_REQUEST);

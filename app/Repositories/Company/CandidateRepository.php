@@ -8,6 +8,17 @@ use Illuminate\Support\Arr;
 
 class CandidateRepository
 {
+    /**
+     * Get by id
+     */
+    public function getById(int $id, array $relation = [])
+    {
+        return Candidate::query()
+                    ->with($relation)
+                    ->where('id', $id)
+                    ->first();
+    }
+
     public function result(array $data)
     {
         $query = Candidate::query()

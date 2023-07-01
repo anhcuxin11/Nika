@@ -10,6 +10,20 @@
     <div class="avatar">
         <img width="1102" height="364" src="{{ asset('images/my-home.png') }}" alt="my home avatar">
     </div>
+    @if (auth('web')->check())
+    <div class="main-content" style="position: relative;">
+        <div class="main-preview">
+            <div class="d-flex flex-column" style="width: 400px">
+                <a href="{{ route('candidate.job.index', [
+                    'industry' => $data['resumeIndustryIds'],
+                    'occupation' => $data['resumeOccupationIds'],
+                ]) }}" class="note"><img src="{{ asset('images/icon-heart-black.svg') }}" alt="">Job listings that match your qualifications<span>「 {{ $data['jobByExpeeienceCount'] }} 」</span></a>
+                <a href="{{ route('candidate.job.index', ['salary_requirement' => optional($data['candidate']->resume->resumeRequirementBasic)->requirement_salary ?? 0]) }}" class="note"><img src="{{ asset('images/icon-heart-black.svg') }}" alt="">List of jobs that match the desired salary<span>「 {{ $data['jobBySalaryCount'] }} 」</span></a>
+                <a href="{{route('candidate.favorite.index') }}" class="note"><img src="{{ asset('images/icon-interest-black.svg') }}" alt="">Favorite to-do list<span>「 {{ $data['favoriteCount'] }} 」</span></a>
+            </div>
+        </div>
+    </div>
+    @endif
     <form action="{{ route('candidate.job.index') }}" method="GET">
         <div class="quick-search">
             <div class="search-title">Quick search</div>
@@ -18,31 +32,31 @@
             </p>
             <div class="search-condition">
                 <div class="s-c-select">
-                    <select class="search-select" name="location" id="">
+                    <select class="search-select" name="location" id="selectbox1" data-url="{{ route('candidate.job.count-job') }}">
                         <option value="">Choose Country</option>
-                        @foreach (Location::$name as $key => $item)
-                            <option @if (request()->input('location') == $key) selected @endif value="{{ $key }}">{{ $item }}</option>
+                        @foreach ($locationColection as $location)
+                            <option value="{{ $location->id }}">{{ $location->name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="s-c-select">
-                    <select class="search-select" name="language" id="">
+                    <select class="search-select" name="language" id="selectbox2">
                         <option value="">Choose Language</option>
-                        @foreach (Language::$name as $key => $item)
-                            <option @if (request()->input('language') == $key) selected @endif value="{{ $key }}">{{ $item }}</option>
+                        @foreach ($languageColection as $language)
+                            <option value="{{ $language->id }}">{{ $language->name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="s-c-select">
-                    <select class="search-select" name="" id="">
+                    <select class="search-select" name="occupation[]" id="selectbox3">
                         <option value="">Choose Occupation</option>
-                        @foreach (Occupation::$name as $key => $item)
-                            <option value="{{ $key + 1 }}">{{ $item }}</option>
+                        @foreach ($occupationColection as $occupation)
+                            <option value="{{ $occupation->id }}">{{ $occupation->name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="s-c-keyword">
-                    <input class="s-c-input" type="text" placeholder="Search by Keyword">
+                    <input class="s-c-input" id="key" name="key" type="text" placeholder="Search by Keyword">
                 </div>
             </div>
             <div class="d-flex flex-row-reverse quick-search-submit">
@@ -78,7 +92,7 @@
                 <div class="card-content">
                     <div class="location d-flex flex-column">
                         @foreach ($data['languages'] as $language)
-                            <a href="{{ route('candidate.job.index', ['language_id' => $language->id]) }}">- {{ $language->name }}</a>
+                            <a href="{{ route('candidate.job.index', ['language' => $language->id]) }}">- {{ $language->name }}</a>
                         @endforeach
                     </div>
                 </div>
@@ -162,7 +176,18 @@
             </div>
         </div>
     </div>
-    <div class="mt-4 news">
+    <div class="mt-4 job-favorites">
+        <div style="font-size: 20px;
+        line-height: 28px;
+        border-bottom: 4px solid black; color: blue;" class="py-2">New Jobs</div>
+        @foreach ($data['jobNews'] as $jobNew)
+            <div class="mt-2 py-2 d-flex" style="color:green ;border-bottom: 1px solid #eee">
+                <div class="w-25">{{ formatDate($jobNew->updated_at) }}</div>
+                <div class="w-75">{{ $jobNew->job_title }}</div>
+            </div>
+        @endforeach
+    </div>
+    {{-- <div class="mt-4 news">
         <div class="news-header">
             <img width="24" height="24" src="{{ asset('images/icon-light.svg') }}"  alt="">
             <span class="small-sub-title mb-sub-title">Useful Tips & Info</span>
@@ -185,6 +210,65 @@
         <a href="#" class="mt-2 d-flex justify-content-center click-here">Click here for the list of news
             <img src="{{ asset('images/icon-arrow-line-right-gray.svg') }}" alt="">
         </a>
-    </div>
+    </div> --}}
 </div>
 @endsection
+@push('scripts')
+    <script>
+        $( function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('#selectbox1, #selectbox2, #selectbox3').change(function() {
+                let location = $('#selectbox1').find(":selected").val();
+                let language = $('#selectbox2').find(":selected").val();
+                let occupation = $('#selectbox3').find(":selected").val();
+                let key = $('#key').val();
+                if (occupation == '') {
+                    occupation = [];
+                }
+
+                let url = $('#selectbox1').data('url');
+
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    data: { location: location, language: language, occupation: [occupation], key: key},
+                    success: function(res) {
+                        $('.roboto').text(res.result);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            });
+
+            $('#key').keyup(function() {
+                let location = $('#selectbox1').find(":selected").val();
+                let language = $('#selectbox2').find(":selected").val();
+                let occupation = $('#selectbox3').find(":selected").val();
+                let key = $('#key').val();
+                if (occupation == '') {
+                    occupation = [];
+                }
+
+                let url = $('#selectbox1').data('url');
+
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    data: { location: location, language: language, occupation: [occupation], key: key},
+                    success: function(res) {
+                        $('.roboto').text(res.result);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+@endpush

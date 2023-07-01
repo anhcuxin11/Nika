@@ -38,6 +38,7 @@ class JobRepository
         return Job::query()
                     ->where('company_id', $companyId)
                     ->where('job_status', Job::$jobStatus['now_posted'])
+                    ->where('job_publish', Job::$jobPublishs['on'])
                     ->get();
     }
 
@@ -51,6 +52,7 @@ class JobRepository
         return Job::query()
                 ->with('locations', 'occupations', 'industries', 'languages', 'features')
                 ->where('job_status', Job::$jobStatus['now_posted'])
+                ->where('job_publish', Job::$jobPublishs['on'])
                 ->orderByDesc('id')
                 ->paginate(Paginate::PER_PAGE_10);
     }
@@ -64,7 +66,19 @@ class JobRepository
         return Job::query()
             ->where('company_id', $companyId)
             ->whereIn('job_status', $status)
+            ->where('job_publish', Job::$jobPublishs['on'])
             ->get();
+    }
+
+    /**
+     * @param int $companyId
+     */
+    public function countSuspendedJob(int $companyId)
+    {
+        return Job::query()
+            ->where('company_id', $companyId)
+            ->where('job_status', Job::$jobStatus['admin_stop'])
+            ->where('job_publish', Job::$jobPublishs['off']);
     }
 
     public function updateStatusJob(int $id, int $status)

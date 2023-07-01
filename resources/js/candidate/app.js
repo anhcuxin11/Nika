@@ -5,8 +5,6 @@
  */
 
 require('../bootstrap');
-// import 'bootstrap/dist/css/bootstrap.css';
-// import 'bootstrap/dist/js/bootstrap.js';
 
 import Vue from 'vue';
 import { Form } from 'vform';
@@ -54,6 +52,7 @@ Vue.component('resume-edit', require('./components/resume/ResumeEditComponent.js
 Vue.component('resume-edit-job', require('./components/resume/ResumeJobEditComponent.js').default);
 Vue.component('resume-edit-job-modal', require('./components/resume/ResumeJobEditModalComponent.js').default);
 Vue.component('show-message', require('./components/ShowMessage.js').default);
+Vue.component('quick-serach', require('./components/QuickSearch.js').default);
 
 
 /**

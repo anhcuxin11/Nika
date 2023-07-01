@@ -19,4 +19,15 @@ class CandidateRepository
         Candidate::query()
             ->update($data);
     }
+
+    /**
+     * Get by id
+     */
+    public function getById(int $id, array $relation = [])
+    {
+        return Candidate::query()
+                    ->with($relation)
+                    ->where('id', $id)
+                    ->first();
+    }
 }

@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Candidate;
-use App\Services\Admin\CandidateService;
+use App\Http\Requests\Admin\UpdateCompanyRequest;
 use App\Services\Admin\CompanyService;
 use Illuminate\Http\Request;
 
@@ -42,5 +41,32 @@ class CompanyController
         $result = $this->companyService->restore($id);
 
         return $result ? response(['result' => true]) : response(['result' => false, 'message' => 'Error']);
+    }
+
+    /**
+     * Edit company
+     */
+    public function edit(int $id)
+    {
+        $company = $this->companyService->getById($id);
+
+        return view('admin.companies.edit', compact('company'));
+    }
+
+    /**
+     * Update company
+     */
+    public function update(UpdateCompanyRequest $request, int $id)
+    {
+        $company = $this->companyService->getById($id);
+        $update = $this->companyService->update($company, $request);
+
+        if (!$company || !$update) {
+            return redirect()->back()->withInput()
+                ->with('msg_error', 'Save company information is failed');
+        }
+
+        return redirect()->route('admin.companies')
+                ->with('msg_success', 'Save company information is successfull');
     }
 }

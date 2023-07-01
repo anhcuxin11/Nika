@@ -11,7 +11,7 @@
             @auth('web')
                 <span class="user-name my-auto">
                     <span class="user-name-body">{{ auth('web')->user()->full_name }}</span>
-                    <a href="#"><img src="{{asset('images/setting.svg')}}" class="settings sp-hide " alt=""></a>
+                    {{-- <a href="#"><img src="{{asset('images/setting.svg')}}" class="settings sp-hide " alt=""></a> --}}
                     <img width="16" height="16" src="{{asset('images/icon-log-out.svg')}}" class="log-out" alt="" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                 </span>
                 <x-forms.post :action="route('logout')" id="logout-form" class="d-none" />
@@ -28,7 +28,7 @@
             <div class="menu-icon pc-hide" onclick="change()"><img width="16" height="13" src="{{asset('images/menu-icon.svg')}}" id="change" class="" alt=""></div>
         </div>
         <!-- Toggle Menu -->
-        <div class="toggle-menu">
+        {{-- <div class="toggle-menu">
             <h1 class="intro">NIKA is a career/job change information site in Vietnam</h1>
             <div class="d-flex flex-column">
                 <div class="d-flex mb-2">
@@ -54,7 +54,7 @@
                 <a href="{{ route('login') }}" class="btn btn-white mr-0"><img src="{{asset('images/icon-login-maroon.svg')}}" class="" alt="">Login</a>
             </div>
             @endguest
-        </div>
+        </div> --}}
 
     </div>
 </nav>
@@ -62,9 +62,9 @@
     <div class="starter">
         <ul>
            <li><a href="{{ route('candidate.job.index') }}"><img src="{{asset('images/icon-search-lg.svg')}}" class="" alt="">Job search</a></li>
-           <li><a href="{{ route('candidate.favorite.index') }}"><img src="{{asset('images/icon-interest.svg')}}" class="" alt="">Favorite</a></li>
-           <li><a href="{{ route('candidate.messages') }}"><img src="{{asset('images/icon-scout.svg')}}" class="" alt="">Message</a>@auth @if(false) <span class="bubble">1</span>@endif @endauth</li>
-           <li><a href="#"><img src="{{asset('images/icon-bell.svg')}}" class="" alt="">News</a>@auth @if(false)<span class="bubble">1</span>@endif @endauth</li>
+           <li><a href="{{ route('candidate.favorite.index') }}"><img src="{{asset('images/icon-interest.svg')}}" class="" alt="">Favorite</a>@auth @if(!empty($favoriteNum)) <span class="bubble">{{ $favoriteNum }}</span>@endif @endauth</li>
+           <li><a href="{{ route('candidate.messages') }}"><img src="{{asset('images/icon-scout.svg')}}" class="" alt="">Message</a>></li>
+           {{-- <li><a href="#"><img src="{{asset('images/icon-bell.svg')}}" class="" alt="">News</a>@auth @if(false)<span class="bubble">1</span>@endif @endauth</li> --}}
            <li><a href="{{ route('candidate.resume') }}"><img src="{{asset('images/icon-guide.svg')}}" class="" alt="">Resume</a></li>
            <li class="sp-hide"><a href="{{ route('candidate.desired-job') }}"><img src="{{asset('images/icon-heart.svg')}}" class="" alt="">Desired condition</a></li>
         </ul>

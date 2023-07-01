@@ -47,7 +47,6 @@ class ResumeRequirementService
             $resume->requirementOccupations()->sync($request->occupation_ids);
             $resume->requirementIndustries()->sync($request->industry_ids);
             $resume->requirementLocations()->sync($request->location_ids);
-            // $resume->requirementCarrierLevels()->sync($request->carrier_level_ids);
 
             //update resume requirement employment
             $requirementEmploymentRemove = array_diff($resume->resumeRequirementEmployments->pluck('requirement_employment')->toArray(), $request->requirementEmployment);

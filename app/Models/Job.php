@@ -26,6 +26,7 @@ class Job extends Model
         'job_title',
         'job_detail',
         'job_status',
+        'job_publish',
         'location_detail',
         'english_level',
         'experienced_count',
@@ -49,6 +50,11 @@ class Job extends Model
         'end_of_publication' => 4,
     ];
 
+    public static $jobPublishs = [
+        'on' => 0,
+        'off'  => 1,
+    ];
+
     public static $levels = [
         0 => 'Native Level',
         1 => 'Business Conversation Level',
@@ -66,7 +72,7 @@ class Job extends Model
     public static $jobStatusLabel = [
         0 => 'Not posted',
         1 => 'Now posted',
-        2 => 'Admin stop',
+        2 => 'Suspended',
         3 => 'Pause',
         4 => 'End of publication',
     ];

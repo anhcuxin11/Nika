@@ -19,9 +19,6 @@
                 <div class="personal-header">
                     <img class="icon-header" src="{{ asset('images/icon-user.svg') }}" height="18" width="18" alt="">
                     Personal information
-                    <a href="#" class="btn btn-dark">
-                        <img src="{{ asset('images/icon-edit.svg') }}" height="12" width="12" alt="">Edit
-                    </a>
                 </div>
                 <div class="personal-content">
                     <table>

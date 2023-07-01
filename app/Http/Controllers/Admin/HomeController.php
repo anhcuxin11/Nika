@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Candidate;
+use App\Http\Requests\Admin\UpdateCandidateRequest;
 use App\Services\Admin\CandidateService;
 use Illuminate\Http\Request;
 
@@ -27,6 +27,33 @@ class HomeController
         $users = $this->candidateService->filter($request->all());
 
         return view('admin.user.index', compact('users'));
+    }
+
+    /**
+     * Edit candidate
+     */
+    public function edit(int $id)
+    {
+        $user = $this->candidateService->getById($id);
+
+        return view('admin.user.edit', compact('user'));
+    }
+
+    /**
+     * Update candidate
+     */
+    public function update(UpdateCandidateRequest $request, int $id)
+    {
+        $user = $this->candidateService->getById($id);
+        $update = $this->candidateService->update($user, $request);
+
+        if (!$user || !$update) {
+            return redirect()->back()->withInput()
+                ->with('msg_error', 'Save candidate failed');
+        }
+
+        return redirect()->route('admin.users')
+                ->with('msg_success', 'Save candidate successfull');
     }
 
     public function delete(int $id)

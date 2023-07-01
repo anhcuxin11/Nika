@@ -47,7 +47,8 @@ class JobController
         ];
 
         $countTab1 = $this->jobService->countJobStatus([Job::$jobStatus['not_posted']])->count();
-        $countTab2 = $this->jobService->countJobStatus([Job::$jobStatus['now_posted'], Job::$jobStatus['admin_stop'], Job::$jobStatus['pause']])->count();
+        $countTab2 = $this->jobService->countJobStatus([Job::$jobStatus['now_posted'], Job::$jobStatus['pause']])->count()
+                        + $this->jobService->countSuspendedJob()->count();
         $countTab3 = $this->jobService->countJobStatus([Job::$jobStatus['end_of_publication']])->count();
 
         $jobs = $this->jobService->getAllWithCompany($request->all(), auth('company')->user()->id, $activeTab);

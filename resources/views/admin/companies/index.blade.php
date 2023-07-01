@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title',"NINJA")
+@section('title',"Nika")
 @section('meta')
     <meta property="og:title" content="">
     <meta property="og:type" content="Web site">
@@ -14,6 +14,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="mt-3 mx-3 w-100">
+                @include('admin.includes.messages')
                 <form class="form-search" action="{{ route('admin.companies') }}" method="GET">
                     <div class="d-flex align-items-center">
                         <div class="d-flex radio-area mt-1 mb-2">
@@ -56,7 +57,7 @@
                             <th scope="col" class="w3">Name</th>
                             <th scope="col" class="w3">CEO</th>
                             <th scope="col" class="w3">Email</th>
-                            <th scope="col" class="w4">Phone</th>
+                            {{-- <th scope="col" class="w4">Phone</th> --}}
                             <th scope="col" class="w3">Address</th>
                             <th scope="col" class="w6">Status</th>
                             <th scope="col" class="w6"></th>
@@ -69,13 +70,13 @@
                                     <td class="des" title="{{ $company->name }}">{{ $company->name }}</td>
                                     <td class="des" title="{{ $company->name_person }}">{{ $company->name_person }}</td>
                                     <td class="des" title="{{ $company->email_company }}">{{ $company->email_company }}</td>
-                                    <td class="des" title="{{ $company->phone_company }}">{{ $company->phone_company }}</td>
+                                    {{-- <td class="des" title="{{ $company->phone_company }}">{{ $company->phone_company }}</td> --}}
                                     <td class="des" title="{{ $company->address }}">{{ $company->address }}</td>
                                     <td class="user-status">{{ $company->status ? 'Active' : 'Blacklist' }}</td>
                                     <td class="text-center">
-                                        {{-- <a href="" class="btn btn-success text-light" title="{{ __('user.edit') }}">
+                                        <a href="{{ route('admin.company.edit', ['id' => $company->id]) }}" class="btn btn-success text-light" title="{{ __('user.edit') }}">
                                             <i class="fas fa-edit" style="width: 13px"></i>
-                                        </a> --}}
+                                        </a>
                                         @if ($company->status)
                                             <button class="btn btn-danger text-light delete"
                                                 data-title="block"
@@ -137,7 +138,7 @@
                             if (res.result) {
                                 deleteSuccess('Successfull');
                                 text.remove();
-                                location.reload();//
+                                location.reload();
                             } else {
                                 deleteError(res.message);
                             }

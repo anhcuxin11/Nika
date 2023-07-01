@@ -24,7 +24,8 @@ class FavoriteRepository
                     ->with('job')
                     ->where('candidate_id', $candidateId)
                     ->whereHas('job', function ($q) {
-                        $q->where('job_status', Job::$jobStatus['now_posted']);
+                        $q->where('job_status', Job::$jobStatus['now_posted'])
+                            ->where('job_publish', Job::$jobPublishs['on']);
                     })
                     ->paginate(Paginate::PER_PAGE_5);
     }
@@ -42,7 +43,8 @@ class FavoriteRepository
                     ->with('job')
                     ->where('candidate_id', $candidateId)
                     ->whereHas('job', function ($q) {
-                        $q->where('job_status', Job::$jobStatus['now_posted']);
+                        $q->where('job_status', Job::$jobStatus['now_posted'])
+                            ->where('job_publish', Job::$jobPublishs['on']);
                     })
                     ->get();
     }
@@ -83,5 +85,22 @@ class FavoriteRepository
     public function deleteFavoriteJob(int $id)
     {
         Favorite::find($id)->delete();
+    }
+
+    /**
+     * Count favorite jobs
+     */
+    public function getCoutJobByLike(int $candidateId)
+    {
+        return Favorite::query()
+                    ->whereHas('job', function ($q) {
+                        $q->where('job_status', Job::$jobStatus['now_posted'])
+                            ->where('job_publish', Job::$jobPublishs['on']);
+                    })
+                    ->where([
+                        'candidate_id' => $candidateId,
+                        'status' => 1,
+                        ])
+                    ->get();
     }
 }

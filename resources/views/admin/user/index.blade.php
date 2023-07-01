@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title',"NINJA")
+@section('title',"Nika")
 @section('meta')
     <meta property="og:title" content="">
     <meta property="og:type" content="Web site">
@@ -14,6 +14,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="mt-3 mx-3 w-100">
+                @include('admin.includes.messages')
                 <form class="form-search" action="{{ route('admin.users') }}" method="GET">
                     <div class="d-flex align-items-center">
                         <div class="d-flex radio-area mt-1 mb-2">
@@ -79,7 +80,7 @@
                                     <td class="des" title="{{ $user->email }}">{{ $user->email }}</td>
                                     <td class="user-status">{{ $user->status ? 'Active' : 'Block' }}</td>
                                     <td class="text-center">
-                                        <a href="" class="btn btn-success text-light" title="Edit">
+                                        <a href="{{ route('admin.user.edit', ['id' => $user->id]) }}" class="btn btn-success text-light" title="Edit">
                                             <i class="fas fa-edit" style="width: 13px"></i>
                                         </a>
                                         @if ($user->status)
@@ -140,7 +141,7 @@
                             if (res.result) {
                                 deleteSuccess('Successfull');
                                 text.remove();
-                                location.reload();//
+                                location.reload();
                             } else {
                                 deleteError(res.message);
                             }

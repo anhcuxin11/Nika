@@ -38,6 +38,7 @@ class FavoriteController
     public function index(Request $request)
     {
         $favorites = $this->favoriteService->getListfavortieJob();
+        $favoritesByLike = $this->favoriteService->getCoutJobByLike(auth('web')->user()->id)->pluck('job_id')->toArray();
         //job recently viewed
         $ip = str_replace('.', '', $request->ip());
         $jobRecentlyViewedIds = auth('web')->check()
@@ -46,7 +47,7 @@ class FavoriteController
 
         $jobRecents = $this->jobService->getRecentlyViewedJobs($jobRecentlyViewedIds);
 
-        return view('candidate.favorite.index', compact('favorites', 'jobRecents'));
+        return view('candidate.favorite.index', compact('favorites', 'jobRecents', 'favoritesByLike'));
     }
 
     /**
