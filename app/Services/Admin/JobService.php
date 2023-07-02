@@ -39,11 +39,6 @@ class JobService
 
     public function filterAge(&$query, $data)
     {
-        // $query->where('age_min', '>=', $data['age_min'] ?? 0)
-        //     ->when(!empty($data['age_max']), function ($q) use ($data) {
-        //         $q->where('age_max', '<=', $data['age_max']);
-        //     });
-
         $query->where(function ($q) use ($data) {
                 $q->when(!empty($data['age_min']), function ($q) use ($data) {
                         $q->where('age_min', '<=', $data['age_min'])

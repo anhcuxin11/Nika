@@ -21,7 +21,6 @@
             </span>
             @if ($job->job_status != 2)
             <div class="d-flex mt-3">
-                {{-- <span class="mr-auto date">{{ formatDate($job->job_status_change_date, 'Y/m/d') }}〜</span> --}}
                 <span style="width: 62px"></span>
 
                 <div class="custom-control custom-checkbox cus-mt">

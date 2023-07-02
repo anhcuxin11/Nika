@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-    {{-- <link rel="shortcut icon" type="image/ico" href="{{ asset('images/favicon.ico') }}"> --}}
     @yield('meta')
     @yield('meta_job')
     <link rel="stylesheet" href="{{ mix('css/candidate.css') }}">

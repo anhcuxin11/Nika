@@ -12,7 +12,6 @@
           </div>
         </div>
     </div>
-    {{-- @include('company.shared.footer') --}}
     @include('company.shared.script')
 </body>
 

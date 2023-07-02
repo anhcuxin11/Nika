@@ -27,7 +27,6 @@
                 </div>
                 <form action="{{route('company.jobs.store')}}" method="POST" class="mt-3 form-create">
                     @csrf
-                    {{-- <input type="hidden" name="job_change_status" id="job_change_status" value="0"> --}}
                     <input type="hidden" name="preview" id="preview_value" value="">
                     <div class="form-header d-flex">
                         <img src="{{ asset('images/icon-job.svg') }}">

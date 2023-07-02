@@ -4,8 +4,6 @@
     <input type="hidden" :value="item.id" :name="`${name}[${item.parent_id}][${item.id}][id]`" />
   </div>
   <button type="button" class="btn-search" style="cursor: pointer; background-color: white;"
-  {{-- data-toggle="modal" --}}
-  {{-- data-target="#exampleModal" --}}
   @click="showModal">
     {{ $buttonName }}
   </button>

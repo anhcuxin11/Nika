@@ -18,7 +18,6 @@
                         style="background-color: #7D1DD8; color: white"
                         type="button"
                         class="btn"
-                        {{-- :disabled="!status || selectedIds.length == 0" --}}
                         @click.prevent="onSubmitStatus"
                     >Change</button>
                 </div>
