@@ -7,8 +7,6 @@
 @endphp
 <resume-edit
     :resume="{{$resume}}"
-    {{-- :occupations="{{$occupations}}"
-    :industries="{{$industries}}" --}}
     inline-template>
 <div class="content-full">
     <div class="mt-3 desired-job">

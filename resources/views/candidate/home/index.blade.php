@@ -187,30 +187,6 @@
             </div>
         @endforeach
     </div>
-    {{-- <div class="mt-4 news">
-        <div class="news-header">
-            <img width="24" height="24" src="{{ asset('images/icon-light.svg') }}"  alt="">
-            <span class="small-sub-title mb-sub-title">Useful Tips & Info</span>
-            <div class="news-border"></div>
-        </div>
-        <div class="my-2">Let's use it for job change activities and career advancement! !</div>
-        <div class="news-content d-flex justify-content-between">
-            @foreach (range(1, 4) as $item)
-                <a href="#">
-                    <img class="news-img" src="{{ asset('images/feature/recommend.webp') }}" alt="">
-                    <div>-2023/05/05</div>
-                    <div>News title</div>
-                    <div>News des</div>
-                    <div class="mt-2 d-block news-detail">Detail
-                        <img src="{{ asset('images/icon-arrow-line-right-gray.svg') }}" alt="">
-                    </div>
-                </a>
-            @endforeach
-        </div>
-        <a href="#" class="mt-2 d-flex justify-content-center click-here">Click here for the list of news
-            <img src="{{ asset('images/icon-arrow-line-right-gray.svg') }}" alt="">
-        </a>
-    </div> --}}
 </div>
 @endsection
 @push('scripts')

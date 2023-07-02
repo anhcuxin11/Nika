@@ -91,10 +91,3 @@
     </div>
 </company-job-table>
 @endsection
-{{-- @push('scripts')
-    <script>
-        $(document).ready(function() {
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-    </script>
-@endpush --}}
