@@ -2,6 +2,7 @@
 
 namespace App\Services\Candidate;
 
+use App\Http\Requests\Candidate\UpdateResumeRequirementRequest;
 use App\Repositories\Candidate\ResumeRequirementEmploymentRepository;
 use App\Repositories\Candidate\ResumeRequirementRepository;
 use Exception;
@@ -40,7 +41,7 @@ class ResumeRequirementService
         return $this->resumeRequirementRepository->getResumeRequirement($resumeId);
     }
 
-    public function updateResumeRequirement(Request $request)
+    public function updateResumeRequirement(UpdateResumeRequirementRequest $request)
     {
         try {
             $resume = auth('web')->user()->resume;

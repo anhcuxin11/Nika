@@ -10,13 +10,15 @@ class CandidateRepository
     /**
      * Get information by candidate
      *
+     * @param int $id
      * @param array $data
      *
      * @return Collection
      */
-    public function update(array $data)
+    public function update(int $id, array $data)
     {
         Candidate::query()
+            ->where('id', $id)
             ->update($data);
     }
 

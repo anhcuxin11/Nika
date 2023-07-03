@@ -79,7 +79,7 @@
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <input type="number" class="form-control w-140" style="width: 125px;" v-model="form.current_salary" min="0">
-                                        <span>&ensp;Thousand VND</span>
+                                        <span>&ensp;USD</span>
                                     </div>
                                     <v-form-error :form="form" field="current_salary" />
                                 </td>

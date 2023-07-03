@@ -89,7 +89,7 @@
                             </tr>
                             <tr>
                                 <th><span>Current salary</span></th>
-                                <td>{{ $resume->current_salary }} million VND</td>
+                                <td>{{ $resume->current_salary ? $resume->current_salary . ' USD' : '' }}</td>
                             </tr>
                             <tr>
                                 <th><span>Curriculum vitae</span></th>

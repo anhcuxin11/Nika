@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Candidate;
 
+use App\Http\Requests\Candidate\UpdateResumeRequirementRequest;
 use App\Services\Candidate\ResumeRequirementService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,7 +40,7 @@ class ResumeRequirementController
     /**
      * Update desired job of the candidate
      */
-    public function update(Request $request)
+    public function update(UpdateResumeRequirementRequest $request)
     {
         $resumeRequirement = $this->resumeRequirementService->updateResumeRequirement($request);
 

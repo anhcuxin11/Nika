@@ -88,7 +88,7 @@ class ResumeService
             $resume = auth('web')->user()->resume;
             $resume->occupations()->sync($request->occupation_ids);
             $resume->industries()->sync($request->industry_ids);
-            $this->resumeRepository->updateResume($request->only(['certificate', 'skill', 'current_salary']));
+            $this->resumeRepository->updateResume($request->id, $request->only(['certificate', 'skill', 'current_salary']));
             if ($request->file('attachment')) {
                 $this->attachmentService->store($request);
             }
@@ -115,8 +115,8 @@ class ResumeService
     {
         try {
             DB::beginTransaction();
-            $this->candidateRepository->update($request->only(['firstname', 'lastname']));
-            $this->resumeRepository->updateResumeInfo($request->only(['age', 'phone', 'country', 'address', 'facebook', 'hobby']));
+            $this->candidateRepository->update(auth('web')->user()->id, $request->only(['firstname', 'lastname']));
+            $this->resumeRepository->updateResumeInfo($request->id, $request->only(['age', 'phone', 'country', 'address', 'facebook', 'hobby']));
             DB::commit();
             return true;
         } catch (Exception $e) {

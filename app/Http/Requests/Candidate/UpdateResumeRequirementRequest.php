@@ -24,11 +24,10 @@ class UpdateResumeRequirementRequest extends FormRequest
     public function rules()
     {
         return [
-            'requirementSalary' => 'required|numeric|min:0',
+            'requirementSalary' => 'required|numeric|min:10',
             'requirementEmployment' => 'required|array|min:1',
             'occupation_ids' => 'required|array|min:1',
             'location_ids' => 'required|array|min:1',
-            'carrier_level_ids' => 'required|array|min:1',
         ];
     }
 

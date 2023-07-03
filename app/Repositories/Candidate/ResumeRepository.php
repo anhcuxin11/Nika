@@ -36,11 +36,13 @@ class ResumeRepository
     }
 
     /**
+     * @param int $id
      * @param array $data
      */
-    public function updateResume(array $data)
+    public function updateResume(int $id, array $data)
     {
         Resume::query()
+            ->where('id', $id)
             ->update([
                 'certificate' => $data['certificate'],
                 'skill' => $data['skill'],
@@ -49,11 +51,13 @@ class ResumeRepository
     }
 
     /**
+     * @param int $id
      * @param array $data
      */
-    public function updateResumeInfo(array $data)
+    public function updateResumeInfo(int $id, array $data)
     {
         Resume::query()
+            ->where('id', $id)
             ->update($data);
     }
 }
