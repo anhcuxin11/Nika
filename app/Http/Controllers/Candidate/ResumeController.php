@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Candidate;
 
-use App\Services\Candidate\JobService;
+use App\Http\Requests\Candidate\UpdateResumeBasicRequest;
+use App\Http\Requests\Candidate\UpdateResumeExperienceRequest;
 use App\Services\Candidate\ResumeService;
 use Dingo\Api\Routing\Helpers;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ResumeController
@@ -48,7 +48,7 @@ class ResumeController
         return view('candidate.resume.edit-job', compact('job'));
     }
 
-    public function updateExperience(Request $request)
+    public function updateExperience(UpdateResumeExperienceRequest $request)
     {
         $resume = $this->resumeService->updateResumeJob($request);
 
@@ -62,7 +62,7 @@ class ResumeController
         return view('candidate.resume.edit', compact('resume'));
     }
 
-    public function update(Request $request)
+    public function update(UpdateResumeBasicRequest $request)
     {
         $resume = $this->resumeService->updateResume($request);
 

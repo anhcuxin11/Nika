@@ -2,11 +2,9 @@
 
 namespace App\Services\Candidate;
 
+use App\Http\Requests\Candidate\UpdateResumeBasicRequest;
+use App\Http\Requests\Candidate\UpdateResumeExperienceRequest;
 use App\Repositories\Candidate\CandidateRepository;
-use App\Repositories\Candidate\FeatureRepository;
-use App\Repositories\Candidate\JobRepository;
-use App\Repositories\Candidate\LanguageRepository;
-use App\Repositories\Candidate\LocationRepository;
 use App\Repositories\Candidate\ResumeRepository;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
@@ -81,7 +79,7 @@ class ResumeService
      * @throws GeneralException
      * @throws \Throwable
      */
-    public function updateResumeJob(Request $request)
+    public function updateResumeJob(UpdateResumeExperienceRequest $request)
     {
         try {
             DB::beginTransaction();
@@ -111,7 +109,7 @@ class ResumeService
      * @throws GeneralException
      * @throws \Throwable
      */
-    public function updateResume(Request $request)
+    public function updateResume(UpdateResumeBasicRequest $request)
     {
         try {
             DB::beginTransaction();

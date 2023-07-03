@@ -96,7 +96,7 @@
                                         </div>
                                     </div>
                                     <small v-if="form.errors.has('attachment')"
-                                    v-html="form.errors.get('attachment')"></small>
+                                    v-html="form.errors.get('attachment')" style="color: #dc3545 !important;"></small>
                                 </td>
                             </tr>
                         </tbody>

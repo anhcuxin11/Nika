@@ -31,23 +31,6 @@ class UpdateResumeRequirementRequest extends FormRequest
         ];
     }
 
-    // /**
-    //  * Get the attributes label.
-    //  *
-    //  * @return array
-    //  */
-    // public function attributes()
-    // {
-    //     return [
-    //       'requirementSalary' => '希望する給与',
-    //       'requirementJobTerm' => '希望する転職時間',
-    //       'requirementEmployment' => '希望雇用形態',
-    //       'occupation_ids' => '職種',
-    //       'location_ids' => '勤務地',
-    //       'carrier_level_ids' => 'キャリアレベル',
-    //     ];
-    // }
-
     /**
      * Get the error messages for the defined validation rules.
      *
