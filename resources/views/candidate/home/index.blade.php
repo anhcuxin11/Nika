@@ -78,7 +78,7 @@
                 <div class="card-content">
                     <div class="location content-location">
                         @foreach ($data['locations'] as $location)
-                            <a href="{{route('candidate.job.index', ['location_id' => $location->id])}}">- {{ $location->name }}</a>
+                            <a href="{{route('candidate.job.index', ['location' => $location->id])}}">- {{ $location->name }}</a>
                         @endforeach
                     </div>
                 </div>

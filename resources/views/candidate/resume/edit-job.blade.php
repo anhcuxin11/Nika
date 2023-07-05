@@ -88,7 +88,7 @@
                                 <th><span>Curriculum vitae</span></th>
                                 <td>
                                     <div class="custom-file single-upload">
-                                        <input type="file" id="curriculum_vitae" @change="handleFile" id="customFile" name="attachment" accept=".doc,.pdf,.docx,.xlsx,.xls,.txt" class="custom-file-input">
+                                        <input type="file" id="curriculum_vitae" @change="handleFile"  name="attachment" accept=".doc,.pdf,.docx,.xlsx,.xls,.txt" class="custom-file-input">
                                         <div class="custom-file-seletor ">
                                             <button type="button" class="btn custom-file-button">Choose</button>
                                             <label for="curriculum_vitae" class="custom-file-name "> {{ $job->candidate->attachment->upload_file_name ?? 'Upload curriculum vitae' }}
@@ -121,11 +121,19 @@
 @push('scripts')
     <script src="{{ mix('js/app.js') }}"></script>
     <script>
-        $(document).on('change', '.single-upload .custom-file-input', function(e){
-            console.log(1);
-            const file = e.target.files[0];
-            const $label = $(this).closest('.single-upload').find('.custom-file-name');
-            file && $label.text(file.name);
+        $(function() {
+            var fileInput = $('#curriculum_vitae');
+
+            $('.custom-file-button').on('click', function() {
+                fileInput.click();
+            })
+
+            $('.single-upload .custom-file-input').on('change', function(e){
+                const file = e.target.files[0];
+                const $label = $(this).closest('.single-upload').find('.custom-file-name');
+                file && $label.text(file.name);
+            })
         })
+
     </script>
 @endpush

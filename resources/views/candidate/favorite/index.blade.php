@@ -35,12 +35,14 @@
 
     <div class="job-content d-flex justify-content-between">
         <div class="job-main">
+            @if ($favorites->total() > 0)
             <div class="job-body my-3 job-paginate d-flex align-items-center justify-content-end">
                 <div class="result-title"><span class="result-number">{{ $favorites->total() }}</span> matching jobs, <span class="result-number">{{ $favorites->firstItem() }}〜{{ $favorites->lastItem() }}</span>item</div>
                 <div class="job-paginate-result">
                     {{ $favorites->onEachSide(4)->links('custom.pagination.bootstrap') }}
                 </div>
             </div>
+            @endif
             @forelse ($favorites as $favorite)
                 @php
                     $job = $favorite->job;
@@ -83,13 +85,15 @@
                                 </tr>
                                 <tr>
                                     <th><span>Salary</span></th>
-                                    <td>{{ $job->salary_min }} ~ {{ $job->salary_max }} {{ Job::$money[$job->salary_type] }}</td>
+                                    <td>{{ $job->salary_min }} ~ {{ $job->salary_max }} USD</td>
                                 </tr>
                                 <tr>
                                     <th><span>Required skills</span></th>
                                     <td>
                                         <p style="font-weight: 700">Required skills</p>
-                                        <p>English: {{ Job::$levels[$job->english_level] }}</p>
+                                        @if ($job->languages->first())
+                                            <p>{{ $job->languages->first()->name }}: {{ Job::$levels[$job->languages->first()->pivot->level] }}</p>
+                                        @endif
                                         <p>{!! $job->must_condition !!}</p>
                                     </td>
                                 </tr>
@@ -112,12 +116,14 @@
                     <h3>There are no matching jobs</h3>
                 </div>
             @endforelse
+            @if ($favorites->total() > 0)
             <div class="job-body mt-3 job-paginate d-flex align-items-center justify-content-end">
                 <div class="result-title"><span class="result-number">{{ $favorites->total() }}</span> matching jobs, <span class="result-number">{{ $favorites->firstItem() }}〜{{ $favorites->lastItem() }}</span>item</div>
                 <div class="job-paginate-result">
                     {{ $favorites->onEachSide(4)->links('custom.pagination.bootstrap') }}
                 </div>
             </div>
+            @endif
         </div>
         <div class="job-add" style="padding-top: 77px">
             <div class="j-recently">

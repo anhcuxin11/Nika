@@ -57,6 +57,11 @@ class ApplicationController
      */
     public function apply(int $id, Request $request)
     {
+        $candidate = auth('web')->user();
+        if (optional($candidate->resume)->age == null || optional($candidate->resume)->skill == null) {
+            return redirect()->back()->with('msg_error', 'Please provide complete personal information in your curriculum vitae.');
+        }
+
         $result = $this->applicationService->apply($id, $request);
 
         if ($result) {

@@ -192,7 +192,7 @@
                                         Occupation:&ensp;{{ $job->occupation_labels }}
                                     </div>
                                     <div>
-                                        Salary: {{ $job->salary_min }} ~ {{ $job->salary_max }} {{ Job::$money[$job->salary_type] }}
+                                        Salary: {{ $job->salary_min }} ~ {{ $job->salary_max }} USD
                                     </div>
                                     <small class="date-time" style="color: #BFBFBF">{{ $favorite->created_at }}</small>
                                 </div>

@@ -33,8 +33,8 @@
                     </button>
                 </div>
                 <div class="j-c-des">
-                    @if (request()->input('salary_min') && request()->input('salary_max'))
-                        <div>Salary: <span>{{ request()->input('salary_min') }} ~ {{ request()->input('salary_max') }} USD</span></div>
+                    @if (request()->input('salary_min') || request()->input('salary_max'))
+                        <div>Salary: <span>{{ request()->input('salary_min') ?? 'No limit' }} ~ {{ request()->input('salary_max') ?? 'No limit' }} USD</span></div>
                     @endif
                     @if (request()->input('language'))
                         <div>Language: <span>{{ Language::$name[request()->input('language')] }}</span></div>
@@ -42,8 +42,8 @@
                     @if (request()->input('location'))
                         <div>Country: <span>{{ Location::$name[request()->input('location')] }}</span></div>
                     @endif
-                    @if (request()->input('age_min') && request()->input('age_max'))
-                        <div>Age: <span>{{ request()->input('age_min') }} ~ {{ request()->input('age_max') }}</span></div>
+                    @if (request()->input('age_min') ||  request()->input('age_max'))
+                        <div>Age: <span>{{ request()->input('age_min') ?? 'No limit' }} ~ {{ request()->input('age_max') ?? 'No limit' }}</span></div>
                     @endif
                 </div>
             </div>
@@ -115,7 +115,7 @@
                         <div class="mt-2 d-flex flex-wrap">
                             @foreach (Job::$levels as $key => $item)
                                 <div style="width: 30%; display:inline-block; pr-2">
-                                    <input type="checkbox" name="language_levels[]" id="language_{{ $key }}" value="{{ $key }}"><label for="language_{{ $key }}" class="pl-2">{{ $item }}</label>
+                                    <input type="checkbox" name="language_levels[]" @if (in_array($key, request()->input('language_levels') ?? [])) checked @endif id="language_{{ $key }}" value="{{ $key }}"><label for="language_{{ $key }}" class="pl-2">{{ $item }}</label>
                                 </div>
                             @endforeach
                         </div>
@@ -134,7 +134,7 @@
                         Keyword
                     </div>
                     <div class="search-job-condition w-75 pl-2">
-                        <input type="text" name="key" id="key" class="input-job w-100" placeholder="Industry, occupation, location,...">
+                        <input type="text" name="key" id="key" class="input-job w-100" value="{{ request()->input('key') ?? '' }}" placeholder="Title, description, education,...">
                     </div>
                 </div>
                 <input type="submit" class="button-search btn btn-primary mt-3 m-auto d-block" value="Search">
@@ -150,10 +150,12 @@
                     <a href="{{ request()->fullUrlWithQuery(['new' => '0']) }}" class="mr-3 {{ request()->input('new') == 0 ? 'bor-bottom' : '' }}">All</a>
                     <a href="{{ request()->fullUrlWithQuery(['new' => '1']) }}" class="{{ request()->input('new') == 1 ? 'bor-bottom' : '' }}">New</a>
                 </div>
+                @if ($jobs->total() > 0)
                 <div class="result-title"><span class="result-number">{{ $jobs->total() }}</span> matching jobs, <span class="result-number">{{ $jobs->firstItem() }}〜{{ $jobs->lastItem() }}</span>item</div>
                 <div class="job-paginate-result">
                     {{ $jobs->onEachSide(4)->links('custom.pagination.bootstrap') }}
                 </div>
+                @endif
             </div>
             @forelse ($jobs as $job)
                 <div class="job-item">
@@ -197,7 +199,9 @@
                                     <th><span>Required skills</span></th>
                                     <td>
                                         <p style="font-weight: 700">Required skills</p>
-                                        <p>English: {{ Job::$levels[$job->english_level] }}</p>
+                                        @if ($job->languages->first())
+                                            <p>{{ $job->languages->first()->name }}: {{ Job::$levels[$job->languages->first()->pivot->level] }}</p>
+                                        @endif
                                         <p>{!! $job->must_condition !!}</p>
                                     </td>
                                 </tr>
@@ -229,12 +233,14 @@
                     <h3>There are no matching jobs</h3>
                 </div>
             @endforelse
+            @if ($jobs->total() > 0)
             <div class="job-body mt-3 job-paginate d-flex align-items-center justify-content-end">
                 <div class="result-title"><span class="result-number">{{ $jobs->total() }}</span> matching jobs, <span class="result-number">{{ $jobs->firstItem() }}〜{{ $jobs->lastItem() }}</span>item</div>
                 <div class="job-paginate-result">
                     {{ $jobs->onEachSide(4)->links('custom.pagination.bootstrap') }}
                 </div>
             </div>
+            @endif
         </div>
         <div class="job-add">
             <div class="j-recently">

@@ -21,7 +21,13 @@ class FavoriteRepository
     public function getListfavortieJob(int $candidateId)
     {
         return Favorite::query()
-                    ->with('job')
+                    ->with([
+                        'job',
+                        'job.languages',
+                        'job.locations',
+                        'job.occupations',
+                        'job.industries'
+                        ])
                     ->where('candidate_id', $candidateId)
                     ->whereHas('job', function ($q) {
                         $q->where('job_status', Job::$jobStatus['now_posted'])

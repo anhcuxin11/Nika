@@ -27,6 +27,7 @@ class UpdateResumeRequirementRequest extends FormRequest
             'requirementSalary' => 'required|numeric|min:10',
             'requirementEmployment' => 'required|array|min:1',
             'occupation_ids' => 'required|array|min:1',
+            'industry_ids' => 'required|array|min:1',
             'location_ids' => 'required|array|min:1',
         ];
     }

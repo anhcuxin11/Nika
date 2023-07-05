@@ -96,8 +96,7 @@
                         </tbody>
                     </table>
                     <div class="job-body mt-3 job-paginate d-flex align-items-center justify-content-end">
-                        {{-- <div class="result-title"><span class="result-number">{{ $users->total() }}</span> matching jobs, <span class="result-number">{{ $jobs->firstItem() }}〜{{ $jobs->lastItem() }}</span>item</div> --}}
-                        <div class="job-paginate-result">
+                        <div class="job-paginate-result pb-3">
                             {{ $companies->onEachSide(4)->links('custom.pagination.bootstrap') }}
                         </div>
                     </div>

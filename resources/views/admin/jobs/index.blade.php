@@ -131,7 +131,7 @@
                         </tbody>
                     </table>
                     <div class="job-body mt-3 job-paginate d-flex align-items-center justify-content-end">
-                        <div class="job-paginate-result">
+                        <div class="job-paginate-result pb-3">
                             {{ $jobs->onEachSide(4)->links('custom.pagination.bootstrap') }}
                         </div>
                     </div>

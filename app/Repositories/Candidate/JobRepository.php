@@ -62,6 +62,7 @@ class JobRepository
     public function filter(array $data)
     {
         $query = Job::query()
+                    ->with(['languages', 'locations', 'occupations', 'industries'])
                     ->where('job_status', Job::$jobStatus['now_posted'])
                     ->where('job_publish', Job::$jobPublishs['on'])
                     ->when(!empty($data['location']), function ($q) use ($data) {
@@ -146,10 +147,24 @@ class JobRepository
 
     public function filterSalary(&$query, $data)
     {
-        $query->where('salary_min', '>=', $data['salary_min'] ?? 0)
-            ->when(!empty($data['salary_max']), function ($q) use ($data) {
-                $q->where('salary_max', '<=', $data['salary_max']);
+        $query->when(!empty($data['salary_min']), function ($q) use ($data) {
+            $q->where(function ($q) use ($data) {
+                $q->where('salary_min', '>=', $data['salary_min'])
+                    ->orWhere(function ($q) use ($data) {
+                        $q->where('salary_min', '<=', $data['salary_min'])
+                            ->where('salary_max', '>=', $data['salary_min']);
+                    });
             });
+        });
+        $query->when(!empty($data['salary_max']), function ($q) use ($data) {
+            $q->where(function ($q) use ($data) {
+                $q->where('salary_max', '<=', $data['salary_max'])
+                    ->orWhere(function ($q) use ($data) {
+                        $q->where('salary_min', '<=', $data['salary_max'])
+                            ->where('salary_max', '>=', $data['salary_max']);
+                    });
+            });
+        });
     }
 
     public function filterRequirementSalary(&$query, $data)
@@ -170,11 +185,23 @@ class JobRepository
     public function filterAge(&$query, $data)
     {
         $query->when(!empty($data['age_min']), function ($q) use ($data) {
-                $q->where('age_min', '>=', $data['age_min']);
-            })
-            ->when(!empty($data['age_max']), function ($q) use ($data) {
-                $q->where('age_max', '<=', $data['age_max']);
+            $q->where(function ($q) use ($data) {
+                $q->where('age_min', '>=', $data['age_min'])
+                    ->orWhere(function ($q) use ($data) {
+                        $q->where('age_min', '<=', $data['age_min'])
+                            ->where('age_max', '>=', $data['age_min']);
+                    });
             });
+        });
+        $query->when(!empty($data['age_max']), function ($q) use ($data) {
+            $q->where(function ($q) use ($data) {
+                $q->where('age_max', '<=', $data['age_max'])
+                    ->orWhere(function ($q) use ($data) {
+                        $q->where('age_min', '<=', $data['age_max'])
+                            ->where('age_max', '>=', $data['age_max']);
+                    });
+            });
+        });
     }
 
     public function filterLevel(&$query, $data)

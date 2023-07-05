@@ -112,7 +112,7 @@
                             </div>
                             <div class="content-right p-2">
                                 <div class="{{has_error('language')}}">
-                                    <select class="search-select" name="language" id="">
+                                    <select class="search-select w-25" name="language" id="">
                                         @foreach (Language::$name as $key => $item)
                                             <option @if (old('language', optional($job->languages)->first()->id) == $key) selected @endif value="{{ $key }}">{{ $item }}</option>
                                         @endforeach

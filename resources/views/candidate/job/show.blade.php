@@ -53,13 +53,15 @@
                     </tr>
                     <tr>
                         <th><span>Salary</span></th>
-                        <td>{{ $job->salary_min }} ~ {{ $job->salary_max }} {{ Job::$money[$job->salary_type] }}</td>
+                        <td>{{ $job->salary_min }} ~ {{ $job->salary_max }} USD</td>
                     </tr>
                     <tr>
                         <th><span>Required skills</span></th>
                         <td>
                             <p style="font-weight: 700">Required skills</p>
-                            <p>English: {{ Job::$levels[$job->english_level] }}</p>
+                            @if ($job->languages->first())
+                                <p>{{ $job->languages->first()->name }}: {{ Job::$levels[$job->languages->first()->pivot->level] }}</p>
+                            @endif
                             <p>{!! $job->must_condition !!}</p>
                         </td>
                     </tr>

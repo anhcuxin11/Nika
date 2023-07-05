@@ -23,11 +23,13 @@
                 </div>
             @endif
         </div>
+        @if ($jobs->total() > 0)
         <div class="job-body job-paginate d-flex align-items-center justify-content-end" style="color: black">
             <div class="result-title"><span class="result-number">{{ $jobs->total() }}</span> matching jobs, <span class="result-number">{{ $jobs->firstItem() }}〜{{ $jobs->lastItem() }}</span>item</div>
             <div class="job-paginate-result">
                 {{ $jobs->onEachSide(4)->links('custom.pagination.bootstrap') }}
             </div>
         </div>
+        @endif
     @endif
 </div>

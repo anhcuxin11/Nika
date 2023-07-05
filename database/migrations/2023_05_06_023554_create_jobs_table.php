@@ -21,14 +21,14 @@ class CreateJobsTable extends Migration
             $table->text('job_detail');
             $table->integer('job_status')->default(1);
             $table->text('location_detail')->nullable();
-            $table->tinyInteger('english_level')->nullable();
+            $table->tinyInteger('english_level')->nullable()->default(4);
             $table->tinyInteger('experienced_count')->nullable();
             $table->text('education')->nullable();
             $table->tinyInteger('age_min')->nullable();
             $table->tinyInteger('age_max')->nullable();
             $table->text('must_condition')->nullable();
             $table->text('position_name')->nullable();
-            $table->tinyInteger('salary_type')->nullable();
+            $table->tinyInteger('salary_type')->nullable()->default(1);
             $table->integer('salary_min');
             $table->integer('salary_max');
             $table->text('salary_detail')->nullable();
