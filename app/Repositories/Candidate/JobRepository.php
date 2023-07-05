@@ -31,6 +31,8 @@ class JobRepository
     public function getNew($limit = 2)
     {
         return Job::query()
+                    ->where('job_status', Job::$jobStatus['now_posted'])
+                    ->where('job_publish', Job::$jobPublishs['on'])
                     ->orderByDesc('id')
                     ->limit($limit)
                     ->get();
