@@ -48,9 +48,6 @@
                                 @include('company.includes.messages')
 
                                 <div class="col-12">
-                                    {{-- @include('company.jobs.partials.table.header', [
-                                      'companyJobAllocationRemain' => $companyJobAllocationRemain,
-                                    ]) --}}
                                     <a href="{{ route('company.jobs.create') }}" type="button" class="btn btn-orange mt-2">
                                         <img src="{{ asset('images/icon-plus-circle.svg') }}">
                                         Create

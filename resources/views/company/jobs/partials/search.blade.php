@@ -2,6 +2,7 @@
     <div class="card-body">
         <form action="" method="GET" class="search-form">
             <div class="d-flex">
+                <input type="hidden" name="tab" value="{{ request()->tab }}">
                 <input type="text" maxlength="255" class="form-control @if($activeTab == 2) inpt-wid @else mr-4 @endif"
                     placeholder="Title/Description" name="keyword" value="{{request()->query('keyword')}}">
                     @if($activeTab == 2)

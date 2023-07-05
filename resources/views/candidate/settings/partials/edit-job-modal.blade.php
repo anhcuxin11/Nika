@@ -5,7 +5,6 @@
     :form="form"
     :occupation-labels="occupationLabels"
     :industry-labels="industryLabels"
-    {{-- :occupation-ids="occupation_ids" --}}
     inline-template>
     <div id="job_experience_modal">
         <!-- industries -->
@@ -35,10 +34,8 @@
                                 v-for="child in industry.childrens" :key="`child_industry_check_${child.id}`">
                                 <div class="d-flex" style="line-height: 22px;">
                                     <input type="checkbox"
-                                    {{-- class="custom-control-input" --}}
                                         :class="`child_industry_${industry.id}`" :id="`child_industry_check_${child.id}`"
                                         name="industry_ids[]" :value="child.id" data-form="industry_ids"
-                                        {{-- :data-parent="`.parent_industry_${industry.id}`" --}}
                                         v-on:change="childrenChange"
                                         :checked="form.industry_ids.includes(child.id)" multiple>
                                     <label class="mb-0" :for="`child_industry_check_${child.id}`">
@@ -84,10 +81,8 @@
                                 v-for="child in occupation.childrens" :key="`child_occupation_check_${child.id}`">
                                 <div class="d-flex" style="line-height: 22px;">
                                     <input type="checkbox"
-                                    {{-- class="custom-control-input" --}}
                                         :class="`child_occupation_${occupation.id}`" :id="`child_occupation_check_${child.id}`"
                                         name="occupation_ids[]" :value="child.id" data-form="occupation_ids"
-                                        {{-- :data-parent="`.parent_industry_${industry.id}`" --}}
                                         v-on:change="childrenChange"
                                         :checked="form.occupation_ids.includes(child.id)"
                                         multiple>

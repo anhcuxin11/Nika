@@ -44,12 +44,10 @@
                             </select>
                             <span class="ml-2 mr-2">〜</span>
                             <select class="custom-select w-140" name="age_to">
-                                {{-- <option v-for="(age, index) in range(parseInt(ageFrom), 60)" :value="age">@{{age}} @lang('company/front.ages.years_old')</option> --}}
                                 <option value="">No limit</option>
                                 @foreach (range(18,60) as $age)
                                     <option value="{{ $age }}" @if (request()->input('age_to') == $age) selected @endif>{{ $age }} Age</option>
                                 @endforeach
-                                {{-- <option value="over-60">No limit</option> --}}
                             </select>
                         </div>
                         <input type="text" class="form-control ml-10" name="email" style="width: 300px;"

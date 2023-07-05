@@ -48,16 +48,6 @@
             </div>
             @endif
         </div>
-        {{-- <div class="btn-area">
-            <img src="{{ asset('images/icon-interest-black.svg') }}">
-            <span class="val" data-toggle="tooltip" data-placement="top" title="@lang('company/front.concern')">{{$job->favorites_count}}</span>
-        </div>
-        <div class="btn-area">
-            <img src="{{ asset('images/icon-archive-black.svg') }}">
-            <span class="val" data-toggle="tooltip" data-placement="top"
-                title="@lang('company/front.entry')">{{$job->applications_count}}</span>
-        </div>
-        @if(!$job->isHrbcJob()) --}}
         <a href="{{ route('company.jobs.edit', ['id' => $job->id]) }}" class="btn btn-maroon btn-table-edit" style="display: flex;
         align-items: center; justify-content:center; margin: auto;">
             <img src="{{ asset('images/icon-edit.svg') }}">

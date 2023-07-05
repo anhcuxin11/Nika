@@ -37,7 +37,6 @@
                             <h2>Candidate selection</h2>
                         </div>
                         <form class="form-search mt-3" action="{{ route('company.scouts.result') }}" method="GET">
-                            {{-- @csrf --}}
                             <div class="d-flex align-items-center" style="column-gap: 45px">
                                 <input type="text" class="form-control ml-10" name="key_basic"
                                 maxlength="100"
