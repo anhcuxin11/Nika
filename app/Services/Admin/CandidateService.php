@@ -28,7 +28,7 @@ class CandidateService
 
             $data = $request->only('firstname', 'lastname', 'email');
             $user->update($data);
-            $user->resume()->update($request->only('phone'));
+            $user->resume()->update($request->only('phone', 'country', 'address'));
 
             DB::commit();
 

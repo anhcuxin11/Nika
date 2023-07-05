@@ -94,12 +94,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="my-3" style="position: relative">
+                    <div class="py-3" style="position: relative; background-color: #F3F4F6">
                         <button type="submit" class="btn button-purple border-circle" style="min-width: 145px;" ><img
                             src="{{ asset('images/icon-check.svg') }}">Save</button>
                         <a href="{{ route('admin.companies') }}" class="btn btn-dark-back" style="position: absolute;
                         margin: 0;
-                        top: 11px;">
+                        top: 23px;">
                             <img src="{{ asset('images/icon-back.svg') }}">Back</a>
                     </div>
                 </form>

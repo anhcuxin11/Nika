@@ -70,8 +70,8 @@
                             <div class="d-flex align-items-center">
                                 <select class="custom-select w-140" name="job_status">
                                     <option value="">Choose status</option>
-                                    @foreach (Job::$jobStatus as $key => $item)
-                                        <option @if (request()->input('job_status') != '' && request()->input('job_status') == $item) selected @endif value="{{ $item }}">{{ $key }}</option>
+                                    @foreach (Job::$jobStatusLabel as $key => $item)
+                                        <option @if (request()->input('job_status') != '' && request()->input('job_status') == $key) selected @endif value="{{ $key }}">{{ $item }}</option>
                                     @endforeach
                                 </select>
                             </div>

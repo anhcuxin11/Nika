@@ -70,13 +70,35 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="d-flex">
+                            <div class="content-left p-3">
+                                Country
+                            </div>
+                            <div class="content-right p-2">
+                                <div class="{{has_error('country')}}">
+                                    <input type="text" placeholder="country" class="form-control" name="country" value="{{ old('country', $user->resume->country) }}">
+                                    {!! render_error('country') !!}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="content-left p-3">
+                                Address
+                            </div>
+                            <div class="content-right p-2">
+                                <div class="{{has_error('address')}}">
+                                    <input type="text" placeholder="address" class="form-control" name="address" value="{{ old('address', $user->resume->address) }}">
+                                    {!! render_error('address') !!}
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="my-3" style="position: relative">
+                    <div class="py-3" style="position: relative; background-color: #F3F4F6">
                         <button type="submit" class="btn button-purple border-circle" style="min-width: 145px;" ><img
                             src="{{ asset('images/icon-check.svg') }}">Save</button>
                         <a href="{{ route('admin.users') }}" class="btn btn-dark-back" style="position: absolute;
                         margin: 0;
-                        top: 11px;">
+                        top: 23px;">
                             <img src="{{ asset('images/icon-back.svg') }}">Back</a>
                     </div>
                 </form>
