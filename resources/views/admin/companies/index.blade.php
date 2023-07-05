@@ -57,7 +57,6 @@
                             <th scope="col" class="w3">Name</th>
                             <th scope="col" class="w3">CEO</th>
                             <th scope="col" class="w3">Email</th>
-                            {{-- <th scope="col" class="w4">Phone</th> --}}
                             <th scope="col" class="w3">Address</th>
                             <th scope="col" class="w6">Status</th>
                             <th scope="col" class="w6"></th>
@@ -70,7 +69,6 @@
                                     <td class="des" title="{{ $company->name }}">{{ $company->name }}</td>
                                     <td class="des" title="{{ $company->name_person }}">{{ $company->name_person }}</td>
                                     <td class="des" title="{{ $company->email_company }}">{{ $company->email_company }}</td>
-                                    {{-- <td class="des" title="{{ $company->phone_company }}">{{ $company->phone_company }}</td> --}}
                                     <td class="des" title="{{ $company->address }}">{{ $company->address }}</td>
                                     <td class="user-status">{{ $company->status ? 'Active' : 'Blacklist' }}</td>
                                     <td class="text-center">

@@ -31,9 +31,7 @@
                         </div>
                         <div class="chat-row"></div>
                     </div>
-                    <div class="form-single"
-                    {{-- v-show="onSendMessageEnable" --}}
-                    >
+                    <div class="form-single">
                         <form method="" action="" class="d-flex align-items-center" @submit.prevent="onSendMessage" style="column-gap: 5px;">
                             <textarea v-model="form.content" rows="2" class="form-control" placeholder="Enter your message" :disabled="form.busy"></textarea>
                             <button type="submit" class="btn btn-purple" style="min-width: 0px; min-height: 0px; padding: 14px 20px;" :disabled="form.busy">

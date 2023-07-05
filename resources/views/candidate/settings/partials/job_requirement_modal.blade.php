@@ -9,11 +9,6 @@
     aria-labelledby="myModalLabel2">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            {{-- <div class="modal-header">
-                <a data-dismiss="modal" aria-label="Close">
-                    <img src="{{ asset('images/icon-arrow-line-right-white.svg') }}" class="close-btn">
-                </a>
-            </div> --}}
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel2">Select Locations</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="closeModal">
@@ -21,12 +16,6 @@
                 </button>
             </div>
             <div class="modal-body">
-                {{-- <div class="slide-close sp-hide" data-dismiss="modal" aria-label="Close">Close
-                    <img src="{{ asset('images/icon-arrow-line-right-white.svg') }}" class="close-btn">
-                </div> --}}
-                {{-- <div class="heading">Select work location</div>
-                <div class="box-text mt-4" v-text="locationLabels">
-                </div> --}}
                 <!-- Accordian | start -->
                 <section class="accordion_two_section mt-3">
                 <div class="row">
@@ -60,10 +49,6 @@
                 </div>
                 </section>
                 <!-- Accordian | ends -->
-                {{-- <div class="bottom-area">
-                    <button type="button" data-dismiss="modal" @click="closeModal" class="btn btn-orange btn-right my-auto" :disabled="form.busy">
-                        <img src="{{ asset('images/icon-check.svg') }}">Apply</button>
-                </div> --}}
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close" @click="closeModal()">Apply</button>
                 </div>
@@ -75,7 +60,6 @@
     <!-- industries -->
     <div class="modal fade show z-index-modal" id="industry_requirement_modal"
     tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2"
-    {{-- :style="{ display: displayModal}" --}}
     >
         <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -101,10 +85,8 @@
                         v-for="child in industry.childrens" :key="`child_industry_check_${child.id}`">
                         <div class="d-flex" style="line-height: 22px;">
                             <input type="checkbox"
-                            {{-- class="custom-control-input" --}}
                                 :class="`child_industry_${industry.id}`" :id="`child_industry_check_${child.id}`"
                                 name="industry_ids[]" :value="child.id" data-form="industry_ids"
-                                {{-- :data-parent="`.parent_industry_${industry.id}`" --}}
                                 v-on:change="childrenChange"
                                 :checked="form.industry_ids.includes(child.id)" multiple>
                             <label class="mb-0" :for="`child_industry_check_${child.id}`">
@@ -125,9 +107,7 @@
 
     <!-- occupations -->
     <div class="modal fade show z-index-modal" id="occupation_requirement_modal"
-    tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2"
-    {{-- :style="{ display: displayModal}" --}}
-    >
+    tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2">
         <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -152,10 +132,8 @@
                         v-for="child in occupation.childrens" :key="`child_occupation_check_${child.id}`">
                         <div class="d-flex" style="line-height: 22px;">
                             <input type="checkbox"
-                            {{-- class="custom-control-input" --}}
                                 :class="`child_occupation_${occupation.id}`" :id="`child_occupation_check_${child.id}`"
                                 name="occupation_ids[]" :value="child.id" data-form="occupation_ids"
-                                {{-- :data-parent="`.parent_industry_${industry.id}`" --}}
                                 v-on:change="childrenChange"
                                 :checked="form.occupation_ids.includes(child.id)" multiple>
                             <label class="mb-0" :for="`child_occupation_check_${child.id}`">

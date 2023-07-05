@@ -140,7 +140,6 @@
                                     return [$key => [$value => (['id' => (string)$value])]];
                                 })->toArray();
                             @endphp
-                            {{-- @dd($job->occupations->pluck('id', 'parent_id')) --}}
                             <div class="content-right p-2">
                                 <div class="{{has_error('occupation')}}">
                                     <div class="search-job-condition w-75 pl-2">
@@ -149,8 +148,6 @@
                                         :title-label="`Please select the desired occupation`"
                                         :data-collapse="{{ $occupations }}"
                                         :data-selected="{{ old('occupation') ? collect(old('occupation')) : collect($resultOccupation) }}"
-                                        {{-- :data-selected="{{ $job->occupations->pluck('id', 'parent_id') }}" --}}
-                                        {{-- :data-selected="{{ collect($resultOccup) }}" --}}
                                         inline-template>
                                             @include('company.component.select_job', ['buttonName' => 'Select occupation'])
                                         </company-select-job>
@@ -176,7 +173,6 @@
                                         name="industry"
                                         :title-label="`Please select the desired industry`"
                                         :data-collapse="{{ $industries }}"
-                                        {{-- :data-selected="{{ collect(request()->input('industry')) }}" --}}
                                         :data-selected="{{ old('industry') ? collect(old('industry')) : collect($resultIndustry) }}"
                                         inline-template>
                                             @include('company.component.select_job', ['buttonName' => 'Select industry'])

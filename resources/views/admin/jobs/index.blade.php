@@ -106,7 +106,6 @@
                                         {{ $job->job_publish == Job::$jobPublishs['off'] ? 'Suspended' : Job::$jobStatusLabel[$job->job_status] }}
                                     </td>
                                     <td class="text-center">
-                                        {{-- @if (in_array($job->job_status,[1, 2])) --}}
                                             <div class="d-flex radio-area mt-1 mb-2 align-items-center">
                                                 <div class="mr-3">
                                                     <input type="radio" id="on_{{ $job->id }}" value="1" name="job_status_{{ $job->id }}"
@@ -124,7 +123,6 @@
                                                     Confirm
                                                 </button>
                                             </div>
-                                        {{-- @endif --}}
                                     </td>
                                 </tr>
                             @endforeach

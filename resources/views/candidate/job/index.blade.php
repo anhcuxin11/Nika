@@ -143,10 +143,6 @@
             <div class="job-body my-3 job-paginate d-flex align-items-center">
                 <div class="job-body-time d-flex mr-auto" style="font-size: 20px;
                 font-weight: bold;">
-                    {{-- <select class="search-select w-100" name="" id="" style="width: 100%;">
-                        <option value="">New</option>
-                        <option value="">Salary</option>
-                    </select> --}}
                     <a href="{{ request()->fullUrlWithQuery(['new' => '0']) }}" class="mr-3 {{ request()->input('new') == 0 ? 'bor-bottom' : '' }}">All</a>
                     <a href="{{ request()->fullUrlWithQuery(['new' => '1']) }}" class="{{ request()->input('new') == 1 ? 'bor-bottom' : '' }}">New</a>
                 </div>
