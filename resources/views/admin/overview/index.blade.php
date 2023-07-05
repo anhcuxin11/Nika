@@ -129,6 +129,13 @@
                             </div>
                             <div class="pt-3" style="font-size: 18px; font-weight: 600; display: flex; justify-content: center;">Statistics of job status in the system</div>
                         </div>
+                        <div class="col-6 pt-5">
+                            <div style="font-size: 20px; font-weight: 400;">- Total number of unposted jobs: {{ $data['jobCategories'][0] }}</div>
+                            <div style="font-size: 20px; font-weight: 400;">- Total number of jobs posted: {{ $data['jobCategories'][1] }}</div>
+                            <div style="font-size: 20px; font-weight: 400;">- Total number of jobs that have been banned: {{ $data['jobCategories'][2] }}</div>
+                            <div style="font-size: 20px; font-weight: 400;">- Total number of jobs pause: {{ $data['jobCategories'][3] }}</div>
+                            <div style="font-size: 20px; font-weight: 400;">- Total number of jobs canceled: {{ $data['jobCategories'][4] }}</div>
+                        </div>
                     </div>
                 </div>
             </div>
