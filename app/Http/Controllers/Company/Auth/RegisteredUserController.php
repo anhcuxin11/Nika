@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Company\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\Company\RegisterJob;
 use App\Models\Company;
 use App\Providers\RouteServiceProvider;
 use App\Services\UploadService;
@@ -65,7 +66,7 @@ class RegisteredUserController extends Controller
             $this->storeImage($company, $request->file('image'));
         }
 
-        event(new Registered($company));
+        RegisterJob::dispatch($company);
 
         Auth::guard('company')->login($company);
 

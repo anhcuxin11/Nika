@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Candidate\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\Candidate\RegisterJob;
 use App\Models\Candidate;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -50,7 +51,7 @@ class RegisteredUserController extends Controller
             'candidate_id' => $user->id,
         ]);
 
-        event(new Registered($user));
+        RegisterJob::dispatch($user);
 
         Auth::login($user);
 

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Relationships\CompanyRelationship;
+use App\Notifications\Company\MailRegister;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -74,4 +75,9 @@ class Company extends Authenticatable implements MustVerifyEmail
         'active' => 1,
         'blacklist' => 0
     ];
+
+    public function sendMailRegister(): void
+    {
+        $this->notify(new MailRegister());
+    }
 }
