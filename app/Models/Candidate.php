@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Attributes\CandidateAttribute;
 use App\Models\Relationships\CandidateRelationship;
+use App\Notifications\Candidate\MailRegister;
 use App\Notifications\Company\MailApply;
 use App\Notifications\Company\MailResufe;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -79,5 +80,10 @@ class Candidate extends Authenticatable implements MustVerifyEmail
     public function sendRefuseApplicationNotification(Company $company, Job $job): void
     {
         $this->notify(new MailResufe($company, $job));
+    }
+
+    public function sendMailRegister(): void
+    {
+        $this->notify(new MailRegister());
     }
 }
