@@ -78,7 +78,8 @@ class CandidateService
     {
         $query->where(function ($q) use ($key) {
             $q->where('id', 'like', "%$key%")
-                ->orWhere('name', 'like', "%$key%");
+                ->orWhere('firstname', 'like', "%$key%")
+                ->orWhere('lastname', 'like', "%$key%");
         });
     }
 

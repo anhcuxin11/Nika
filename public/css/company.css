@@ -1384,3 +1384,14 @@ nav ul li .black-btn {
     max-width: 100%;
   }
 }
+
+.search-scout {
+  padding: 10px 20px;
+  background-color: brown;
+  color: azure;
+  border-radius: 999em;
+}
+.search-scout:hover {
+  text-decoration: none;
+  color: azure;
+}

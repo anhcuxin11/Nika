@@ -49,56 +49,60 @@
                         <img src="{{ asset('images/icon-search-lg.svg') }}">Search
                     </button>
                 </form>
-                <div class="mt-5">
-                    <table class="table">
-                        <thead class="thead-dark">
-                        <tr>
-                            <th scope="col" class="w1">ID</th>
-                            <th scope="col" class="w3">Name</th>
-                            <th scope="col" class="w3">CEO</th>
-                            <th scope="col" class="w3">Email</th>
-                            <th scope="col" class="w3">Address</th>
-                            <th scope="col" class="w6">Status</th>
-                            <th scope="col" class="w6"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($companies as $index => $company)
-                                <tr class="height1">
-                                    <td scope="row">{{ $company->id }}</td>
-                                    <td class="des" title="{{ $company->name }}">{{ $company->name }}</td>
-                                    <td class="des" title="{{ $company->name_person }}">{{ $company->name_person }}</td>
-                                    <td class="des" title="{{ $company->email_company }}">{{ $company->email_company }}</td>
-                                    <td class="des" title="{{ $company->address }}">{{ $company->address }}</td>
-                                    <td class="user-status">{{ $company->status ? 'Active' : 'Blacklist' }}</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('admin.company.edit', ['id' => $company->id]) }}" class="btn btn-success text-light" title="{{ __('user.edit') }}">
-                                            <i class="fas fa-edit" style="width: 13px"></i>
-                                        </a>
-                                        @if ($company->status)
-                                            <button class="btn btn-danger text-light delete"
-                                                data-title="block"
-                                                data-url="{{ route('admin.company.delete', ['id' => $company->id]) }}" title="block">
-                                                <i class="far fa-trash-alt"></i>
-                                            </button>
-                                        @else
-                                            <button class="btn btn-success text-light delete"
-                                                data-title="restore"
-                                                data-url="{{ route('admin.company.restore', ['id' => $company->id]) }}" title="restore">
-                                                <i class="fas fa-trash-restore"></i>
-                                            </button>
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    <div class="job-body mt-3 job-paginate d-flex align-items-center justify-content-end">
-                        <div class="job-paginate-result pb-3">
-                            {{ $companies->onEachSide(4)->links('custom.pagination.bootstrap') }}
+                @if ($companies->total() > 0)
+                    <div class="mt-5">
+                        <table class="table">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col" class="w1">ID</th>
+                                <th scope="col" class="w3">Name</th>
+                                <th scope="col" class="w3">CEO</th>
+                                <th scope="col" class="w3">Email</th>
+                                <th scope="col" class="w3">Address</th>
+                                <th scope="col" class="w6">Status</th>
+                                <th scope="col" class="w6"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($companies as $index => $company)
+                                    <tr class="height1">
+                                        <td scope="row">{{ $company->id }}</td>
+                                        <td class="des" title="{{ $company->name }}">{{ $company->name }}</td>
+                                        <td class="des" title="{{ $company->name_person }}">{{ $company->name_person }}</td>
+                                        <td class="des" title="{{ $company->email_company }}">{{ $company->email_company }}</td>
+                                        <td class="des" title="{{ $company->address }}">{{ $company->address }}</td>
+                                        <td class="user-status">{{ $company->status ? 'Active' : 'Blacklist' }}</td>
+                                        <td class="text-center">
+                                            <a href="{{ route('admin.company.edit', ['id' => $company->id]) }}" class="btn btn-success text-light" title="{{ __('user.edit') }}">
+                                                <i class="fas fa-edit" style="width: 13px"></i>
+                                            </a>
+                                            @if ($company->status)
+                                                <button class="btn btn-danger text-light delete"
+                                                    data-title="block"
+                                                    data-url="{{ route('admin.company.delete', ['id' => $company->id]) }}" title="block">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </button>
+                                            @else
+                                                <button class="btn btn-success text-light delete"
+                                                    data-title="restore"
+                                                    data-url="{{ route('admin.company.restore', ['id' => $company->id]) }}" title="restore">
+                                                    <i class="fas fa-trash-restore"></i>
+                                                </button>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div class="job-body mt-3 job-paginate d-flex align-items-center justify-content-end">
+                            <div class="job-paginate-result pb-3">
+                                {{ $companies->onEachSide(4)->links('custom.pagination.bootstrap') }}
+                            </div>
                         </div>
                     </div>
-                </div>
+                @else
+                    <div class="mt-5" style="font-size: 20px"> No data</div>
+                @endif
             </div>
         </div>
     </div>

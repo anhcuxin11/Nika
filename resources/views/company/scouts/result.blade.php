@@ -34,11 +34,11 @@
                     </ul>
                     <div class="mx-3 mt-3">
                         @include('company.includes.messages')
-                        <div>
+                        <div class="pb-2">
                             <h2>Compatible candidate</h2>
                         </div>
-
-                        <div class="mt-5">
+                        <a href="{{ route('company.scouts.search', request()->all()) }}" class="search-scout">Search again</a>
+                        <div class="mt-3">
                             <div class="job-body job-paginate d-flex align-items-center justify-content-end" style="color: black">
                                 <div class="result-title"><span class="result-number">{{ $candidates->total() }}</span> matching candidates, <span class="result-number">{{ $candidates->firstItem() }}〜{{ $candidates->lastItem() }}</span>item</div>
                                 <div class="job-paginate-result">

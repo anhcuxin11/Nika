@@ -46,7 +46,8 @@ class CompanyService
         $query->where(function ($q) use ($key) {
             $q->where('id', 'like', "%$key%")
                 ->orWhere('name_person', 'like', "%$key%")
-                ->orWhere('email_company', 'like', "%$key%");
+                ->orWhere('email_company', 'like', "%$key%")
+                ->orWhere('email', 'like', "%$key%");
         });
     }
 
