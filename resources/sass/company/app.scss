@@ -1484,3 +1484,13 @@ nav {
 		}
 	}
 }
+.search-scout {
+    padding: 10px 20px;
+    background-color: brown;
+    color: azure;
+    border-radius: 999em;
+    &:hover {
+        text-decoration: none;
+        color: azure;
+    }
+}

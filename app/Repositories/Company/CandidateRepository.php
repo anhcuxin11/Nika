@@ -42,7 +42,7 @@ class CandidateRepository
                             $q->where('current_salary', '<=', $data['salary_max']);
                         });
                 })
-                ->orderByDesc('id');
+                ->orderBy('id');
         $this->filterOcupation($query, $data);
         $this->filterIndustry($query, $data);
 

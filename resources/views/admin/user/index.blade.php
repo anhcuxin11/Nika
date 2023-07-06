@@ -59,51 +59,55 @@
                         <img src="{{ asset('images/icon-search-lg.svg') }}">Search
                     </button>
                 </form>
-                <div class="mt-5">
-                    <table class="table">
-                        <thead class="thead-dark">
-                        <tr>
-                            <th scope="col" class="w1">ID</th>
-                            <th scope="col" class="w3">Full name</th>
-                            <th scope="col" class="w3">Email</th>
-                            <th scope="col" class="w4">Status</th>
-                            <th scope="col" class="w6"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($users as $index => $user)
-                                <tr class="height1">
-                                    <td scope="row">{{ $user->id }}</td>
-                                    <td class="des" title="{{ $user->full_name }}">{{ $user->full_name }}</td>
-                                    <td class="des" title="{{ $user->email }}">{{ $user->email }}</td>
-                                    <td class="user-status">{{ $user->status ? 'Active' : 'Block' }}</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('admin.user.edit', ['id' => $user->id]) }}" class="btn btn-success text-light" title="Edit">
-                                            <i class="fas fa-edit" style="width: 13px"></i>
-                                        </a>
-                                        @if ($user->status)
-                                            <button class="btn btn-danger text-light delete"
-                                                data-url="{{ route('admin.user.delete', ['id' => $user->id]) }}" title="block">
-                                                <i class="far fa-trash-alt"></i>
-                                            </button>
-                                        @else
-                                            <button class="btn btn-success text-light delete"
-                                                data-title="restore"
-                                                data-url="{{ route('admin.user.restore', ['id' => $user->id]) }}" title="restore">
-                                                <i class="fas fa-trash-restore"></i>
-                                            </button>
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    <div class="job-body mt-3 job-paginate d-flex align-items-center justify-content-end">
-                        <div class="job-paginate-result pb-3">
-                            {{ $users->onEachSide(4)->links('custom.pagination.bootstrap') }}
+                @if ($users->total() > 0)
+                    <div class="mt-5">
+                        <table class="table">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col" class="w1">ID</th>
+                                <th scope="col" class="w3">Full name</th>
+                                <th scope="col" class="w3">Email</th>
+                                <th scope="col" class="w4">Status</th>
+                                <th scope="col" class="w6"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($users as $index => $user)
+                                    <tr class="height1">
+                                        <td scope="row">{{ $user->id }}</td>
+                                        <td class="des" title="{{ $user->full_name }}">{{ $user->full_name }}</td>
+                                        <td class="des" title="{{ $user->email }}">{{ $user->email }}</td>
+                                        <td class="user-status">{{ $user->status ? 'Active' : 'Block' }}</td>
+                                        <td class="text-center">
+                                            <a href="{{ route('admin.user.edit', ['id' => $user->id]) }}" class="btn btn-success text-light" title="Edit">
+                                                <i class="fas fa-edit" style="width: 13px"></i>
+                                            </a>
+                                            @if ($user->status)
+                                                <button class="btn btn-danger text-light delete"
+                                                    data-url="{{ route('admin.user.delete', ['id' => $user->id]) }}" title="block">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </button>
+                                            @else
+                                                <button class="btn btn-success text-light delete"
+                                                    data-title="restore"
+                                                    data-url="{{ route('admin.user.restore', ['id' => $user->id]) }}" title="restore">
+                                                    <i class="fas fa-trash-restore"></i>
+                                                </button>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div class="job-body mt-3 job-paginate d-flex align-items-center justify-content-end">
+                            <div class="job-paginate-result pb-3">
+                                {{ $users->onEachSide(4)->links('custom.pagination.bootstrap') }}
+                            </div>
                         </div>
                     </div>
-                </div>
+                @else
+                    <div class="mt-5" style="font-size: 20px"> No data</div>
+                @endif
             </div>
         </div>
     </div>

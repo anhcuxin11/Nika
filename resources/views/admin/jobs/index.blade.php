@@ -81,59 +81,63 @@
                         <img src="{{ asset('images/icon-search-lg.svg') }}">Search
                     </button>
                 </form>
-                <div class="mt-5">
-                    <table class="table">
-                        <thead class="thead-dark">
-                        <tr>
-                            <th scope="col" class="w1">ID</th>
-                            <th scope="col" class="w3">Title</th>
-                            <th scope="col" class="w4">Company name</th>
-                            <th scope="col" class="w3">Job URL</th>
-                            <th scope="col" class="w6">Stauts</th>
-                            <th scope="col" class="w3">Suspended</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($jobs as $index => $job)
-                                <tr class="height1">
-                                    <td scope="row">{{ $job->id }}</td>
-                                    <td class="des" title="{{ $job->job_title }}">{{ $job->job_title }}</td>
-                                    <td class="des" title="{{ $job->company->name }}">{{ $job->company->name }}</td>
-                                    <td class="des">
-                                        <a href="{{ route('candidate.job.show', ['id' => $job->id]) }}">/job/{{ $job->id }}</a>
-                                    </td>
-                                    <td class="user-status">
-                                        {{ $job->job_publish == Job::$jobPublishs['off'] ? 'Suspended' : Job::$jobStatusLabel[$job->job_status] }}
-                                    </td>
-                                    <td class="text-center">
-                                            <div class="d-flex radio-area mt-1 mb-2 align-items-center">
-                                                <div class="mr-3">
-                                                    <input type="radio" id="on_{{ $job->id }}" value="1" name="job_status_{{ $job->id }}"
-                                                    @if ($job->job_publish == Job::$jobPublishs['off']) checked @endif>
-                                                    <label class="custom-control-label" for="on_{{ $job->id }}">On</label>
+                @if ($jobs->total() > 0)
+                    <div class="mt-5">
+                        <table class="table">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col" class="w1">ID</th>
+                                <th scope="col" class="w3">Title</th>
+                                <th scope="col" class="w4">Company name</th>
+                                <th scope="col" class="w3">Job URL</th>
+                                <th scope="col" class="w6">Stauts</th>
+                                <th scope="col" class="w3">Suspended</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($jobs as $index => $job)
+                                    <tr class="height1">
+                                        <td scope="row">{{ $job->id }}</td>
+                                        <td class="des" title="{{ $job->job_title }}">{{ $job->job_title }}</td>
+                                        <td class="des" title="{{ $job->company->name }}">{{ $job->company->name }}</td>
+                                        <td class="des">
+                                            <a href="{{ route('candidate.job.show', ['id' => $job->id]) }}">/job/{{ $job->id }}</a>
+                                        </td>
+                                        <td class="user-status">
+                                            {{ $job->job_publish == Job::$jobPublishs['off'] ? 'Suspended' : Job::$jobStatusLabel[$job->job_status] }}
+                                        </td>
+                                        <td class="text-center">
+                                                <div class="d-flex radio-area mt-1 mb-2 align-items-center">
+                                                    <div class="mr-3">
+                                                        <input type="radio" id="on_{{ $job->id }}" value="1" name="job_status_{{ $job->id }}"
+                                                        @if ($job->job_publish == Job::$jobPublishs['off']) checked @endif>
+                                                        <label class="custom-control-label" for="on_{{ $job->id }}">On</label>
+                                                    </div>
+                                                    <div class="mr-3">
+                                                        <input type="radio" id="off_{{ $job->id }}" value="0" name="job_status_{{ $job->id }}"
+                                                        @if ($job->job_publish == Job::$jobPublishs['on']) checked @endif>
+                                                        <label class="custom-control-label" for="off_{{ $job->id }}">Off</label>
+                                                    </div>
+                                                    <button type="button" class="btn btn-primary px-2" id="confirm"
+                                                    data-id="{{ $job->id }}"
+                                                    data-url="{{ route('admin.job.update-status', ['id' => $job->id]) }}">
+                                                        Confirm
+                                                    </button>
                                                 </div>
-                                                <div class="mr-3">
-                                                    <input type="radio" id="off_{{ $job->id }}" value="0" name="job_status_{{ $job->id }}"
-                                                    @if ($job->job_publish == Job::$jobPublishs['on']) checked @endif>
-                                                    <label class="custom-control-label" for="off_{{ $job->id }}">Off</label>
-                                                </div>
-                                                <button type="button" class="btn btn-primary px-2" id="confirm"
-                                                data-id="{{ $job->id }}"
-                                                data-url="{{ route('admin.job.update-status', ['id' => $job->id]) }}">
-                                                    Confirm
-                                                </button>
-                                            </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    <div class="job-body mt-3 job-paginate d-flex align-items-center justify-content-end">
-                        <div class="job-paginate-result pb-3">
-                            {{ $jobs->onEachSide(4)->links('custom.pagination.bootstrap') }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div class="job-body mt-3 job-paginate d-flex align-items-center justify-content-end">
+                            <div class="job-paginate-result pb-3">
+                                {{ $jobs->onEachSide(4)->links('custom.pagination.bootstrap') }}
+                            </div>
                         </div>
                     </div>
-                </div>
+                @else
+                    <div class="mt-5" style="font-size: 20px"> No data</div>
+                @endif
             </div>
         </div>
     </div>
