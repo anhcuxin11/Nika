@@ -36,7 +36,6 @@ class JobRepository
                     ->orderByDesc('id')
                     ->limit($limit)
                     ->get();
-
     }
 
     /**

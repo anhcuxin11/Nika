@@ -76,7 +76,7 @@
                                 <div class="{{has_error('location')}}">
                                     <select class="search-select" name="location" id="">
                                         @foreach (Location::$name as $key => $item)
-                                            <option @if (request()->input('location') == $key) selected @endif value="{{ $key }}">{{ $item }}</option>
+                                            <option @if (old('location') == $key) selected @endif value="{{ $key }}">{{ $item }}</option>
                                         @endforeach
                                     </select>
                                     {!! render_error('location') !!}
@@ -114,7 +114,7 @@
                                 <div class="{{has_error('language')}}">
                                     <select class="search-select w-25" name="language" id="">
                                         @foreach (Language::$name as $key => $item)
-                                            <option @if (request()->input('language') == $key) selected @endif value="{{ $key }}">{{ $item }}</option>
+                                            <option @if (old('language', request()->input('language')) == $key) selected @endif value="{{ $key }}">{{ $item }}</option>
                                         @endforeach
                                     </select>
                                     {!! render_error('language') !!}
@@ -123,7 +123,7 @@
                                     @foreach (Job::$levels as $key => $item)
                                         @if ($key != 4)
                                         <div style="width: 30%; display:inline-block; pr-2">
-                                            <input type="radio" name="language_level" id="language_{{ $key }}" value="{{ $key }}"><label for="language_{{ $key }}" class="pl-2">{{ $item }}</label>
+                                            <input type="radio" name="language_level" id="language_{{ $key }}" @if (old('language_level', request()->input('language_level')) == $key) checked @endif value="{{ $key }}"><label for="language_{{ $key }}" class="pl-2">{{ $item }}</label>
                                         </div>
                                         @endif
                                     @endforeach
@@ -141,7 +141,7 @@
                                         name="occupation"
                                         :title-label="`Please select the desired occupation`"
                                         :data-collapse="{{ $occupations }}"
-                                        :data-selected="{{ collect(request()->input('occupation')) }}"
+                                        :data-selected="{{ old('occupation') ? collect(old('occupation')) : collect() }}"
                                         inline-template>
                                             @include('company.component.select_job', ['buttonName' => 'Select occupation'])
                                         </company-select-job>
@@ -161,7 +161,7 @@
                                         name="industry"
                                         :title-label="`Please select the desired industry`"
                                         :data-collapse="{{ $industries }}"
-                                        :data-selected="{{ collect(request()->input('industry')) }}"
+                                        :data-selected="{{ old('industry') ? collect(old('industry')) : collect() }}"
                                         inline-template>
                                             @include('company.component.select_job', ['buttonName' => 'Select industry'])
                                         </company-select-job>
@@ -178,7 +178,7 @@
                                 <div class="{{has_error('feature')}}">
                                     <select class="search-select w-25" name="feature" id="search-select">
                                         @foreach ($features as $feature)
-                                            <option @if (request()->input('feature') == $feature->id) selected @endif value="{{ $feature->id }}">{{ $feature->name }}</option>
+                                            <option @if (old('feature') == $feature->id) selected @endif value="{{ $feature->id }}">{{ $feature->name }}</option>
                                         @endforeach
                                     </select>
                                     {!! render_error('feature') !!}
@@ -191,7 +191,7 @@
                             </div>
                             <div class="content-right p-2">
                                 <div class="{{has_error('experienced_count')}}">
-                                    <input type="text" placeholder="Experienced count" class="form-control" name="experienced_count">
+                                    <input type="text" placeholder="Experienced count" value="{{ old('experienced_count') }}" class="form-control" name="experienced_count">
                                     {!! render_error('experienced_count') !!}
                                 </div>
                             </div>
@@ -203,12 +203,12 @@
                             <div class="content-right p-2">
                                 <div class="search-job-condition w-75 pl-2">
                                     <div class="{{has_error('age_min')}}">
-                                        <input type="text" name="age_min" class="w-25 input-job" placeholder="Age min">
+                                        <input type="text" name="age_min" class="w-25 input-job" value="{{ old('age_min', request()->input('age_min')) }}" placeholder="Age min">
                                         {!! render_error('age_min') !!}
                                     </div>
                                      ~
                                     <div class="{{has_error('age_max')}}">
-                                        <input type="text" name="age_max" class="w-25 input-job" placeholder="Age max">
+                                        <input type="text" name="age_max" class="w-25 input-job" value="{{ old('age_max', request()->input('age_max')) }}" placeholder="Age max">
                                         {!! render_error('age_max') !!}
                                     </div>
                                 </div>
@@ -220,7 +220,7 @@
                             </div>
                             <div class="content-right p-2">
                                 <div class="{{has_error('must_condition')}}">
-                                    <input type="text" placeholder="Must condition" class="form-control" name="must_condition">
+                                    <input type="text" placeholder="Must condition" value="{{ old('must_condition', request()->input('must_condition')) }}" class="form-control" name="must_condition">
                                     {!! render_error('must_condition') !!}
                                 </div>
                             </div>
@@ -232,12 +232,12 @@
                             <div class="content-right p-2">
                                 <div class=" w-75 pl-2">
                                     <div class="{{has_error('salary_min')}}">
-                                        <input type="text" name="salary_min" class="w-25 input-job" placeholder="Salary min">
+                                        <input type="text" name="salary_min" class="w-25 input-job" value="{{ old('salary_min', request()->input('salary_min')) }}" placeholder="Salary min">
                                         {!! render_error('salary_min') !!}
                                     </div>
                                      ~
                                     <div class="{{has_error('salary_max')}}">
-                                        <input type="text" name="salary_max" class="w-25 input-job" placeholder="Salary max">
+                                        <input type="text" name="salary_max" class="w-25 input-job" value="{{ old('salary_max', request()->input('salary_max')) }}" placeholder="Salary max">
                                         {!! render_error('salary_max') !!}
                                     </div>
                                 </div>
@@ -260,7 +260,7 @@
                             </div>
                             <div class="content-right p-2">
                                 <div class="{{has_error('position_name')}}">
-                                    <input type="text" placeholder="Position name" class="form-control" name="position_name">
+                                    <input type="text" placeholder="Position name" value="{{ old('position_name', request()->input('position_name')) }}" class="form-control" name="position_name">
                                     {!! render_error('position_name') !!}
                                 </div>
                             </div>
@@ -273,7 +273,7 @@
                                 <select class="search-select w-25" name="job_status" id="search-select">
                                     @foreach (Job::$jobStatusLabel as $key => $item)
                                         @if (in_array($key, [0, 1]))
-                                        <option @if (request()->input('job_status') == $key) selected @endif value="{{ $key }}">{{ $item }}</option>
+                                        <option @if (old('job_status') == $key) selected @endif value="{{ $key }}">{{ $item }}</option>
                                         @endif
                                     @endforeach
                                 </select>

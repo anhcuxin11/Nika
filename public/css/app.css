@@ -748,9 +748,6 @@ select {
 .ml-4 {
   margin-left: 1rem;
 }
-.mr-0 {
-  margin-right: 0px;
-}
 .mr-1 {
   margin-right: 0.25rem;
 }
@@ -968,9 +965,6 @@ select {
 .border {
   border-width: 1px;
 }
-.border-0 {
-  border-width: 0px;
-}
 .border-b {
   border-bottom-width: 1px;
 }
@@ -1071,6 +1065,10 @@ select {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -1114,6 +1112,9 @@ select {
 }
 .pt-4 {
   padding-top: 1rem;
+}
+.pt-5 {
+  padding-top: 1.25rem;
 }
 .pt-6 {
   padding-top: 1.5rem;
