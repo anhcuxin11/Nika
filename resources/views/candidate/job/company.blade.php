@@ -93,7 +93,7 @@
     <hr>
     <div class="job-content d-flex justify-content-between mt-5">
         <div class="job-main resume">
-            <div class="d-flex justify-content-between company-flex" style="row-gap: 30px; flex-wrap: wrap;">
+            <div class="d-flex justify-content-start company-flex" style="column-gap: 18px; row-gap: 30px; flex-wrap: wrap;">
                 @foreach ($companies as $company)
                 <a href="{{ route('candidate.companies', ['id' => $company->id]) }}" class="c-detail" style="width: 260px;">
                     <div class="c-d-content d-flex">

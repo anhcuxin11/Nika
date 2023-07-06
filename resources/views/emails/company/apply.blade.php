@@ -1,8 +1,10 @@
 @component('mail::message')
 Hi {{ $candidate->full_name }},
 <br>
+<br>
 Curriculum Vitae has been approved!
-We will talk to you in the message
+<br>
+We will talk to you in the message.
 <br>
 Thanks,<br>
 

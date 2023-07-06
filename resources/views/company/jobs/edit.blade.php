@@ -123,7 +123,7 @@
                                     @foreach (Job::$levels as $key => $item)
                                         @if ($key != 4)
                                         <div style="width: 30%; display:inline-block; pr-2">
-                                            <input type="radio" name="language_level" id="language_{{ $key }}" @if (old('language', $job->languages->first()->level) == $key) checked @endif value="{{ $key }}"><label for="language_{{ $key }}" class="pl-2">{{ $item }}</label>
+                                            <input type="radio" name="language_level" id="language_{{ $key }}" @if (old('language_level', $job->languages->first()->level) == $key) checked @endif value="{{ $key }}"><label for="language_{{ $key }}" class="pl-2">{{ $item }}</label>
                                         </div>
                                         @endif
                                     @endforeach

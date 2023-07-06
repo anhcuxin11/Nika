@@ -3,6 +3,7 @@
 namespace App\Services\Company;
 
 use App\Jobs\Company\ProcessJob;
+use App\Jobs\Company\RefuseJob;
 use App\Models\Application;
 use App\Repositories\Company\ApplicationRepository;
 use App\Repositories\Company\MessageRepository;
@@ -46,6 +47,8 @@ class ApplicationService
         $application->update(['status' => $status]);
         if ($status == 1) {
             ProcessJob::dispatch($application->candidate_id, $application->job_id, auth('company')->user()->id);
+        } else {
+            RefuseJob::dispatch($application->candidate_id, $application->job_id, auth('company')->user()->id);
         }
 
         $text = $status == 1 ? Application::MESSAGECOMPATILE : Application::MESSAGECOMPATILE;
