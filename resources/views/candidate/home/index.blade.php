@@ -48,7 +48,7 @@
                     </select>
                 </div>
                 <div class="s-c-select">
-                    <select class="search-select" name="occupation[]" id="selectbox3">
+                    <select class="search-select" name="occupation_id" id="selectbox3">
                         <option value="">Choose Occupation</option>
                         @foreach ($occupationColection as $occupation)
                             <option value="{{ $occupation->id }}">{{ $occupation->name }}</option>
@@ -61,7 +61,7 @@
             </div>
             <div class="d-flex flex-row-reverse quick-search-submit">
                 <button type="submit" class="btn btn-primary d-flex align-items-end">Search</button>
-                <a href="#" class="d-flex align-items-center">Advanced Search</a>
+                <a href="{{ route('candidate.job.index') }}" class="d-flex align-items-center">Advanced Search</a>
             </div>
         </div>
     </form>
@@ -183,7 +183,7 @@
         @foreach ($data['jobNews'] as $jobNew)
             <div class="mt-2 py-2 d-flex" style="color:green ;border-bottom: 1px solid #eee">
                 <div class="w-25">{{ formatDate($jobNew->updated_at) }}</div>
-                <div class="w-75">{{ $jobNew->job_title }}</div>
+                <a href="{{ route('candidate.job.show', ['id' => $jobNew->id]) }}" class="new-job" class="w-75">{{ $jobNew->job_title }}</a>
             </div>
         @endforeach
     </div>
@@ -201,18 +201,15 @@
             $('#selectbox1, #selectbox2, #selectbox3').change(function() {
                 let location = $('#selectbox1').find(":selected").val();
                 let language = $('#selectbox2').find(":selected").val();
-                let occupation = $('#selectbox3').find(":selected").val();
+                let occupation_id = $('#selectbox3').find(":selected").val();
                 let key = $('#key').val();
-                if (occupation == '') {
-                    occupation = [];
-                }
 
                 let url = $('#selectbox1').data('url');
 
                 $.ajax({
                     url: url,
                     method: 'POST',
-                    data: { location: location, language: language, occupation: [occupation], key: key},
+                    data: { location: location, language: language, occupation_id: occupation_id, key: key},
                     success: function(res) {
                         $('.roboto').text(res.result);
                     },
@@ -225,18 +222,14 @@
             $('#key').keyup(function() {
                 let location = $('#selectbox1').find(":selected").val();
                 let language = $('#selectbox2').find(":selected").val();
-                let occupation = $('#selectbox3').find(":selected").val();
+                let occupation_id = $('#selectbox3').find(":selected").val();
                 let key = $('#key').val();
-                if (occupation == '') {
-                    occupation = [];
-                }
-
                 let url = $('#selectbox1').data('url');
 
                 $.ajax({
                     url: url,
                     method: 'POST',
-                    data: { location: location, language: language, occupation: [occupation], key: key},
+                    data: { location: location, language: language, occupation_id: occupation_id, key: key},
                     success: function(res) {
                         $('.roboto').text(res.result);
                     },

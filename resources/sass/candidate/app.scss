@@ -22,7 +22,7 @@ a {
     text-decoration: none;
     color: #1a1a1a;
     &:hover {
-        text-decoration: none;
+        text-decoration: underline;
     }
 }
 ul li {
@@ -235,6 +235,12 @@ nav {
 		}
 	}
 }
+.new-job {
+    color:green !important;
+    &:hover {
+        text-decoration: underline !important;
+    }
+}
 .nav-bar {
 	height: 72px;
 	padding: 10px 0;
@@ -322,7 +328,11 @@ nav {
 
 	.starter {
 		width: 1102px;
-
+        .nav-underline {
+            &:hover {
+                text-decoration: none !important;
+            }
+        }
 		ul {
 			margin: 0;
 			padding: 0;

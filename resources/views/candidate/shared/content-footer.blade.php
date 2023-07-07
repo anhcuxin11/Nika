@@ -24,9 +24,9 @@
                 </div>
                 <div class="c-footer">
                     <div class="footer-title">Language</div>
-                    <a href="{{ route('candidate.job.index' , ['languages' => 2, 'language_levels' => [0, 1, 2, 3, 4]]) }}">English</a><br>
-                    <a href="{{ route('candidate.job.index' , ['languages' => 1, 'language_levels' => [0, 1, 2, 3, 4]]) }}">Vietnamese</a><br>
-                    <a href="{{ route('candidate.job.index' , ['languages' => 3, 'language_levels' => [0, 1, 2, 3, 4]]) }}">Japanese</a>
+                    <a href="{{ route('candidate.job.index', ['language' => 2]) }}">English</a><br>
+                    <a href="{{ route('candidate.job.index', ['language' => 1]) }}">Vietnamese</a><br>
+                    <a href="{{ route('candidate.job.index', ['language' => 3]) }}">Japanese</a>
                 </div>
             </div>
         </div>

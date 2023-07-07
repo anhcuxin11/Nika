@@ -74,10 +74,8 @@ class JobRepository
                     ->when(!empty($data['new']), function ($q) {
                         $q->orderByDesc('updated_at');
                     });
-        // if (isset($data['salary_type'])) {
-        //     $this->filterSalary($query, $data);
-        // }
         $this->filterRequirementSalary($query, $data);
+        $this->filterOcupationId($query, $data);
         $this->filterOcupation($query, $data);
         $this->filterIndustry($query, $data);
         $this->filterSalary($query, $data);
@@ -98,7 +96,6 @@ class JobRepository
      */
     public function countJob(array $data)
     {
-        // dd($data);
         $query = Job::query()
                     ->where('job_status', Job::$jobStatus['now_posted'])
                     ->where('job_publish', Job::$jobPublishs['on'])
@@ -108,13 +105,22 @@ class JobRepository
                         });
                     });
 
-        $this->filterOcupation($query, $data);
+        $this->filterOcupationId($query, $data);
         $this->filterLevel($query, $data);
         if (!empty($data['key'])) {
             $this->filterKey($query, $data['key']);
         }
 
         return $query;
+    }
+
+    public function filterOcupationId(&$query, $data)
+    {
+        $query->when(!empty($data['occupation_id']), function ($q) use ($data) {
+            $q->whereHas('occupations', function ($q) use ($data) {
+                $q->where('occupations.id', $data['occupation_id']);
+            });
+        });
     }
 
     public function filterOcupation(&$query, $data)

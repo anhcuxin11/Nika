@@ -16,7 +16,7 @@ a {
   color: #1a1a1a;
 }
 a:hover {
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 ul li {
@@ -229,6 +229,13 @@ nav ul li .logout {
   height: 16px;
 }
 
+.new-job {
+  color: green !important;
+}
+.new-job:hover {
+  text-decoration: underline !important;
+}
+
 .nav-bar {
   height: 72px;
   padding: 10px 0;
@@ -316,6 +323,9 @@ nav ul li .logout {
 }
 .menu-bar .starter {
   width: 1102px;
+}
+.menu-bar .starter .nav-underline:hover {
+  text-decoration: none !important;
 }
 .menu-bar .starter ul {
   margin: 0;
