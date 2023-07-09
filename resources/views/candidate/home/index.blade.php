@@ -23,12 +23,21 @@
             </div>
         </div>
     </div>
+    @else
+        <div class="main-content" style="position: relative;">
+            <div class="main-preview">
+                <div class="" style="width: 400px; color: white; font-size: 21px;">
+                    <div>Connecting employers and candidates - Nika: Job search website in Vietnam!</div>
+                    <div class="pl-3">- Here, we can help you find a job that suits your true self.</div>
+                </div>
+            </div>
+        </div>
     @endif
     <form action="{{ route('candidate.job.index') }}" method="GET">
         <div class="quick-search">
             <div class="search-title">Quick search</div>
             <p class="counter">Jobs that match your search criteria
-                <span class="roboto">0</span>Jobs
+                <span class="roboto">{{ $job_counts }}</span>Jobs
             </p>
             <div class="search-condition">
                 <div class="s-c-select">

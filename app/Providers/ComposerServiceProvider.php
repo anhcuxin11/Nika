@@ -35,10 +35,12 @@ class ComposerServiceProvider extends ServiceProvider
             $occupationColection = resolve(OccupationService::class)->getListChildren();
             $locationColection = resolve(LocationService::class)->getListLocation();
             $languageColection = resolve(LanguageService::class)->getAllLanguage();
+            $jobCounts = resolve(JobService::class)->getCountJob();
 
             $view->with('occupationColection', $occupationColection);
             $view->with('locationColection', $locationColection);
             $view->with('languageColection', $languageColection);
+            $view->with('job_counts', $jobCounts ?? 0);
         });
 
         View::composer('candidate.desired.index', function ($view) {
