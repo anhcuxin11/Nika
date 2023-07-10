@@ -37,7 +37,7 @@ class UpdateJobRequest extends FormRequest
             'occupation'        => 'required|array',
             'industry'          => 'required|array',
             'feature'           => 'required',
-            'experienced_count' => 'nullable|max:500',
+            'experienced_count' => 'nullable|numeric',
             'age_max'           => 'nullable|numeric|gte:age_min',
             'age_min'           => 'nullable|numeric',
             'must_condition'    => 'required|max:700',

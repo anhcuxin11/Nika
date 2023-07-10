@@ -53,11 +53,11 @@
                                 </tr>
                                 <tr>
                                     <th><span>Country</span></th>
-                                    <td>{{ $resume->country }}</td>
+                                    <td>{!! nl2br(e($resume->country)) !!}</td>
                                 </tr>
                                 <tr>
                                     <th><span>Current residence</span></th>
-                                    <td>{{ $resume->address }}</td>
+                                    <td>{!! nl2br(e($resume->address)) !!}</td>
                                 </tr>
                                 <tr>
                                     <th><span>Facebook</span></th>
@@ -65,7 +65,7 @@
                                 </tr>
                                 <tr>
                                     <th><span>Hobby</span></th>
-                                    <td>{{ $resume->hobby }}</td>
+                                    <td>{!! nl2br(e($resume->hobby)) !!}</td>
                                 </tr>
                             </tbody>
                         </table>

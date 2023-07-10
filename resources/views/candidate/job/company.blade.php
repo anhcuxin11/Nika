@@ -21,7 +21,7 @@
 @endphp
 <div class="content-full">
     <div class="mt-4">
-        <div class="j-detail" style="border-bottom: 3px solid;">
+        <div class="j-detail pb-3" style="border-bottom: 3px solid;">
             <div class="j-d-content d-flex align-items-center">
                 <div class="j-d-content-left">
                     <img src="{{ $company->upload_file_path ? asset('storage/' . $company->upload_file_path) : asset('images/img_company.jpg') }}" alt="" style="width: 130px; padding-right: 15px;">
