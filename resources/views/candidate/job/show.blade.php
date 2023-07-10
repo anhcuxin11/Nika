@@ -52,8 +52,16 @@
                         <td>{{ $job->location_labels }}</td>
                     </tr>
                     <tr>
+                        <th><span>Location detail</span></th>
+                        <td>{!! nl2br(e($job->location_detail)) !!}</td>
+                    </tr>
+                    <tr>
                         <th><span>Salary</span></th>
                         <td>{{ $job->salary_min }} ~ {{ $job->salary_max }} USD</td>
+                    </tr>
+                    <tr>
+                        <th><span>Salary detail</span></th>
+                        <td>{!! nl2br(e($job->salary_detail)) !!}</td>
                     </tr>
                     <tr>
                         <th><span>Required skills</span></th>
@@ -62,7 +70,7 @@
                             @if ($job->languages->first())
                                 <p>{{ $job->languages->first()->name }}: {{ Job::$levels[$job->languages->first()->pivot->level] }}</p>
                             @endif
-                            <p>{!! $job->must_condition !!}</p>
+                            <p>{!! nl2br(e($job->must_condition)) !!}</p>
                         </td>
                     </tr>
                     <tr>

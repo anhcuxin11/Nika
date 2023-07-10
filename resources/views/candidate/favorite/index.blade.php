@@ -94,7 +94,7 @@
                                         @if ($job->languages->first())
                                             <p>{{ $job->languages->first()->name }}: {{ Job::$levels[$job->languages->first()->pivot->level] }}</p>
                                         @endif
-                                        <p>{!! $job->must_condition !!}</p>
+                                        <p>{!! nl2br(e($job->must_condition)) !!}</p>
                                     </td>
                                 </tr>
                             </tbody>

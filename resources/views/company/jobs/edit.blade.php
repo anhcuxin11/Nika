@@ -232,7 +232,7 @@
                             </div>
                             <div class="content-right p-2">
                                 <div class="{{has_error('must_condition')}}">
-                                    <input type="text" placeholder="Must condition" value="{{ old('must_condition', $job->must_condition) }}" class="form-control" name="must_condition">
+                                    <textarea maxlength="2000" class="form-control" name="must_condition" placeholder="Must condition" style="height: 100px;">{{ old('must_condition', $job->must_condition) }}</textarea>
                                     {!! render_error('must_condition') !!}
                                 </div>
                             </div>
