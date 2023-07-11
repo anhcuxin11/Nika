@@ -15,8 +15,8 @@
         <div class="main-preview">
             <div class="d-flex flex-column" style="width: 400px">
                 <a href="{{ route('candidate.job.index', [
-                    'industry' => $data['resumeIndustryIds'],
-                    'occupation' => $data['resumeOccupationIds'],
+                    'industry' => $data['resultIndustry'],
+                    'occupation' => $data['resultOccupation'],
                 ]) }}" class="note"><img src="{{ asset('images/icon-heart-black.svg') }}" alt="">Job listings that match your qualifications<span>「 {{ $data['jobByExpeeienceCount'] }} 」</span></a>
                 <a href="{{ route('candidate.job.index', ['salary_requirement' => optional($data['candidate']->resume->resumeRequirementBasic)->requirement_salary ?? 0]) }}" class="note"><img src="{{ asset('images/icon-heart-black.svg') }}" alt="">List of jobs that match the desired salary<span>「 {{ $data['jobBySalaryCount'] }} 」</span></a>
                 <a href="{{route('candidate.favorite.index') }}" class="note"><img src="{{ asset('images/icon-interest-black.svg') }}" alt="">Favorite to-do list<span>「 {{ $data['favoriteCount'] }} 」</span></a>

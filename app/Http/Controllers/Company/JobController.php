@@ -85,7 +85,16 @@ class JobController
     {
         $job = $this->jobService->getJobById($id);
 
-        return view('company.jobs.edit', compact('job'));
+        $resultOccupation = [];
+        $resultIndustry = [];
+        if ($job->occupations) {
+            $resultOccupation = $this->cusTomResults($job->occupations);
+        }
+        if ($job->industries) {
+            $resultIndustry = $this->cusTomResults($job->industries);
+        }
+
+        return view('company.jobs.edit', compact('job', 'resultOccupation', 'resultIndustry'));
     }
 
     public function update($id, UpdateJobRequest $request)
@@ -135,5 +144,30 @@ class JobController
             Log::error("ERROR_UPDATE_JOB_STATUS: ". $e->getMessage());
             return $this->response->error($e->getMessage(), Response::HTTP_BAD_REQUEST);
         }
+    }
+
+    /**
+     * Custom
+     */
+    public function cusTomResults($collection)
+    {
+        $a = [];
+        $CollectionIds = $collection->pluck('parent_id', 'id')->toArray();
+        $parentIds = $collection->pluck('id', 'parent_id')->toArray();
+        foreach ($parentIds as $key => $value) {
+            $b = [];
+            foreach ($CollectionIds as $k => $v) {
+                if ($key == $v) {
+                    $b += [
+                        $k => [
+                            'id' => $k
+                        ]
+                    ];
+                }
+            }
+            $a += [$key => $b];
+        }
+
+        return $a;
     }
 }
