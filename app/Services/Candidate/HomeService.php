@@ -85,6 +85,15 @@ class HomeService
                 'industry' => $resumeIndustryIds,
                 'occupation' => $resumeOccupationIds,
             ])->total();
+
+            $resultOccupation = [];
+            $resultIndustry = [];
+            if ($candidate->resume->requirementOccupations) {
+                $resultOccupation = $this->cusTomResults($candidate->resume->requirementOccupations);
+            }
+            if ($candidate->resume->requirementIndustries) {
+                $resultIndustry = $this->cusTomResults($candidate->resume->requirementIndustries);
+            }
         }
 
         return [
@@ -98,8 +107,33 @@ class HomeService
             'favoriteCount' => !empty($favoriteCount) ? $favoriteCount : 0,
             'jobBySalaryCount' => !empty($jobBySalaryCount) ? $jobBySalaryCount : 0,
             'jobByExpeeienceCount' => !empty($jobByExpeeienceCount) ? $jobByExpeeienceCount : 0,
-            'resumeOccupationIds' => !empty($resumeOccupationIds) ? $resumeOccupationIds : 0,
-            'resumeIndustryIds' => !empty($resumeIndustryIds) ? $resumeIndustryIds : 0,
+            'resultOccupation' => !empty($resultOccupation) ? $resultOccupation : [],
+            'resultIndustry' => !empty($resultIndustry) ? $resultIndustry : [],
         ];
+    }
+
+    /**
+     * Custom
+     */
+    public function cusTomResults($collection)
+    {
+        $a = [];
+        $CollectionIds = $collection->pluck('parent_id', 'id')->toArray();
+        $parentIds = $collection->pluck('id', 'parent_id')->toArray();
+        foreach ($parentIds as $key => $value) {
+            $b = [];
+            foreach ($CollectionIds as $k => $v) {
+                if ($key == $v) {
+                    $b += [
+                        $k => [
+                            'id' => $k
+                        ]
+                    ];
+                }
+            }
+            $a += [$key => $b];
+        }
+
+        return $a;
     }
 }

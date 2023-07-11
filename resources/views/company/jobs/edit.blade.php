@@ -114,7 +114,7 @@
                                 <div class="{{has_error('language')}}">
                                     <select class="search-select w-25" name="language" id="">
                                         @foreach (Language::$name as $key => $item)
-                                            <option @if (old('language', optional($job->languages)->first()->id) == $key) selected @endif value="{{ $key }}">{{ $item }}</option>
+                                            <option @if (old('language', optional($job->languages)->first() ? optional($job->languages)->first()->id : 1) == $key) selected @endif value="{{ $key }}">{{ $item }}</option>
                                         @endforeach
                                     </select>
                                     {!! render_error('language') !!}
@@ -123,7 +123,7 @@
                                     @foreach (Job::$levels as $key => $item)
                                         @if ($key != 4)
                                         <div style="width: 30%; display:inline-block; pr-2">
-                                            <input type="radio" name="language_level" id="language_{{ $key }}" @if (old('language_level', $job->languages->first()->level) == $key) checked @endif value="{{ $key }}"><label for="language_{{ $key }}" class="pl-2">{{ $item }}</label>
+                                            <input type="radio" name="language_level" id="language_{{ $key }}" @if (old('language_level', optional($job->languages)->first() ? optional($job->languages)->first()->pivot->level : 5) == $key) checked @endif value="{{ $key }}"><label for="language_{{ $key }}" class="pl-2">{{ $item }}</label>
                                         </div>
                                         @endif
                                     @endforeach
@@ -134,12 +134,6 @@
                             <div class="content-left p-3">
                                 Occupation
                             </div>
-                            @php
-                                $occupationArr = $job->occupations->pluck('id', 'parent_id');
-                                $resultOccupation = $occupationArr->mapWithKeys(function ($value, $key) {
-                                    return [$key => [$value => (['id' => (string)$value])]];
-                                })->toArray();
-                            @endphp
                             <div class="content-right p-2">
                                 <div class="{{has_error('occupation')}}">
                                     <div class="search-job-condition w-75 pl-2">
@@ -160,12 +154,6 @@
                             <div class="content-left p-3">
                                 Industry
                             </div>
-                            @php
-                                $industryArr = $job->industries->pluck('id', 'parent_id');
-                                $resultIndustry = $industryArr->mapWithKeys(function ($value, $key) {
-                                    return [$key => [$value => (['id' => (string)$value])]];
-                                })->toArray();
-                            @endphp
                             <div class="content-right p-2">
                                 <div class="{{has_error('industry')}}">
                                     <div class="search-job-condition w-75 pl-2">
