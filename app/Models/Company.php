@@ -10,6 +10,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\File as FileFacade;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class Company extends Authenticatable implements MustVerifyEmail
 {
@@ -19,7 +24,7 @@ class Company extends Authenticatable implements MustVerifyEmail
         CompanyRelationship,
         Notifiable;
 
- /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -70,6 +75,39 @@ class Company extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($model) {
+            // Set up variables for the directory and file paths
+            $directory = 'company';
+            $originalPath = 'images/company/avatar5.jpg';
+            $fileName = FileFacade::basename($originalPath);
+            $fileExtension = FileFacade::extension($originalPath);
+            $destinationPath = $directory . '/' . $model->id . '/' . Str::random(10) . '.' . $fileExtension;
+
+            // Ensure the original file exists
+            if (FileFacade::exists(public_path($originalPath))) {
+                // Create a File instance and upload it using Storage
+                $file = new File(public_path($originalPath));
+                Storage::disk('public')->putFileAs('', $file, $destinationPath);
+
+                // Set model attributes
+                $model->upload_file_name = $fileName;
+                $model->upload_file_path = $destinationPath;
+            } else {
+                // Handle case where file does not exist
+                Log::error("File not found at path: " . public_path($originalPath));
+            }
+        });
+    }
 
     public static $status = [
         'active' => 1,

@@ -72,7 +72,7 @@ export default {
         },
         updateJobRequirement() {
             let loader = this.$loading.show();
-            this.form.post("http://localhost:8000/desired-job/api/update")
+            this.form.post(process.env.MIX_API_URL + "/desired-job/api/update")
                 .then(res => {
                     loader.hide();
                     this.$notify(res.data.message, 'success');

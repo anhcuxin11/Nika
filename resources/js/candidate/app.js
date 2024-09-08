@@ -29,7 +29,7 @@ import VueLoading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 Vue.use(VueLoading);
 
-const CANDIDATE_URL = "http://localhost:8000";
+const CANDIDATE_URL = process.env.MIX_API_URL;
 window.candidateUrl = CANDIDATE_URL;
 
 

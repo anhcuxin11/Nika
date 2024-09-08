@@ -19,7 +19,7 @@ class ResumeSeeder extends Seeder
     {
         $fake = Factory::create();
         $limit = 50;
-        for ($i = 2; $i <= $limit; $i++) {
+        for ($i = 1; $i <= $limit; $i++) {
             DB::table('resumes')->insert([
                 'candidate_id' => $i,
                 'sex' => rand(1, 0),

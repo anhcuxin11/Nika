@@ -1,0 +1,46 @@
+version: "3"
+
+services:
+  webserver:
+    image: nginx:stable-alpine
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx.user.conf:/etc/nginx/conf.d/user.conf
+
+  app:
+    build:
+      context: .
+      dockerfile: php.dockerfile
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - db
+    #   - redis
+  worker:
+    build:
+      context: ./php-worker
+    profiles: ["worker"]
+    volumes:
+      - ./:/var/www/html
+      - ./php-worker/supervisord.d:/etc/supervisord.d
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0.26
+    restart: unless-stopped
+    ports:
+      - "3303:3306"
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./db_mysql:/var/lib/mysql/
+
+volumes:
+  db_mysql:

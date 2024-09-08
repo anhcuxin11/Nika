@@ -14,12 +14,17 @@ class IndustrySeeder extends Seeder
      */
     public function run()
     {
-        foreach(Industry::$name as $item) {
-            Industry::create([
-                'name' => $item,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+        foreach(Industry::$name as $name => $item) {
+            Industry::updateOrCreate(
+                [
+                    'name' => $name,
+                ],
+                [
+                    'parent_id' => $item,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]
+            );
         }
     }
 }
