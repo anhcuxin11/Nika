@@ -16,11 +16,6 @@ class LanguageSeeder extends Seeder
     {
         Language::insert([
             [
-                'name' => Language::$name[0],
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
                 'name' => Language::$name[1],
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -36,6 +31,10 @@ class LanguageSeeder extends Seeder
                 'updated_at' => now(),
             ],[
                 'name' => Language::$name[4],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],[
+                'name' => Language::$name[5],
                 'created_at' => now(),
                 'updated_at' => now(),
             ]

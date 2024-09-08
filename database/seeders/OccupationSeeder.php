@@ -14,16 +14,17 @@ class OccupationSeeder extends Seeder
      */
     public function run()
     {
-        foreach(Occupation::$name as $item) {
+        foreach(Occupation::$name as $name => $item) {
             Occupation::updateOrCreate(
                 [
-                    'name' => $item,
+                    'name' => $name,
                 ],
                 [
-                'name' => $item,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+                    'parent_id' => $item,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]
+            );
         }
     }
 }

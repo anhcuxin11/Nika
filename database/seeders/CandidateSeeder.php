@@ -19,12 +19,12 @@ class CandidateSeeder extends Seeder
     {
         $fake = Factory::create();
         $limit = 50;
-        for ($i = 2; $i <= $limit; $i++) {
+        for ($i = 1; $i <= $limit; $i++) {
             DB::table('candidates')->insert([
                 'firstname' => $fake->firstname,
                 'lastname' => $fake->lastname,
-                'email' => $fake->email,
-                'password' => Hash::make('tBa6KUSU97ZZBhga'),
+                'email' => 'thinh'. $i . '@gmail.com',
+                'password' => Hash::make('thinh@0501'),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);
