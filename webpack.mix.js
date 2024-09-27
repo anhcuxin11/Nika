@@ -21,10 +21,8 @@ mix.js('resources/js/app.js', 'public/js')
 mix.setPublicPath('public')
     .vue()
     .sass('resources/sass/candidate/app.scss', 'css/candidate.css')
-    .sass('resources/sass/company/app.scss', 'css/company.css')
     .sass('resources/sass/admin/app.scss', 'css/admin.css')
     .js('resources/js/candidate/app.js', 'js/app.js')
-    .js('resources/js/company/app.js', 'js/company.js')
     .js('resources/js/admin/app.js', 'js/admin.js')
     .sourceMaps();
 
