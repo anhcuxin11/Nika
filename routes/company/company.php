@@ -8,7 +8,7 @@ use App\Http\Controllers\Company\MessageController;
 use App\Http\Controllers\Company\ScoutController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('company')->group(function() {
+// Route::prefix('company')->group(function() {
     Route::group(['middleware' => 'guest.company'], function () {
         Route::get('/', function () {
             return view('company.welcome');
@@ -59,5 +59,4 @@ Route::prefix('company')->group(function() {
             });
         });
     });
-});
-
+// });
