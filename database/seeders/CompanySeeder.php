@@ -26,12 +26,13 @@ class CompanySeeder extends Seeder
 
         $directory = 'company';
         Storage::disk('public')->deleteDirectory($directory);
-
-        $originalPath = 'images/company/avatar5.jpg';
-        $fileName = FileFacade::basename($originalPath);
-        $fileExtension = FileFacade::extension($originalPath);
+        $index = 1;
 
         for ($i = 1; $i <= $limit; $i++) {
+            if ($index > 5) $index = 1;
+            $originalPath = "images/company/avatar{$index}.jpg";
+            $fileName = FileFacade::basename($originalPath);
+            $fileExtension = FileFacade::extension($originalPath);
             $destinationPath = $directory . '/'. $i . '/' . Str::random() . '.' . $fileExtension;
             $file = new File(public_path($originalPath));
             Storage::disk('public')->putFileAs('', $file, $destinationPath);
@@ -53,6 +54,8 @@ class CompanySeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);
+
+            $index ++;
         }
     }
 }

@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::name('candidate.')->group(function() {
     Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/check-server', [HomeController::class, 'checkServer'])->name('check-server');
     Route::prefix('jobs')->group(function () {
         Route::get('/', [JobController::class, 'index'])->name('job.index');
         Route::get('/{id}', [JobController::class, 'show'])->name('job.show');
